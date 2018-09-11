@@ -1,0 +1,22 @@
+4.1.1 Data output for -10C BIAS frames
+MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p1-m10.py 
+Gain =  2.06
+Unclipped Read Noise:  18.884857898803837
+Clipped Read Noise:  15.618166364038043
+Percent Rejected = 0.02956390380859375
+Master mean =  994.6683856964112
+Master Standard Deviation =  6.003172702060524
+STD Decreased by:  0.3451613015828955
+1/sqrt{N_images} =  0.31622776601683794
+
+4.1.4 Data output for +10C BIAS frames
+MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p1-p10.py 
+Gain =  2.06
+Unclipped Read Noise:  23.186913206437666
+Clipped Read Noise:  16.555773015334577
+Percent Rejected = 0.09555816650390625
+Master mean =  1013.5294130325318
+Master Standard Deviation =  10.1260447421899
+STD Decreased by:  0.10036959283050784
+1/sqrt{N_images} =  0.31622776601683794
+
