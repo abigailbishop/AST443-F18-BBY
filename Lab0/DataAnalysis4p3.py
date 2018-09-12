@@ -117,4 +117,8 @@ plt.plot(dist_90deg, relbright_90deg, label='Rotation= 90 degrees')
 plt.legend(loc='best')
 plt.savefig('brightness-distance.pdf', ppi=300)
 plt.clf()
-
+# The relative brightness of a star will appear to decrease if it is
+# closer to the edges of the CCD's field of view
+# If you forgot to take flatfields on the night of observations, you 
+# could not retake them later because the flat field depends on the orientation
+# of the CCD in the telescope.

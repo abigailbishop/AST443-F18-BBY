@@ -18,8 +18,17 @@ DataAnalysis4p2-p10.py
 DataAnalysis4p3.py       
   Contains the data analysis script required for section 4.3 (The CCD was set to -5
   degrees C)
+  Note: It takes a few minutes to run.
 DataAnalysis4p3.py       
   Contains the data analysis script required for section 4.4 
+
+sensitivity_data_0deg.txt
+  Tracks the x, y, and brightness values of flat_master.fits from the center to the
+  upper right corner of the fits file
+sensitivity_data_90deg.txt
+  Tracks the x, y, and brightness values of 
+  3.2_CCDFlats/3.2_flat_real_rotated.00000010.FIT
+  from the center to the upper right corner of the fits file
 
 flat_master.fits 
   The master flat file from section 4.3
@@ -93,5 +102,9 @@ pos10DARK_typical-exposure.pdf
   The graph of number of typical counts (above the bias) as a function of 
   the exposure time when the CCD was set to +10 degrees C
 
+flat_master_raw.pdf
+  The histogram showing the distribution of counts in the pixels of the flat frames.
+
 brightness-distance.pdf
-  The relative brightness plotted as a function of relative distance 
+  The relative brightness plotted as a function of relative distance for the flats 
+  at both 0 degrees and 90 degrees
