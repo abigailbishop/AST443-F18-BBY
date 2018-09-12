@@ -39,8 +39,8 @@ for i in range( len( data ) ):
 #        print( 'depth: {}'.format(transit_depth))
 #        print( 'magnitude: {}'.format(magnitude))
 #        print( 'JD: {}'.format(JD_planet))
-        # Updates planet crossings to after Sept. 4
-        while (JD_planet < 2458367.500000 ) :
+        # Updates planet crossings to after Sept. 17
+        while (JD_planet < 2458378.500000 ) :
             JD_planet = JD_planet + orbital_period
         # All planet transits before Sept. 22
         while (JD_planet < 2458383.500000 ) :
@@ -101,7 +101,7 @@ for i in range( len (transits) ) :
         and
         int( str(times[i])[11:13] ) > 1 
         and
-        aacoords.alt[i].deg > 40 
+        aacoords.alt[i].deg > 30
         ) :
         obs_names.append( names[i] )
         obs_az.append( aacoords.az[i].deg )
