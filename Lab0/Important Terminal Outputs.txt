@@ -30,7 +30,6 @@ MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p2-p10.py
 Percent Rejected = 1.8251419067382812
 Percent Hot = 1.8419265747070312
 
-
 4.4 Data output for Bad Pixels
 MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p4.py 
 Percent of pixels that are bad: 2.29

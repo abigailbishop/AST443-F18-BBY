@@ -104,6 +104,9 @@ pos10DARK_typical-exposure.pdf
 
 flat_master_raw.pdf
   The histogram showing the distribution of counts in the pixels of the flat frames.
+flat_master_raw_r90.pdf
+  The histogram showing the distribution of counts in the pixels of the flat frames
+  when the CCD is rotated by 90 degrees.
 
 brightness-distance.pdf
   The relative brightness plotted as a function of relative distance for the flats 
