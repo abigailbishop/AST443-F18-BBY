@@ -24,13 +24,17 @@ for i in range( len( data ) ):
     magnitude = data['mag_v'][i]
     transit_duration = ( (data['star_radius'][i] * data['orbital_period'][i]) / 
                          (np.pi * data['semi_major_axis'][i] * 215) ) 
-    JD_planet = data['tzero_tr'][i]
+    JD_planet = -1
+    if ( data['tzero_tr'][i] > 0 ) :
+        JD_planet = data['tzero_tr'][i] 
+    elif ( data['tconj'][i] > 0 ) :
+        JD_planet = data['tconj'][i]
     orbital_period = data['orbital_period'][i]
     if( ( transit_depth >= 0.01 )
         and   
         ( magnitude <= 12 )
         and
-        ( transit_duration <= 0.125 )
+        ( transit_duration <= ( 3.5 / 24 ) )
         and 
         ( JD_planet > 0 )
         ): 
