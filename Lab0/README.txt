@@ -4,20 +4,22 @@ Directories beginning with 3.1 through 3.3 contain data from the data taking
   portion of the lab.
 
 DataAnalysis4p1-m10.py   
-  Contains the data analysis required for section 4.1 when the CCD was set to
+  Contains the data analysis script required for section 4.1 when the CCD was set to
   -10 degrees C
 DataAnalysis4p1-p10.py   
-  Contains the data analysis required for section 4.1 when the CCD was set to 
+  Contains the data analysis script required for section 4.1 when the CCD was set to 
   +10 degrees C
 DataAnalysis4p2-m10.py   
-  Contains the data analysis required for section 4.2 when the CCD was set to
+  Contains the data analysis script required for section 4.2 when the CCD was set to
   -10 degrees C
 DataAnalysis4p2-p10.py   
-  Contains the data analysis required for section 4.2 when the CCD was set to
+  Contains the data analysis script required for section 4.2 when the CCD was set to
   +10 degrees C
 DataAnalysis4p3.py       
-  Contains the data analysis required for section 4.3 (The CCD was set to -5
+  Contains the data analysis script required for section 4.3 (The CCD was set to -5
   degrees C)
+DataAnalysis4p3.py       
+  Contains the data analysis script required for section 4.4 
 
 flat_master.fits 
   The master flat file from section 4.3
@@ -31,6 +33,8 @@ neg10dark_adjusted.fits
 pos10dark_adjusted.fits
   The Adjusted (master dark minus the master bias) master dark file when the 
   CCD's temperature was +10 degrees C. Section 4.2
+bad_pixel_map.fits
+  The bad pixel map created from the bias and dark frames. Section 4.4
 
 Important Terminal Outputs 
   A file of information I was asked to calculate that I keep mostly as my 
@@ -88,3 +92,6 @@ pos10DARK_raw.pdf
 pos10DARK_typical-exposure.pdf
   The graph of number of typical counts (above the bias) as a function of 
   the exposure time when the CCD was set to +10 degrees C
+
+brightness-distance.pdf
+  The relative brightness plotted as a function of relative distance 

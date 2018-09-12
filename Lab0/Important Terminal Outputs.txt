@@ -20,3 +20,17 @@ Master Standard Deviation =  10.1260447421899
 STD Decreased by:  0.10036959283050784
 1/sqrt{N_images} =  0.31622776601683794
 
+4.2.1 Data output for -10C DARK frames
+MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p2-m10.py 
+Percent Rejected = 1.7313003540039062
+Percent Hot = 1.7951011657714844
+
+4.2.4 Data output for +10C DARK frames
+MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p2-p10.py 
+Percent Rejected = 1.8251419067382812
+Percent Hot = 1.8419265747070312
+
+
+4.4 Data output for Bad Pixels
+MacBook-Pro-3:Lab0 abigailbishop$ python3 DataAnalysis4p4.py 
+Percent of pixels that are bad: 2.29

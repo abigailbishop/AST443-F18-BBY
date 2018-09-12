@@ -65,13 +65,13 @@ ygauss = flat_avgnorm_norm * norm.pdf(xgauss,loc=flat_avgnorm_mean, scale=flat_a
 xmode = [flat_avgnorm_mode] * 100
 ymode = np.linspace( 0, max(ygauss), len(xmode) )
 textstr = '\n'.join((
-    'Mean=%.2f$' % (flat_avgnorm_mean, ),
-    'Median={}'.format(flat_avgnorm_median),
-    'Mode={}'.format(flat_avgnorm_mode) ,
+    'Mean=%.2f' % (flat_avgnorm_mean, ),
+    'Median=%.2f' % (flat_avgnorm_median, ),
+    'Mode=%.2f' % (flat_avgnorm_mode, ) ,
     r'$\sigma=%.2f$' % (flat_avgnorm_stddev, )))
 ax.hist(flat_avgnorm_flat, bins=100, color='black')
 props = dict(boxstyle='round', facecolor='white', alpha=0.5)
-ax.text(0.65, 0.95, textstr, transform=ax.transAxes, fontsize=14,
+ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
     verticalalignment='top', bbox=props)
 ax.set_title("Raw Data")
 ax.set_yscale("log", nonposy='clip')
@@ -83,3 +83,38 @@ plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
 plt.savefig('flat_master_raw.pdf', ppi=300)
 plt.clf()
+
+# Plot the relative sensitivity
+sensitivity_0deg = np.loadtxt('sensitivity_data_0deg.txt', skiprows = 2)
+absx_0deg = sensitivity_0deg[:,0]
+absy_0deg = sensitivity_0deg[:,1]
+absbright_0deg = sensitivity_0deg[:,2]
+dist_0deg = []
+relbright_0deg = []
+sensitivity_90deg = np.loadtxt('sensitivity_data_90deg.txt', skiprows = 2)
+absx_90deg = sensitivity_90deg[:,0]
+absy_90deg = sensitivity_90deg[:,1]
+absbright_90deg = sensitivity_90deg[:,2]
+dist_90deg = []
+relbright_90deg = []
+for item in range( len( absx_0deg ) ):
+    dist_0deg.append( np.sqrt( 
+        ( absx_0deg[item] - absx_0deg[0] )**2 + 
+        ( absy_0deg[item] - absy_0deg[0] )**2 
+        ) )
+    relbright_0deg.append( absbright_0deg[item] - absbright_0deg[0] )
+    dist_90deg.append( np.sqrt( 
+        ( absx_90deg[item] - absx_90deg[0] )**2 + 
+        ( absy_90deg[item] - absy_90deg[0] )**2 
+        ) )
+    relbright_90deg.append( absbright_90deg[item] - absbright_90deg[0] )
+fig, ax = plt.subplots()
+ax.set_title("Relative Brightness")
+ax.set_xlabel('Relative Distance (pixels)')
+ax.set_ylabel('Relative Brightness (sum/pix**2)')
+plt.plot(dist_0deg, relbright_0deg, label='Rotation= 0 degrees')
+plt.plot(dist_90deg, relbright_90deg, label='Rotation= 90 degrees')
+plt.legend(loc='best')
+plt.savefig('brightness-distance.pdf', ppi=300)
+plt.clf()
+
