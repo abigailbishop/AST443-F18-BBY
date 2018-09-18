@@ -16,12 +16,10 @@ masterflat_f = fits.open('3.3_SpectrumFlats_all/master_DomeFlat_50E-6m.fits')
 masterflat = masterflat_f[0].data
 masterflat_np = np.asarray(masterflat)
 masterflat_shape =  masterflat.shape
-#masterflat_crop = masterflat[175:223, :]
-lampflat_f = fits.open('3.3_SpectrumFlat/masterflat_lamp_50E-6m.fits')
+lampflat_f = fits.open('3.3_SpectrumFlat/masterflat_lamp.fits')
 lampflat = lampflat_f[0].data
-lampflat_np = np.asarray(lampflat)
+lampflat_np = np.asarray(lampflat)[175:223, :]
 lampflat_shape =  lampflat.shape
-
 
 # Obtain initial data arrays
 pixel = []
@@ -31,7 +29,8 @@ for column in range(masterflat_shape[1]):
     # Looping over every column
     pixel.append(column)
     master_avg.append( np.mean( masterflat[:, column].flatten() ))
-    lamp_avg.append( np.mean( lampflat[175:223, column].flatten() ))
+    avg = np.mean( lampflat[175:223, column].flatten())
+    lamp_avg.append( avg )
 x = np.asarray(pixel)
 y = np.asarray(master_avg)
 ylamp = np.asarray(lamp_avg)
@@ -62,7 +61,7 @@ y_norm_raw = []
 ylamp_norm_raw = []
 for i in range(len(x)):
     y_norm_raw.append( y[i] / yfit[i] )
-    ylamp_norm_raw.append( y[i] / ylamp[i] )
+    ylamp_norm_raw.append( ylamp[i] / yfit[i] )
 y_norm = np.asarray(y_norm_raw)
 ylamp_norm = np.asarray(ylamp_norm_raw)
 
@@ -76,4 +75,24 @@ plt.legend()
 plt.savefig('spectrograph_cropnorm_fit.pdf', ppi=300)
 plt.clf()
 
+# Plot the adjusted arc spectrum
+fig, ax = plt.subplots()
+ax.set_title("Pixel Value as a function of Pixel Position")
+ax.set_xlabel('Horizontal Pixel Index')
+ax.set_ylabel('Normalized Average Value per column')
+ax.plot(x, ylamp_norm, color="red", linewidth=2.0, 
+    label='Adjusted Arc Lamp Data')
+plt.legend()
+plt.savefig('spectrograph_lampadj_fit.pdf', ppi=300)
+plt.clf()
 
+# Plot the adjusted arc spectrum without normalization
+fig, ax = plt.subplots()
+ax.set_title("Pixel Value as a function of Pixel Position")
+ax.set_xlabel('Horizontal Pixel Index')
+ax.set_ylabel('Normalized Average Value per column')
+ax.plot(x, ylamp-y, color="red", linewidth=2.0, 
+    label='Adjusted Arc Lamp Data')
+plt.legend()
+plt.savefig('spectrograph_lampadjnonorm_fit.pdf', ppi=300)
+plt.clf()
