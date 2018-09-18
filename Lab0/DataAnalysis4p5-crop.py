@@ -11,10 +11,10 @@ from scipy import stats
 from scipy.stats import norm
 
 # Open files
-masterflat_f = fits.open('3.3_SpectrumFlats_all/master_DomeFlat.fits')
+masterflat_f = fits.open('3.3_SpectrumFlat/masterflat_lamp.fits')
 masterflat = masterflat_f[0].data
 masterflat_crop = masterflat[175:223, :]
 
 # Save the cropped flat
 masterflat_write = fits.PrimaryHDU(masterflat_crop)
-masterflat_write.writeto('3.3_SpectrumFlats_all/master_DomeFlat_50E-6m.fits')
+masterflat_write.writeto('3.3_SpectrumFlat/masterflat_lamp_50E-6m.fits')

@@ -16,16 +16,25 @@ masterflat_f = fits.open('3.3_SpectrumFlats_all/master_DomeFlat_50E-6m.fits')
 masterflat = masterflat_f[0].data
 masterflat_np = np.asarray(masterflat)
 masterflat_shape =  masterflat.shape
+#masterflat_crop = masterflat[175:223, :]
+lampflat_f = fits.open('3.3_SpectrumFlat/masterflat_lamp_50E-6m.fits')
+lampflat = lampflat_f[0].data
+lampflat_np = np.asarray(lampflat)
+lampflat_shape =  lampflat.shape
+
 
 # Obtain initial data arrays
 pixel = []
-avg_value = []
+master_avg = []
+lamp_avg = []
 for column in range(masterflat_shape[1]):
     # Looping over every column
     pixel.append(column)
-    avg_value.append( np.mean( masterflat[:, column].flatten() ))
+    master_avg.append( np.mean( masterflat[:, column].flatten() ))
+    lamp_avg.append( np.mean( lampflat[175:223, column].flatten() ))
 x = np.asarray(pixel)
-y = np.asarray(avg_value)
+y = np.asarray(master_avg)
+ylamp = np.asarray(lamp_avg)
 
 # Define the funtion to model our data after
 def unknown_function(x,a,b,c):
@@ -42,7 +51,7 @@ ax.set_xlabel('Horizontal Pixel Index')
 ax.set_ylabel('Average Value')
 ax.plot(x, y, color="red", linewidth=2.0, label='Data')
 plt.plot(x, yfit, linestyle = "--", 
-    color = "blue", label = "curve fit")
+    color = "blue", label = "Quadratic Fit")
 plt.legend()
 plt.savefig('spectrograph_crop_fit.pdf', ppi=300)
 plt.clf()
@@ -50,21 +59,21 @@ plt.clf()
 # Normalize the Data
 ymax = max(y)
 y_norm_raw = []
-yfit_norm_raw = []
+ylamp_norm_raw = []
 for i in range(len(x)):
-    y_norm_raw.append( y[i] / ymax )
-    yfit_norm_raw.append( yfit[i] / ymax )
+    y_norm_raw.append( y[i] / yfit[i] )
+    ylamp_norm_raw.append( y[i] / ylamp[i] )
 y_norm = np.asarray(y_norm_raw)
-yfit_norm = np.asarray(yfit_norm_raw)
+ylamp_norm = np.asarray(ylamp_norm_raw)
 
 # Plot the Normalized Data
 fig, ax = plt.subplots()
 ax.set_title("Pixel Value as a function of Pixel Position")
 ax.set_xlabel('Horizontal Pixel Index')
 ax.set_ylabel('Normalized Average Value per Y Value')
-ax.plot(x, y_norm, color="red", linewidth=2.0, label='Data')
-plt.plot(x, yfit_norm, linestyle = "--",
-    color = "blue", label = "Curve Fit")
+ax.plot(x, y_norm, color="red", linewidth=2.0, label='Normalized Data')
 plt.legend()
 plt.savefig('spectrograph_cropnorm_fit.pdf', ppi=300)
 plt.clf()
+
+
