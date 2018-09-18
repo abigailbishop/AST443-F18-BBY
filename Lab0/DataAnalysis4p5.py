@@ -26,17 +26,17 @@ for column in range(masterflat_shape[1]):
     avg_value.append( np.mean( masterflat[:, column].flatten() ))
 x = np.asarray(pixel)
 y = np.asarray(avg_value)
-tck = interpolate.splrep(x, y, s=0)
-pixel_long = np.arange(0, masterflat_shape[1], masterflat_shape[1]*10)
-avg_value_spl = interpolate.splev(pixel_long, tck, der=0)
+tck = interpolate.splrep(x, y, k=3)
+xnew = np.arange(0, masterflat_shape[1], masterflat_shape[1]/100)
+ynew = interpolate.splev(xnew, tck)
 
 # Plot the Avg. value as a function of pixel position
 fig, ax = plt.subplots()
 ax.set_title("Pixel Value as a function of Pixel Position")
 ax.set_xlabel('Horizontal Pixel Index')
 ax.set_ylabel('Average Value')
-ax.plot(x, y, color="red", linewidth=1.0, label='Data')
-ax.plot(pixel_long, avg_value_spl, color="blue", linewidth=2.0, 
+ax.plot(x, y, color="red", linewidth=2.0, label='Data')
+ax.plot(xnew, ynew, color="blue", linewidth=1.0, 
     label='Spline Fit')
 plt.legend()
 plt.savefig('spectrograph_crop_fit.pdf', ppi=300)
