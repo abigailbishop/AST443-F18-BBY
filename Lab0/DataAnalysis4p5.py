@@ -12,23 +12,33 @@ from scipy.stats import norm
 from scipy import interpolate
 
 # Open files
-masterflat_f = fits.open('3.3_SpectrumFlats_all/masterflat_50E-6m.fits')
+masterflat_f = fits.open('3.3_SpectrumFlats_all/master_DomeFlat_50E-6m.fits')
 masterflat = masterflat_f[0].data
 masterflat_np = np.asarray(masterflat)
 masterflat_shape =  masterflat.shape
 
-# Plot the Avg. value as a function of pixel position
+# Obtain arrays for plotting
 pixel = []
 avg_value = []
 for column in range(masterflat_shape[1]):
     # Looping over every column
     pixel.append(column)
     avg_value.append( np.mean( masterflat[:, column].flatten() ))
+x = np.asarray(pixel)
+y = np.asarray(avg_value)
+tck = interpolate.splrep(x, y, s=0)
+pixel_long = np.arange(0, masterflat_shape[1], masterflat_shape[1]*10)
+avg_value_spl = interpolate.splev(pixel_long, tck, der=0)
+
+# Plot the Avg. value as a function of pixel position
 fig, ax = plt.subplots()
 ax.set_title("Pixel Value as a function of Pixel Position")
 ax.set_xlabel('Horizontal Pixel Index')
 ax.set_ylabel('Average Value')
-plt.plot(pixel, avg_value, color="red", linewidth=1.0)
-plt.savefig('spectrograph_crop_values.pdf', ppi=300)
+ax.plot(x, y, color="red", linewidth=1.0, label='Data')
+ax.plot(pixel_long, avg_value_spl, color="blue", linewidth=2.0, 
+    label='Spline Fit')
+plt.legend()
+plt.savefig('spectrograph_crop_fit.pdf', ppi=300)
 plt.clf()
 
