@@ -22,18 +22,37 @@ lampflat_np = np.asarray(lampflat)[175:223, :]
 lampflat_shape =  lampflat.shape
 
 # Obtain initial data arrays
+# Determine the pixel location of the two brightest points
 pixel = []
 master_avg = []
 lamp_avg = []
+bright1x = 0
+bright2x = 0
 for column in range(masterflat_shape[1]):
     # Looping over every column
     pixel.append(column)
-    master_avg.append( np.mean( masterflat[:, column].flatten() ))
-    avg = np.mean( lampflat[175:223, column].flatten())
-    lamp_avg.append( avg )
+    master_colavg = np.mean( masterflat[:, column].flatten() )
+    master_avg.append( master_colavg )
+    lamp_colavg = np.mean( lampflat[:, column].flatten())
+    print( column, lamp_colavg)
+    lamp_avg.append( lamp_colavg )
+    # If the brightness is greater than what's recorded
+    # and if this pixel is not within 5 pixels of another bright column
+    # save it as a bright line
+    if( (lamp_colavg > lamp_avg[bright1x]) and
+        (abs(bright1x - column) > 5) and (abs(bright2x - column) > 5) 
+        ):
+        bright2x = bright1x
+        bright1x = column
+    elif( (lamp_colavg > lamp_avg[bright2x]) and
+        (abs(bright1x - column) > 5) and (abs(bright2x - column) > 5) 
+        ):
+        bright2x = column
 x = np.asarray(pixel)
 y = np.asarray(master_avg)
 ylamp = np.asarray(lamp_avg)
+print( "Brightest:", bright1x)
+print( "2nd Brightest:", bright2x)
 
 # Define the funtion to model our data after
 def unknown_function(x,a,b,c):
@@ -96,3 +115,4 @@ ax.plot(x, ylamp-y, color="red", linewidth=2.0,
 plt.legend()
 plt.savefig('spectrograph_lampadjnonorm_fit.pdf', ppi=300)
 plt.clf()
+
