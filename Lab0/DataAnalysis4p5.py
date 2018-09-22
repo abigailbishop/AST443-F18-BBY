@@ -97,4 +97,3 @@ ax.plot(x, ylamp-y, color="red", linewidth=2.0,
 plt.legend()
 plt.savefig('spectrograph_lampadjnonorm_fit.pdf', ppi=300)
 plt.clf()
-
