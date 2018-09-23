@@ -40,6 +40,7 @@ dark_master = np.median(dark_master_array, axis=0)
 
 # Unclipped Data Statistical Properties
 dark_master_flat = dark_master.flatten()
+dark_master_flat = dark_master_flat[dark_master_flat<15000]
 dark_mean = np.mean(dark_master_flat)
 dark_median = np.median(dark_master_flat)
 dark_mode = stats.mode(dark_master_flat)[0][0]
@@ -54,7 +55,7 @@ ygauss = dark_norm * norm.pdf(xgauss,loc=dark_mean, scale=dark_stddev)
 xmode = [dark_mode] * 100
 ymode = np.linspace( 0, max(ygauss), len(xmode) )
 textstr = '\n'.join((
-    'Mean=%.2f$' % (dark_mean, ),
+    'Mean=%.2f' % (dark_mean, ),
     'Median={}'.format(dark_median),
     'Mode={}'.format(dark_mode) ,
     r'$\sigma=%.2f$' % (dark_stddev, )))
@@ -70,7 +71,7 @@ ax.set_ylim([0.1,1e6])
 gauss = norm.pdf(xgauss,loc=dark_mean, scale=dark_stddev)
 plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
-plt.savefig('neg10DARK_raw.pdf', ppi=300)
+plt.savefig('neg10DARK_noOutliers.pdf', ppi=300)
 plt.clf()
 
 # Clipped Data Statistical Properties
@@ -110,7 +111,8 @@ plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
 plt.savefig('neg10DARK_cut.pdf', ppi=300)
 plt.clf()
 print( 'Percent Rejected = {}'.format( 100 * 
-    ( len(dark_master_flat) - len(dark_master_cut) ) / len(dark_master_flat) ) )
+    ( len(dark_master_flat.flatten()) - len(dark_master_cut) ) / 
+      len(dark_master_flat.flatten()) ) )
 
 # Identifying Hot Pixels
 # Hot pixels have high counts, above the BIAS. 
@@ -250,7 +252,7 @@ dark_exps = [
 fig, ax = plt.subplots()
 ax.set_title('"Typical" Counts as a function of Exposure Time')
 ax.set_xlabel('Exposure Time (seconds)')
-ax.set_ylabel('Number of "Typical" Counts')
+ax.set_ylabel('Number of "Typical" Counts (e-/pixel)')
 ax.errorbar( dark_exps, dark_modes, yerr=dark_modes_uncerts, fmt='o')
 darks_linearfit = np.polynomial.polynomial.polyfit(
     dark_exps, dark_modes, deg=1 )

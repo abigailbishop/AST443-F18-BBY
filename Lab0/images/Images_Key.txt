@@ -1,0 +1,46 @@
+4.1:
+  -10 Degrees C
+  One of your BIAS frames: 3p1_m10_00000000_BIAS.png
+  Plot a histogram of the distribution of counts: neg10BIAS_raw.pdf
+  Define a cut that rejects pixels with count...: neg10BIAS_clipped.pdf
+  Average of a series of 10 bias frames (master bias): neg10BIAS_master.png
+    
+  +10 Degrees C
+  One of your BIAS frames: 3p1_p10_00000000_BIAS.png
+  Plot a histogram of the distribution of counts: pos10BIAS_raw.pdf
+  Define a cut that rejects pixels with count...: pos10BIAS_clipped.pdf
+  Average of a series of 10 bias frames (master bias): pos10BIAS_master.png
+
+4.2:
+  -10 Degrees C
+  Median combine of a series of 10 dark frames: neg10dark_adjusted.png
+  Histogram of the count values: neg10DARK_noOutliers.pdf
+  Cut that selects pixels consistent with...: neg10DARK_cut.pdf
+  Typical counts against exposure time: neg10DARK_typical-exposure.pdf
+
+  +10 Degrees C
+  Median combine of a series of 10 dark frames: pos10dark_adjusted.png
+  Histogram of the count values: pos10DARK_noOutliers.pdf
+  Cut that selects pixels consistent with...: pos10DARK_cut.pdf
+  Typical counts against exposure time: pos10DARK_typical-exposure.pdf
+
+4.3:
+  Average of 10 flat fields, normalized: flat_master.png
+  Histogram of counts in Master field: flat_master_raw.pdf
+  Sensitivity from Center: brightness-distance.pdf
+  Flat-field taken after 90 degree rotation: flat_master-r90.png
+  Histogram of counts after 90 degree rotation: flat_master_raw_r90.pdf
+
+4.4: 
+  Bad Pixel map: bad_pixel_map.png
+
+4.5:
+  Master Dome flat: master_DomeFlat.png
+  Flat field against pixel positions: spectrograph_crop_fit.pdf
+  Normalized flat field: spectrograph_cropnorm_fit.pdf
+  Lamp flat: masterflat_lamp.png
+  Lamp Spectrum: spectrograph_crop_values-Lamp.pdf
+  Normalized lamp spectrum vs pixel: spectrograph_lampadj_fit.pdf
+**  Wavelength vs pixel position:
+**  Spectrum vs wavelength with emission lines labeled: 
+  

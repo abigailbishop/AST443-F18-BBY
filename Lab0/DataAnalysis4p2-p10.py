@@ -40,6 +40,7 @@ dark_master = np.median(dark_master_array, axis=0)
 
 # Unclipped Data Statistical Properties
 dark_master_flat = dark_master.flatten()
+dark_master_flat = dark_master_flat[dark_master_flat<15000]
 dark_mean = np.mean(dark_master_flat)
 dark_median = np.median(dark_master_flat)
 dark_mode = stats.mode(dark_master_flat)[0][0]
@@ -66,11 +67,11 @@ ax.set_title("Raw Data")
 ax.set_yscale("log", nonposy='clip')
 ax.set_xlabel('Number of Counts in a Bin')
 ax.set_ylabel('Number of Bins')
-ax.set_ylim([0.1,1e6])
+ax.set_ylim([0.1,2e6])
 gauss = norm.pdf(xgauss,loc=dark_mean, scale=dark_stddev)
 plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
-plt.savefig('pos10DARK_raw.pdf', ppi=300)
+plt.savefig('pos10DARK_noOutliers.pdf', ppi=300)
 plt.clf()
 
 # Clipped Data Statistical Properties
@@ -110,7 +111,8 @@ plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
 plt.savefig('pos10DARK_cut.pdf', ppi=300)
 plt.clf()
 print( 'Percent Rejected = {}'.format( 100 * 
-    ( len(dark_master_flat) - len(dark_master_cut) ) / len(dark_master_flat) ) )
+    ( len(dark_master_flat.flatten()) - len(dark_master_cut) ) /
+      len(dark_master_flat.flatten()) ) )
 
 # Identifying Hot Pixels
 # Hot pixels have high counts, above the BIAS. 
@@ -157,7 +159,7 @@ print( 'Percent Hot = {}'.format( 100 *
 
 # Save the master DARK minus the BIAS
 master_write = fits.PrimaryHDU(dark_master)
-master_write.writeto('pos10dark_adjusted.fits')
+#master_write.writeto('pos10dark_adjusted.fits')
 
 # Calculating the Dark Current
 dark_adjusted_array = []
@@ -250,7 +252,7 @@ dark_exps = [
 fig, ax = plt.subplots()
 ax.set_title('"Typical" Counts as a function of Exposure Time')
 ax.set_xlabel('Exposure Time (seconds)')
-ax.set_ylabel('Number of "Typical" Counts')
+ax.set_ylabel('Number of "Typical" Counts (e-/pixel)')
 ax.errorbar( dark_exps, dark_modes, yerr=dark_modes_uncerts, fmt='o')
 darks_linearfit = np.polynomial.polynomial.polyfit(
     dark_exps, dark_modes, deg=1 )

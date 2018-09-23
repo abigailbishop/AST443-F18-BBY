@@ -121,4 +121,4 @@ print( '1/sqrt{N_images} = ', 1 / np.sqrt( len(pos10BIAS_array) ) )
 
 # Save the master BIAS
 master_write = fits.PrimaryHDU(pos10BIAS_master)
-master_write.writeto('pos10BIAS_master.fits')
+#master_write.writeto('pos10BIAS_master.fits')

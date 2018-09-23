@@ -36,13 +36,12 @@ flat_9 = flat_f_9[0].data
 flat_all = [ flat_0, flat_1, flat_2, flat_3, flat_4, flat_5,
     flat_5, flat_6, flat_7, flat_8, flat_9]
 flat_avg = np.mean( flat_all, axis=0 )
-flat_f_bias = fits.open('neg10BIAS_master.fits')
-flat_bias = flat_f_bias[0].data
-flat_avgnorm = flat_avg - flat_bias
-
-# Save the Master flat
-master_write = fits.PrimaryHDU(flat_avgnorm)
-#master_write.writeto('flat_master.fits')
+flat_avg_mode = stats.mode(flat_avg.flatten())[0][0]
+flat_avg_shape = flat_avg.shape
+flat_avgnorm = np.zeros(flat_avg_shape)
+for column in range(flat_avg_shape[1]):
+    for row in range(flat_avg_shape[0]):
+        flat_avgnorm[row][column] = flat_avg[row][column] / flat_avg_mode
 
 # NOTE: The difference between the maximum and minimum points are 
 #     1.59E4 - 1.18E4 = 0.41E4 = 4100
@@ -122,3 +121,7 @@ plt.clf()
 # If you forgot to take flatfields on the night of observations, you 
 # could not retake them later because the flat field depends on the orientation
 # of the CCD in the telescope.
+
+# Save the Master flat
+master_write = fits.PrimaryHDU(flat_avgnorm)
+#master_write.writeto('flat_master.fits')

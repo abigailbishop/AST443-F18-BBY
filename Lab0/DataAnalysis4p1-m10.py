@@ -47,10 +47,10 @@ ax.set_title("Raw Data")
 ax.set_yscale("log", nonposy='clip')
 ax.set_xlabel('Number of Counts in a Bin')
 ax.set_ylabel('Number of Bins')
-ax.set_ylim([0.1,1e6])
+ax.set_ylim([0.1,3e6])
 gauss = norm.pdf(xgauss,loc=data_mean, scale=data_stddev)
-plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
+plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.savefig('neg10BIAS_raw.pdf', ppi=300)
 plt.clf()
 
@@ -121,4 +121,4 @@ print( '1/sqrt{N_images} = ', 1 / np.sqrt( len(neg10BIAS_array) ) )
 
 # Save the master BIAS
 master_write = fits.PrimaryHDU(neg10BIAS_master)
-master_write.writeto('neg10BIAS_master.fits')
+#master_write.writeto('neg10BIAS_master.fits')
