@@ -1,5 +1,6 @@
 # Lab 0 Data Analysis for part 4.1
-# September 7, 2018
+# Crops the spectrum master flat to just look at the 50 micrometer slit
+# September 10, 2018
 
 # Imports
 import numpy as np

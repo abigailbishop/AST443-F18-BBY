@@ -1,4 +1,5 @@
 # AST443 Lab 0 Data Analysis for part 4.3
+# Analyzes the Flat taken at a 90 degree rotation
 # September 7, 2018
 
 # Imports

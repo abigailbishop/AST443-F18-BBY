@@ -1,4 +1,5 @@
-# Lab 0 Data Analysis for part 4.1
+# Lab 0 Data Analysis for part 4.4
+# Makes a bad pixel Map
 # September 7, 2018
 
 # Imports

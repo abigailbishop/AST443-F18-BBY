@@ -1,4 +1,5 @@
-# Lab 0 Data Analysis for part 4.1
+# Lab 0 Data Analysis for part 4.2
+# Creates and analyzes DARK frames set at -10C
 # September 7, 2018
 
 # Imports

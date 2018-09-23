@@ -1,5 +1,6 @@
-# Lab 0 Data Analysis for part 4.1
-# September 7, 2018
+# Lab 0 Data Analysis for part 4.5
+# Applies the normalized flat field to the arc lamp spectrum
+# September 10, 2018
 
 # Imports
 import numpy as np
