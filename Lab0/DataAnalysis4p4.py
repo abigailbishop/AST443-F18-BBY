@@ -55,14 +55,14 @@ for column in range( len( bias[0] ) ):
         elif dark_adjusted[column][row] > dark_cut_5sigma:
             hot_c.append(column)
             hot_r.append(row)
-bad_pixel_map = np.zeros( (len(bias[0]), len(bias[1]) ) )
+bad_pixel_map = np.ones( (len(bias[0]), len(bias[1]) ) )
 for i in range( len( dead_c ) ):
-    bad_pixel_map[dead_c[i]][dead_r[i]] = 1
+    bad_pixel_map[dead_c[i]][dead_r[i]] = 0
 for i in range( len( hot_c ) ): 
-    bad_pixel_map[hot_c[i]][hot_r[i]] = 1
+    bad_pixel_map[hot_c[i]][hot_r[i]] = 0
 print( 'Percent of pixels that are bad: %.2f' % ( 100 * 
     (len(dead_c) + len(hot_c)) / ( len(bias[0])**2 ) ) )
 
 # Save the master DARK minus the BIAS
 map_write = fits.PrimaryHDU(bad_pixel_map)
-#map_write.writeto('bad_pixel_map.fits')
+map_write.writeto('bad_pixel_map.fits')

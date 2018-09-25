@@ -219,6 +219,7 @@ dark_t5_exp = dark_f_t5[0].header['EXPTIME']
 dark_f_t6 = fits.open('3.1_m10_DARK_varyexpo/3.1_m10.00000016.DARK.FIT')
 dark_t6 = (dark_f_t6[0].data - bias_master).flatten()
 dark_t6_exp = dark_f_t6[0].header['EXPTIME']
+dark_gain = dark_f_t6[0].header['EGAIN']
 dark_modes = [ 
     stats.mode(dark_t0)[0][0], 
     stats.mode(dark_t1)[0][0], 
@@ -239,7 +240,10 @@ dark_means = [
     ]
 dark_modes_uncerts = []
 for mean in dark_means: 
+    mean = dark_gain * mean
     dark_modes_uncerts.append( np.sqrt( abs(mean) ) ) 
+for mode in dark_modes:
+    mode = dark_gain * mode
 dark_exps = [
     dark_t0_exp,
     dark_t1_exp,

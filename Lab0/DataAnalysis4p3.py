@@ -101,15 +101,15 @@ for item in range( len( absx_0deg ) ):
         ( absx_0deg[item] - absx_0deg[0] )**2 + 
         ( absy_0deg[item] - absy_0deg[0] )**2 
         ) )
-    relbright_0deg.append( absbright_0deg[item] - absbright_0deg[0] )
+    relbright_0deg.append( absbright_0deg[item] / absbright_0deg[0] )
     dist_90deg.append( np.sqrt( 
         ( absx_90deg[item] - absx_90deg[0] )**2 + 
         ( absy_90deg[item] - absy_90deg[0] )**2 
         ) )
-    relbright_90deg.append( absbright_90deg[item] - absbright_90deg[0] )
+    relbright_90deg.append( absbright_90deg[item] / absbright_90deg[0] )
 fig, ax = plt.subplots()
 ax.set_title("Relative Brightness")
-ax.set_xlabel('Relative Distance (pixels)')
+ax.set_xlabel('Relative Distance from Center (pixels)')
 ax.set_ylabel('Relative Brightness (sum/pix**2)')
 plt.plot(dist_0deg, relbright_0deg, label='Rotation= 0 degrees')
 plt.plot(dist_90deg, relbright_90deg, label='Rotation= 90 degrees')
