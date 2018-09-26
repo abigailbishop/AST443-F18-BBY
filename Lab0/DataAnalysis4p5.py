@@ -88,13 +88,3 @@ plt.legend()
 plt.savefig('spectrograph_lampadj_fit.pdf', ppi=300)
 plt.clf()
 
-# Plot the adjusted arc spectrum without normalization
-fig, ax = plt.subplots()
-ax.set_title("Pixel Value as a function of Pixel Position")
-ax.set_xlabel('Horizontal Pixel Index')
-ax.set_ylabel('Normalized Average Value per column')
-ax.plot(x, ylamp-y, color="red", linewidth=2.0, 
-    label='Adjusted Arc Lamp Data')
-plt.legend()
-plt.savefig('spectrograph_lampadjnonorm_fit.pdf', ppi=300)
-plt.clf()

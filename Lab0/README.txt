@@ -20,7 +20,19 @@ DataAnalysis4p3.py
   degrees C)
   Note: It takes a few minutes to run.
 DataAnalysis4p3.py       
-  Contains the data analysis script required for section 4.4 
+  Contains the data analysis script required for section 4.3 - Flat fields 
+DataAnalysis4p4.py       
+  Contains the data analysis script required for section 4.4 - Bad Pixel Maps
+DataAnalysis4p5-crop.py       
+  Contains the data analysis script required for section 4.5 - cropping 50 micrometer
+  line from the master spectrum flat.
+DataAnalysis4p5-lamp.py       
+  Contains the data analysis script required for section 4.5 - plotting average
+  pixel value for every column in the lamp spectrum.
+DataAnalysis4p5.py       
+  Contains the data analysis script required for section 4.5 - analyzing and 
+  normalizing data from 50 micrometer master spectrum flat then applying it
+  to the lamp spectrum
 
 sensitivity_data_0deg.txt
   Tracks the x, y, and brightness values of flat_master.fits from the center to the
@@ -32,6 +44,8 @@ sensitivity_data_90deg.txt
 
 flat_master.fits 
   The master flat file from section 4.3
+flat_master_r90.fits 
+  The flat file from section 4.3 after the CCD was rotated 90 degrees.
 neg10BIAS_master.fits
   The master bias file when the CCD temperature was -10 degrees C. Section 4.1
 pos10BIAS_master.fits
@@ -44,6 +58,8 @@ pos10dark_adjusted.fits
   CCD's temperature was +10 degrees C. Section 4.2
 bad_pixel_map.fits
   The bad pixel map created from the bias and dark frames. Section 4.4
+masterflat_50E-6m.fits
+  The fits file of the master spectrum flat cropped to only the 50 micrometer slit
 
 Important Terminal Outputs 
   A file of information I was asked to calculate that I keep mostly as my 
@@ -111,3 +127,19 @@ flat_master_raw_r90.pdf
 brightness-distance.pdf
   The relative brightness plotted as a function of relative distance for the flats 
   at both 0 degrees and 90 degrees
+
+spectrograph_crop_fit.pdf
+  Average count value per column of pixels for the dome flat with quadratic fit. 
+  Section 4.5
+spectrograph_crop_values-Lamp.pdf
+  Average count value per column of pixels in the arc lamp spectrum.
+  Section 4.5
+spectrograph_cropnorm_fit.pdf
+  Normalized average count value per column of pixels for the dome flat.
+  Section 4.5
+spectrograph_lampadj_fit.pdf
+  Average count value per column of pixels in the arc lamp spectrum adjusted by the
+  the quadratic fit from spectrograph_crop_fit.pdf
+  Section 4.5
+spectrograph_lampcrop_fit.pdf
+  Same as spectrograph_crop_values-Lamp.pdf
