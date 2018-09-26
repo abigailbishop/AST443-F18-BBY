@@ -1,0 +1,13 @@
+4.5.6
+See python script and plot, slope = -0.98
+data is in textfile 'spectral_lines_lineup.txt'
+
+4.5.7
+The length is 749.7
+Calculated in DataAnalysis4p5.py
+
+4.5.8
+Data in textfile 'calibrated_arcspec.txt'
+  saved in DataAnalysis4p5.py
+Plot script 4.5.8_calibratedSpectrum.py
+Plot 4.5.8_calibratedSpectrum.png
