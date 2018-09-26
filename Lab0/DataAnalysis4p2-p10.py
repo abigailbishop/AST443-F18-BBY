@@ -55,7 +55,7 @@ ygauss = dark_norm * norm.pdf(xgauss,loc=dark_mean, scale=dark_stddev)
 xmode = [dark_mode] * 100
 ymode = np.linspace( 0, max(ygauss), len(xmode) )
 textstr = '\n'.join((
-    'Mean=%.2f$' % (dark_mean, ),
+    'Mean=%.2f' % (dark_mean, ),
     'Median={}'.format(dark_median),
     'Mode={}'.format(dark_mode) ,
     r'$\sigma=%.2f$' % (dark_stddev, )))

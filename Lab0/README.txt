@@ -143,3 +143,4 @@ spectrograph_lampadj_fit.pdf
   Section 4.5
 spectrograph_lampcrop_fit.pdf
   Same as spectrograph_crop_values-Lamp.pdf
+  Section 4.5
