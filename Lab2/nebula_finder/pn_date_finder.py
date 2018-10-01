@@ -13,13 +13,29 @@ from astropy.coordinates import EarthLocation
 
 #from astropy.io.votable import parse_single_table
 #table = parse_single_table("5246234-Planetaries.xls")
-data = np.loadtxt("pn_data.csv",skiprows=1,usecols = (4,5,6),delimiter=',')
+data = np.loadtxt("pn_data.csv",skiprows=1,usecols = (2,4,5,6),
+                  dtype='str', delimiter=',')
 
-NAME = np.loadtxt("pn_data.csv",skiprows=1,usecols = (2),
-                  dtype='str',delimiter=',')
-RA = data[:,4]
-DEC = data[:,5]
-MAG = data[:,6]
+NAME = data[:,0]
+RA = data[:,1]  # In hours and minutes
+DEC = data[:,2] # In degrees but instead of a . it's a space
+MAG = data[:,3] # As a string
+
+for ra in RA:
+    ra_hour = ra[0:2]
+    ra_min = ra[3:]
+    ra = ( float(ra_hour) + float(ra_min) / 60 ) * 360 / 24
+
+for dec in DEC:
+    dec_int = dec[1:3]
+    dec_decimal = dec[4:]
+    if dec[0] == '+':
+        dec = float(dec_int) + float(dec_decimal) / 100
+    else:
+        dec = 0 - float(dec_int) + float(dec_decimal) / 100
+
+for mag in MAG:
+    mag = float(mag)
 
 JD = 2458402.5
             
