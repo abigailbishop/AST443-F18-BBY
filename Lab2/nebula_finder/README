@@ -1,0 +1,12 @@
+This directory contains the script and results for finding the lab 2 target.
+Our target is "Blue Snowball" and our dates are Oct. 10, 16 and 29
+
+chosen_one.txt: Target and nearby star information
+*StarAlt.png: Star Alt Charts for each date
+7662 - StarChart.png: Finder Chart for target
+
+pn_date_finder.py: nebular finder script
+nebula_options.txt: output of script
+
+5246234-Planetaries.xls: nebula database in xls format for viewing
+pn_data.csv: nebula database in csv format for python code
