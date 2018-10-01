@@ -13,31 +13,34 @@ from astropy.coordinates import EarthLocation
 
 #from astropy.io.votable import parse_single_table
 #table = parse_single_table("5246234-Planetaries.xls")
-data = np.loadtxt("pn_data.csv",skiprows=1,usecols = (2,4,5,6),
+data = np.loadtxt("pn_data.csv",skiprows=1,usecols = (2,3,4,5),
                   dtype='str', delimiter=',')
 
 NAME = data[:,0]
-RA = data[:,1]  # In hours and minutes
-DEC = data[:,2] # In degrees but instead of a . it's a space
-MAG = data[:,3] # As a string
+RA_tmp = data[:,1]  # In hours and minutes
+RA = []
+DEC_tmp = data[:,2] # In degrees but instead of a . it's a space
+DEC = []
+MAG_tmp = data[:,3] # As a string
+MAG = []
 
-for ra in RA:
+for ra in RA_tmp:
     ra_hour = ra[0:2]
     ra_min = ra[3:]
-    ra = ( float(ra_hour) + float(ra_min) / 60 ) * 360 / 24
+    RA.append( ( float(ra_hour) + float(ra_min) / 60 ) * 360 / 24 )
 
-for dec in DEC:
+for dec in DEC_tmp:
     dec_int = dec[1:3]
     dec_decimal = dec[4:]
     if dec[0] == '+':
-        dec = float(dec_int) + float(dec_decimal) / 100
+        DEC.append( float(dec_int) + float(dec_decimal) / 100 )
     else:
-        dec = 0 - float(dec_int) + float(dec_decimal) / 100
+        DEC.append( 0 - float(dec_int) + float(dec_decimal) / 100 )
 
-for mag in MAG:
-    mag = float(mag)
+for mag in MAG_tmp:
+    MAG.append( float(mag) )
 
-JD = 2458402.5
+JD = 2458408.625
             
 output='transit_aau.csv'
 # location of Stony Brook
@@ -59,36 +62,31 @@ times.format='fits'
 NAME_obs = []
 RA_obs = []
 DEC_obs = []
-JD_obs = []
 Alt_obs = []
 Az_obs = []
-Time_obs = []
 V_obs = []
-if aacoords.alt.deg[i]>30:
-    ID_obs.append(NAME[i])
-    RA_obs.append(RA[i])
-    DEC_obs.append(DEC[i])
-    JD_obs.append(JD[i])
-    Alt_obs.append(aacoords.alt.deg[i])
-    Az_obs.append(aacoords.az.deg[i])
-    V_obs.append(V[i])
-'''
+for i in range(len(aacoords.alt.deg)):
+    if aacoords.alt.deg[i]>40 and MAG[i]<12:
+        NAME_obs.append(NAME[i])
+        RA_obs.append(RA[i])
+        DEC_obs.append(DEC[i])
+        Alt_obs.append(aacoords.alt.deg[i])
+        Az_obs.append(aacoords.az.deg[i])
+        V_obs.append(MAG[i])
+
 #np.savetxt('obs_transit_aau.txt',np.transpose([ID_obs,Az_obs,Alt_obs,Time_obs]), fmt="%.30s %.6f %.6f %.30s")
-with open("obs_transit_aau.txt", "w") as param_file:
-    header = "ID RA DEC AZ ALT TIME DEP DUR V \n"
+with open("nebula_options.txt", "w") as param_file:
+    header = "DATE:" + str(JD) + "\n NAME RA DEC AZ ALT V \n"
     param_file.write(header)
-    for i in range(len(ID_obs)):
-        outstring = str(ID_obs[i]) + " " 
+    for i in range(len(NAME_obs)):
+        outstring = str(NAME_obs[i]) + " " 
         outstring += str(RA_obs[i]) + " " 
         outstring += str(DEC_obs[i]) + " " 
         outstring += str(Az_obs[i]) + " " 
         outstring += str(Alt_obs[i]) + " " 
-        outstring += str(Time_obs[i]) + " "
-        outstring += str(depth_obs[i]) + " "
-        outstring += str(dur_obs[i]) + " "
         outstring += str(V_obs[i]) + " " + "\n"
         param_file.write(outstring)
-'''        
+        
         
         
         
