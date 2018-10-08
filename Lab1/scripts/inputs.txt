@@ -1,3 +1,7 @@
-datadir,/astrolab/Fall_18/qyu
+dataDir,/astrolab/Fall_18/qyu/Lab1/data/
+darkSubdir,5-darks/
 masterDark,masterDark.fits
+flatSubdir,4-flats_after/
 masterFlat,masterFlat.fits
+images,../images/
+fitsFiles,../fitsFiles/

@@ -1,6 +1,6 @@
-# Lab 0 Data Analysis for part 4.2
-# Creates and analyzes DARK frames set at -10C
-# September 7, 2018
+# Data Analysis for part 4.1
+# Creates the Master Dark Frame
+# October 8, 2018
 
 # Imports
 import numpy as np
@@ -12,19 +12,19 @@ from scipy import stats
 from scipy.stats import norm
 
 # Load Lab constants
-constants_file = open('inputs.txt')
-constants = {}
-for line in constants_file:
+info = {}
+for line in open('inputs.txt'):
     li=line.strip()
     if not li.startswith("#"):
-        print line.rstrip()
+        data = [x.strip() for x in line.split(',')]
+        info[data[0]] = data[1]
 
 # Open Files
-data_dir = '/astrolab/Fall_18/qyu/names.txt'
-files = open(data_dir, 'r')
+dark_dir = info['dataDir'] + info['darkSubdir']
+files = open(dark_dir+'names.txt', 'r')
 darks = []
 for line in files:
-    darks.append(fits.open(data_dir+line))
+    darks.append(fits.open(dark_dir+line.strip('\n')))
 darks_data = []
 for dark in darks:
     darks_data.append(dark[0].data)
@@ -32,7 +32,7 @@ for dark in darks:
 # Create the Dark Master Frame
 dark_master = np.median(darks_data, axis=0)
 master_write = fits.PrimaryHDU(dark_master)
-master_write.writeto(data_dir+'masterDark.fits')
+master_write.writeto(info['fitsFiles']+info['masterDark'])
 
 # Unclipped Data Statistical Properties
 dark_master_flat = dark_master.flatten()
@@ -67,6 +67,5 @@ ax.set_ylim([0.1,1e6])
 gauss = norm.pdf(xgauss,loc=dark_mean, scale=dark_stddev)
 plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
-plt.savefig('../images/masterDark-dist.pdf', ppi=300)
+plt.savefig(info['images']+'masterDark-dist.pdf', ppi=300)
 plt.clf()
-
