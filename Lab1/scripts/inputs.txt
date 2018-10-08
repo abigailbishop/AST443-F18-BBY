@@ -1,0 +1,3 @@
+datadir,/astrolab/Fall_18/qyu
+masterDark,masterDark.fits
+masterFlat,masterFlat.fits
