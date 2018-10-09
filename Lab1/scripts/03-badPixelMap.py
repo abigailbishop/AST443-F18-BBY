@@ -33,7 +33,7 @@ flat_flat_cut = flat_flat_sigclip[0]
 flat_cut_min = flat_flat_sigclip[1]
 flat_cut_max = flat_flat_sigclip[2]
 flat_cut_mean = np.mean(flat_flat_cut)
-flat_cut_mode = stats.mode(flat_flat_cut)[0][0]
+flat_cut_median = np.median(flat_flat_cut)
 flat_cut_stddev = np.std(flat_flat_cut)
 flat_cut_5sigma = 5 * flat_cut_stddev
 
@@ -46,7 +46,7 @@ dark_flat_cut = dark_flat_sigclip[0]
 dark_cut_min = dark_flat_sigclip[1]
 dark_cut_max = dark_flat_sigclip[2]
 dark_cut_mean = np.mean(dark_flat_cut)
-dark_cut_mode = stats.mode(dark_flat_cut)[0][0]
+dark_cut_median = np.median(dark_flat_cut)
 dark_cut_stddev = np.std(dark_flat_cut)
 dark_cut_5sigma = 5 * dark_cut_stddev
 
@@ -58,10 +58,10 @@ hot_c = []
 hot_r = []
 for column in range( len( flat[0] ) ):
     for row in range( len( flat[1] ) ):
-        if flat[column][row] < flat_cut_5sigma:
+        if (flat[column][row] - flat_cut_median) < (-1 * flat_cut_5sigma):
             dead_c.append(column)
             dead_r.append(row)
-        elif dark_adjusted[column][row] > dark_cut_5sigma:
+        elif (dark_adjusted[column][row] - dark_cut_median) > dark_cut_5sigma:
             hot_c.append(column)
             hot_r.append(row)
 bad_pixel_map = np.ones( (len(flat[0]), len(flat[1]) ) )
@@ -72,7 +72,7 @@ for i in range( len( hot_c ) ):
 print( 'Percent of pixels that are bad: %.2f' % ( 100 * 
     (len(dead_c) + len(hot_c)) / ( len(flat[0])**2 ) ) )
 
-# Save the master DARK minus the BIAS
+# Saving the Bad Pixel map
 print('Saving bad pixel map')
 map_write = fits.PrimaryHDU(bad_pixel_map)
 map_write.writeto(info['fitsSubdir']+info['badPixelMap'])
