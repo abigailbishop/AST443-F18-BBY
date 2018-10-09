@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 dataDir,/astrolab/Fall_18/ebiermann/AST443-F18-BBY-data/Lab1/
 rawDataSubdir,3-data/
 calImageSubdir,cal_images/
+=======
+dataDir,/astrolab/Fall_18/qyu/Lab1/data/
+>>>>>>> 5aea0a4e8efca1431b69ed37e0b839b4fdcc740d
 darkSubdir,5-darks/
 masterDark,masterDark.fits
 flatSubdir,4-flats_after/
