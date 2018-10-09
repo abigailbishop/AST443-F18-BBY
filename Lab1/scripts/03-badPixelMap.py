@@ -11,27 +11,35 @@ from astropy.io import fits
 from scipy import stats
 from scipy.stats import norm
 
+# Load constants
+info = {}
+for line in open('inputs.txt'):
+    li=line.strip()
+    if not li.startswith("#"):
+        data = [x.strip() for x in line.split(',')]
+        info[data[0]] = data[1]
+
 # Open files
-bias_f = fits.open('neg10BIAS_master.fits')
-bias = bias_f[0].data
-dark_f = fits.open('neg10DARK_adjusted.fits')
+dark_f = fits.open(info['fitsSubdir']+info['masterDark'])
 dark = dark_f[0].data
-flat_f = fits.open('flat_master.fits')
+flat_f = fits.open(info['fitsSubdir']+info['masterFlat'])
 flat = flat_f[0].data
 
 # Obtain information for dead pixels
-bias_flat = bias.flatten()
-bias_flat_sigclip = stats.sigmaclip(bias_flat, 5.0, 5.0)
-bias_flat_cut = bias_flat_sigclip[0]
-bias_cut_min = bias_flat_sigclip[1]
-bias_cut_max = bias_flat_sigclip[2]
-bias_cut_mean = np.mean(bias_flat_cut)
-bias_cut_mode = stats.mode(bias_flat_cut)[0][0]
-bias_cut_stddev = np.std(bias_flat_cut)
-bias_cut_5sigma = 5 * bias_cut_stddev
+print('Analyzing flat field for dead pixel info')
+flat_flat = flat.flatten()
+flat_flat_sigclip = stats.sigmaclip(flat_flat, 5.0, 5.0)
+flat_flat_cut = flat_flat_sigclip[0]
+flat_cut_min = flat_flat_sigclip[1]
+flat_cut_max = flat_flat_sigclip[2]
+flat_cut_mean = np.mean(flat_flat_cut)
+flat_cut_mode = stats.mode(flat_flat_cut)[0][0]
+flat_cut_stddev = np.std(flat_flat_cut)
+flat_cut_5sigma = 5 * flat_cut_stddev
 
 # Obtain information for hot pixels
-dark_adjusted = dark - bias
+print('Analyzing dark field for hot pixel info')
+dark_adjusted = dark - flat
 dark_adjusted_flat = dark_adjusted.flatten()
 dark_flat_sigclip = stats.sigmaclip(dark_adjusted_flat, 5.0, 5.0)
 dark_flat_cut = dark_flat_sigclip[0]
@@ -43,26 +51,28 @@ dark_cut_stddev = np.std(dark_flat_cut)
 dark_cut_5sigma = 5 * dark_cut_stddev
 
 # Identify hot and dead pixels
+print('Creating bad pixel map')
 dead_c = []
 dead_r = []
 hot_c = []
 hot_r = []
-for column in range( len( bias[0] ) ):
-    for row in range( len( bias[1] ) ):
-        if bias[column][row] < bias_cut_5sigma:
+for column in range( len( flat[0] ) ):
+    for row in range( len( flat[1] ) ):
+        if flat[column][row] < flat_cut_5sigma:
             dead_c.append(column)
             dead_r.append(row)
         elif dark_adjusted[column][row] > dark_cut_5sigma:
             hot_c.append(column)
             hot_r.append(row)
-bad_pixel_map = np.ones( (len(bias[0]), len(bias[1]) ) )
+bad_pixel_map = np.ones( (len(flat[0]), len(flat[1]) ) )
 for i in range( len( dead_c ) ):
     bad_pixel_map[dead_c[i]][dead_r[i]] = 0
 for i in range( len( hot_c ) ): 
     bad_pixel_map[hot_c[i]][hot_r[i]] = 0
 print( 'Percent of pixels that are bad: %.2f' % ( 100 * 
-    (len(dead_c) + len(hot_c)) / ( len(bias[0])**2 ) ) )
+    (len(dead_c) + len(hot_c)) / ( len(flat[0])**2 ) ) )
 
 # Save the master DARK minus the BIAS
+print('Saving bad pixel map')
 map_write = fits.PrimaryHDU(bad_pixel_map)
-map_write.writeto('bad_pixel_map.fits')
+map_write.writeto(info['fitsSubdir']+info['badPixelMap'])

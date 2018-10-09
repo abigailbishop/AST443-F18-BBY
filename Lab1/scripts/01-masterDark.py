@@ -32,7 +32,7 @@ for dark in darks:
 # Create the Dark Master Frame
 dark_master = np.median(darks_data, axis=0)
 master_write = fits.PrimaryHDU(dark_master)
-master_write.writeto(info['fitsFiles']+info['masterDark'])
+master_write.writeto(info['fitsSubdir']+info['masterDark'])
 
 # Unclipped Data Statistical Properties
 dark_master_flat = dark_master.flatten()

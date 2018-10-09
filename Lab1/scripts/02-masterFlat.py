@@ -28,10 +28,6 @@ flats_data = []
 for flat in flats:
     flats_data.append(flat[0].data)
 
-# Open master dark
-dark = fits.open(info['darkSubdir']+info['masterDark'])
-dark_data = dark[0].data
-
 # Average the flats and remove the bias
 flat_avg = np.median( flats_data, axis=0 )
 flat_avg_mode = stats.mode(flat_avg.flatten())[0][0]
@@ -43,7 +39,7 @@ for column in range(flat_avg_shape[1]):
 
 # Save the Master flat
 master_write = fits.PrimaryHDU(flat_avgnorm)
-#master_write.writeto('flat_master.fits')
+master_write.writeto(info['fitsSubdir']+info['masterFlat'])
 
 # Histogram of counts in the master flat field
 flat_avgnorm_flat = flat_avgnorm.flatten()
@@ -79,5 +75,5 @@ ax.set_ylim([0.1,1e6])
 gauss = norm.pdf(xgauss,loc=flat_avgnorm_mean, scale=flat_avgnorm_stddev)
 plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
-plt.savefig('flat_master_raw.pdf', ppi=300)
+plt.savefig(info['images']+'masterFlat.pdf', ppi=300)
 plt.clf()

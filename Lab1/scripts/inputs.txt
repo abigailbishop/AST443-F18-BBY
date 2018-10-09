@@ -4,4 +4,5 @@ masterDark,masterDark.fits
 flatSubdir,4-flats_after/
 masterFlat,masterFlat.fits
 images,../images/
-fitsFiles,../fitsFiles/
+fitsSubdir,../fitsFiles/
+badPixelMap,badPixelMap.fits
