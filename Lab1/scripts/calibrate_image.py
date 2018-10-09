@@ -29,26 +29,31 @@ mflat_dir = info['fitsSubdir'] + info['masterFlat']
 mflat = fits.open(mflat_dir)
 mflat_data = mflat[0].data
 
-bpm_dir = infor['fitsSubdir'] + info['badPixelMap']
+bpm_dir = info['fitsSubdir'] + info['badPixelMap']
 bpm = fits.open(bpm_dir)
 bpm_data = bpm[0].data
 
 # Open Image Files
-sci_dir = info['dataDir']
+sci_dir = info['dataDir'] + info['rawDataSubdir']
 files = open(sci_dir+'names.txt', 'r')
-images = []
+image_data = []
+fnames = []
 for line in files:
-    images.append(fits.open(sci_dir_line.strip('\n')))
-files.close()
+    image = fits.open(sci_dir + line.strip('\n'))
+    image_data.append(image[0].data)
+    fnames.append(line.strip('\n'))
+    image.close()
 
 # Calibrate and Save Images
+cal_image_dir = info['dataDir'] + info['calImageSubdir']
 i=0
-for image in images:
-    fname = files[i]
-    images_data = image[0].data
-    cal_image = (image_data - mdark_data) * bpm_data / mflat_data
+for image in image_data:
+    fname = fnames[i]
+    cal_image = (image - mdark_data) * bpm_data / mflat_data
     cal_image_write = fits.PrimaryHDU(cal_image)
-    cal_image_write.writeto(info['calImage'] + fname
+    cal_image_write.writeto(cal_image_dir + fname)
     i=i+1
+    
+files.close()
 
 
