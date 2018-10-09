@@ -1,0 +1,12 @@
+# Data Analysis for part 4.1
+# Calibrates Science Image (SI - Master_Dark) / Master_Flat
+# October 9, 2018
+
+# Imports
+import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+from astropy.io import fits
+from scipy import stats
+from scipy.stats import norm
