@@ -29,16 +29,11 @@ mflat_dir = info['fitsSubdir'] + info['masterFlat']
 mflat = fits.open(mflat_dir)
 mflat_data = mflat[0].data
 
-<<<<<<< HEAD
 bpm_dir = info['fitsSubdir'] + info['badPixelMap']
-=======
-bpm_dir = infor['fitsSubdir'] + info['badPixelMap']
->>>>>>> 5aea0a4e8efca1431b69ed37e0b839b4fdcc740d
 bpm = fits.open(bpm_dir)
 bpm_data = bpm[0].data
 
 # Open Image Files
-<<<<<<< HEAD
 sci_dir = info['dataDir'] + info['rawDataSubdir']
 files = open(sci_dir+'names.txt', 'r')
 image_data = []
