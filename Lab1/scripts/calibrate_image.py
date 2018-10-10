@@ -1,7 +1,7 @@
 # Data Analysis for part 4.1
 # Calibrates Science Image (SI - Master_Dark) / Master_Flat
 # October 9, 2018
-# NOTES: Need to check work on imports and save calibrated images
+# NOTES: Need calImage in constants, change to Emily's directory
 
 # Imports
 import numpy as np
@@ -20,25 +20,45 @@ for line in open('inputs.txt'):
         data = [x.strip() for x in line.split(',')]
         info[data[0]] = data[1]
 
-# Open Master Dark and Flat
+# Open Master Dark, Master Flat, Bad Pixel Map
 mdark_dir = info['fitsSubdir'] + info['masterDark']
-mdark = open(mdarkdir)
+mdark = fits.open(mdark_dir)
 mdark_data = mdark[0].data
 
 mflat_dir = info['fitsSubdir'] + info['masterFlat']
-mflat = open(mflat_dir)
+mflat = fits.open(mflat_dir)
 mflat_data = mflat[0].data
 
+<<<<<<< HEAD
+bpm_dir = info['fitsSubdir'] + info['badPixelMap']
+=======
+bpm_dir = infor['fitsSubdir'] + info['badPixelMap']
+>>>>>>> 5aea0a4e8efca1431b69ed37e0b839b4fdcc740d
+bpm = fits.open(bpm_dir)
+bpm_data = bpm[0].data
+
 # Open Image Files
-sci_dir = info['dataDir'] + info[]
+<<<<<<< HEAD
+sci_dir = info['dataDir'] + info['rawDataSubdir']
 files = open(sci_dir+'names.txt', 'r')
-images = []
+image_data = []
+fnames = []
 for line in files:
-    images.append(fits.open(sci_dir_line.strip('\n')))
+    image = fits.open(sci_dir + line.strip('\n'))
+    image_data.append(image[0].data)
+    fnames.append(line.strip('\n'))
+    image.close()
 
 # Calibrate and Save Images
-for image in images:
-    images_data = image[0].data
-    cal_image = (image_data - mdark_data) / mflat_data
+cal_image_dir = info['dataDir'] + info['calImageSubdir']
+i=0
+for image in image_data:
+    fname = fnames[i]
+    cal_image = (image - mdark_data) * bpm_data / mflat_data
+    cal_image_write = fits.PrimaryHDU(cal_image)
+    cal_image_write.writeto(cal_image_dir + fname)
+    i=i+1
+    
+files.close()
 
 
