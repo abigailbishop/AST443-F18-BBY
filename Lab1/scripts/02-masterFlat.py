@@ -77,3 +77,5 @@ plt.plot(xgauss, ygauss, color="red", linewidth=1.0)
 plt.plot(xmode, ymode, color="yellow", linewidth=1.0)
 plt.savefig(info['images']+'masterFlat.pdf', ppi=300)
 plt.clf()
+
+files.close()
