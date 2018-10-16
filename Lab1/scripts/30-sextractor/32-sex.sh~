@@ -1,0 +1,6 @@
+#! /bin/bash -u
+
+for file in $(ls)
+do
+    sex ${file} -c default.se -31-Lab1.cat ${file%%.*}.cat
+done
