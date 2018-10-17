@@ -1,3 +1,11 @@
 star_source.txt
 star_ref1.txt
 star_ref2.txt
+star_ref3.txt
+star_ref4.txt
+star_ref5.txt
+star_ref6.txt
+star_ref7.txt
+star_ref8.txt
+star_ref9.txt
+star_ref10.txt
