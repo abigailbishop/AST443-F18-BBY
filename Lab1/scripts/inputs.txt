@@ -11,4 +11,4 @@ badPixelMap,badPixelMap.fits
 sexImageSubdir,A2-cat_files/
 catFileSubdir,A3-cat_files/
 fluxSubdir,../fluxInfo/
-normFluxSubdir,../NORMfluxInfo
+normFluxSubdir,../NORMfluxInfo/

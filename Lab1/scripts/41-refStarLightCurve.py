@@ -17,21 +17,21 @@ for line in open('inputs.txt'):
 # Open light curve tables
 
 dataSubDir = info['fluxSubdir']
-outSubDir = info['normFluxSubdir']
+outSubDir = info['normFluxSubdir'] + 'NORM_'
 
 # get fnames
 files = open(dataSubDir + 'names.txt', 'r')
 fnames = []
-for line in files
-    fnames.append(line.strip('\n')
+for line in files:
+    fnames.append(line.strip('\n'))
 
 i=0
 for fname1 in fnames:
-    data = np.loadtxt(fname1)
-    imageNumber = data[0]
-    time = data[1]
-    flux = data[2]
-    sigFlux = data[3]
+    data = np.loadtxt(dataSubDir + fname1, delimiter=',', skiprows=1)
+    imageNumber = data[:,0]
+    time = data[:,1]
+    flux = data[:,2]
+    sigFlux = data[:,3]
 
     avgFlux = np.mean(flux)
     flux = flux/avgFlux
@@ -40,11 +40,12 @@ for fname1 in fnames:
     sigFlux = sigFlux/avgSig
     
     fname2 = outSubDir + fname1
-    numpy.savetxt(fname2, np.c_[imageNumver,time,flux,sigFlux])
+    np.savetxt(fname2, np.c_[imageNumber,time,flux,sigFlux])
     
     fname3 = outSubDir + fname1.strip('.txt') + '.png'
+    title = fname1.strip('.txt')
     plt.figure(i+1)
-    plt.title(r'Lightcurve of star', + str(i))
+    plt.title(title)
     plt.errorbar(time, flux, yerr=sigFlux, fmt='x', label=r'data')
     plt.xlabel(r'Time from Start [m]')
     plt.ylabel(r'Flux [count]')
