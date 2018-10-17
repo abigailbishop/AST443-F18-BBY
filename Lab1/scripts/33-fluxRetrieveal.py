@@ -10,7 +10,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 refs = []
-for line in open('ourStars.txt'):
+for line in open('33-ourStars.txt'):
     li=line.strip()
     if not li.startswith("#"):
         stars = [x.strip() for x in line.split(',')]
@@ -19,8 +19,12 @@ for line in open('ourStars.txt'):
         stars.append(stars[2])
     refs.append(stars)
 
+fileNames = open(info['fluxSubdir'] + "names.txt","w")
 for star in range(len(refs)):
-    file = open(info['fluxSubdir'] + "star_%s.txt" % (refs[star][0]),"w")
+    starFileName = "star_%s.txt" % (refs[star][0])
+    fileNames.write(starFileName+'\n')
+    print('Saving info from: ' + starFileName)
+    file = open(info['fluxSubdir'] + starFileName,"w")
     numFiles = 0
     time0 = 0 
     for i in range(379):
@@ -43,16 +47,29 @@ for star in range(len(refs)):
             pathToCats = (info['dataDir']+info['catFileSubdir']+
                       'data_00000{}.cat'.format(i) )
         if os.path.isfile(pathToFits) and os.path.isfile(pathToCats):
+            # Save Time Info
             date = fits.open(pathToFits)[0].header['TIME-OBS']
             time = float(date[:2])*60. + float(date[3:5]) + float(date[6:])/60.
             if numFiles == 0:
                 time0 = time
+                file.write("#file number,time from start,flux,flux error\n")
+            # Save Flux Info
             catalog = np.loadtxt(pathToCats)
-            print(date)
-            np.loadtxt(pathToCats)
-            flux=0
-            fluxErr=0
+            fluxes = []
+            fluxErres = []
+            for thing in catalog:
+                if ( (abs(thing[3]-float(refs[star][1])) < 0.05) and
+                     (abs(thing[4]-float(refs[star][2])) < 0.05) ):
+                    fluxes.append(thing[5])
+                    fluxErres.append(thing[6])
+            maxFlux = 0
+            maxFluxErr = 0
+            for n in range(len(fluxes)):
+                if fluxes[n] > maxFlux:
+                    maxFlux = fluxes[n]
+                    maxFluxErr = fluxErres[n]
             file.write("%s,%.6f,%i,%i\n" % (
-                       refs[star][0], time-time0, flux, fluxErr) )
+                       i, time-time0, maxFlux, maxFluxErr) )
             numFiles = numFiles + 1
     file.close()
+fileNames.close()
