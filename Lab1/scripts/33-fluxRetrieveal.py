@@ -4,6 +4,7 @@
 import numpy as np
 import os
 from astropy.io import fits
+import math
 
 # Import path and file name constants
 info = {}
@@ -69,8 +70,9 @@ for star in range(len(refs)):
             fluxes = []
             fluxErres = []
             for thing in catalog:
-                if ( (abs(thing[3]-float(refs[star][1])) < 0.05) and
-                     (abs(thing[4]-float(refs[star][2])) < 0.05) ):
+                if ( math.sqrt( (thing[3]-float(refs[star][1]))*
+                                  math.cos(thing[4]/180*math.pi)**2 + 
+                     (thing[4]-float(refs[star][2]))**2) < 0.01 ):
                     fluxes.append(thing[5])
                     fluxErres.append(thing[6])
             # If we found more than one thing close to where we expected the 
