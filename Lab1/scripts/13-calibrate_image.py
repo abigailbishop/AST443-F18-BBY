@@ -1,7 +1,6 @@
 # Data Analysis for part 4.1
 # Calibrates Science Image (SI - Master_Dark) / Master_Flat
 # October 9, 2018
-# NOTES: Need calImage in constants, change to Emily's directory
 
 # Imports
 import numpy as np
