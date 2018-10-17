@@ -26,17 +26,19 @@ for line in open('33-ourStars.txt'):
 
 #Loop over every stat in 33-ourStars.txt
 fileNames = open(info['fluxSubdir'] + "names.txt","w")
+time0 = 0 
+saveData = [[] for i in range(380)]
+openFiles = []
 for star in range(len(refs)):
     # Get file name and save it. Open save-to file
     starFileName = "star_%s.txt" % (refs[star][0])
     fileNames.write(starFileName+'\n')
     print('Saving info from: ' + refs[star][0])
-    file = open(info['fluxSubdir'] + starFileName,"w")
+    openFiles.append(open(info['fluxSubdir'] + starFileName,"w"))
 
     # Loop over every exposure for flux and time
     numFiles = 0
-    time0 = 0 
-    for i in range(379):
+    for i in range(len(saveData)):
         # Determines path to catalog and fits file
         catalog = None
         pathToFits = None
@@ -74,9 +76,8 @@ for star in range(len(refs)):
             # If we found more than one thing close to where we expected the 
             #   star to be, then we save information from this exposure
             if len(fluxes) > 0 :
-                if numFiles == 0:
+                if (numFiles == 0 and star==0):
                     time0 = time
-                    file.write("#file number,time from start,flux,flux error\n")
                 maxFlux = 0
                 maxFluxErr = 0
                 # If more than one objects were found, pull the one with
@@ -85,8 +86,17 @@ for star in range(len(refs)):
                     if fluxes[n] > maxFlux:
                         maxFlux = fluxes[n]
                         maxFluxErr = fluxErres[n]
-                file.write("%s,%.6f,%i,%i\n" % (
-                       i, time-time0, maxFlux, maxFluxErr) )
+                saveData[i].append( [i, time-time0, maxFlux, maxFluxErr] )
                 numFiles = numFiles + 1
-    file.close()
+
+for fileI in openFiles:
+    fileI.write("#file number,time from start,flux,flux error\n")
+
+for i in range(len(saveData)):
+     if len(saveData[i]) == len(refs):
+         for star in range(len(refs)):
+             openFiles[star].write("%s,%.6f,%i,%i\n" % (saveData[i][star][0], 
+               saveData[i][star][1],saveData[i][star][2],saveData[i][star][3]))
+for fileI in openFiles:
+    fileI.close()
 fileNames.close()
