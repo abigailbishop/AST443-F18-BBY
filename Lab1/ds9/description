@@ -1,0 +1,13 @@
+determine extraction aperture
+
+As shown in the screenshot, a circle with radius of 4.5 pixels is able to encompass most of the star's light.
+Extraction aperture = 2 * radius of circle
+
+--------------
+
+determine_reference_stars
+
+x axis = number of objects
+y axis = count values of an individual object
+The blue dot indicates our target.
+10 reference stars are chosen based on its closeness (in terms of count values) with respect to our target
