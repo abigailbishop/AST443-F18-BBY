@@ -52,7 +52,7 @@ for image in range(len(times[0])):
     meanStdDev = 0
     meanWeightNum = 0
     meanWeightDen = 0
-    for i in range(len(fluxs)):
+    for i in range(1,len(fluxs)):
         meanWeightNum = meanWeightNum + fluxs[i][image]/(fluxErrs[i][image]**2)
         meanWeightDen = meanWeightDen + 1/(fluxErrs[i][image]**2)
     meanWeight = meanWeightNum / meanWeightDen
