@@ -27,26 +27,25 @@ for line in files:
     fnames.append(line.strip('\n'))
 
 print('Pulling fluxes and times from other files')
-imageNums = [[] for i in range(len(fnames))]
-times = [[] for i in range(len(fnames))]
-fluxs = [[] for i in range(len(fnames))]
-fluxErrs = [[] for i in range(len(fnames))]
+imageNums = []
+times = []
+fluxs = []
+fluxErrs = []
 for fname1 in range(len(fnames)):
     data = np.loadtxt(dataSubDir + fnames[fname1], delimiter=',', skiprows=1)
-    imageNums[fname1].append(data[:,0])
-    times[fname1].append(data[:,1])
-    fluxs[fname1].append(data[:,2])
-    fluxErrs[fname1].append(data[:,3])
+    imageNums.append(data[:,0])
+    times.append(data[:,1])
+    fluxs.append(data[:,2])
+    fluxErrs.append(data[:,3])
 
 # Weighted Mean and std dev
 print('Calculating for each exposure')
 saveFile = open(info['normFluxSubdir'] + 'weightedAvgs.txt', 'w')
 saveFile.write('#Time,flux,errFlux,weightMean,errWeightMean,ratio,ratioErr\n')
-print(len(times[0]))
 for image in range(len(times[0])):
     time = times[0][image]
     if image % 50 == 0:
-        print(time)
+        print(image)
     fluxSource = fluxs[0][image]
     fluxErrSource = fluxErrs[0][image]
     meanWeight = 0
@@ -56,8 +55,6 @@ for image in range(len(times[0])):
     for i in range(len(fluxs)):
         meanWeightNum = meanWeightNum + fluxs[i][image]/(fluxErrs[i][image]**2)
         meanWeightDen = meanWeightDen + 1/(fluxErrs[i][image]**2)
-    print(meanWeightNum)
-    print(meanWeightDen)
     meanWeight = meanWeightNum / meanWeightDen
     meanStdDev = math.sqrt(1 / meanWeightDen)
     ratio = fluxSource / meanWeight
@@ -65,6 +62,6 @@ for image in range(len(times[0])):
                  (ratio * meanStdDev)**2 )
 
     saveFile.write("%i,%.6f,%i,%i,%.6f,%.6f,%.6f,%.6f\n" % (
-               imageNums[image], time, fluxSource, fluxErrSource, meanWeight, 
+               imageNums[0][image], time, fluxSource, fluxErrSource, meanWeight,
                meanStdDev, ratio, ratioErr ) )
 saveFile.close
