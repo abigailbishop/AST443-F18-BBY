@@ -41,7 +41,8 @@ for fname1 in range(len(fnames)):
 # Weighted Mean and std dev
 print('Calculating for each exposure')
 saveFile = open(info['normFluxSubdir'] + 'weightedAvgs.txt', 'w')
-saveFile.write('#Time,flux,errFlux,weightMean,errWeightMean,ratio,ratioErr\n')
+saveFile.write(
+      '#Filenum,Time,flux,errFlux,weightMean,errWeightMean,ratio,ratioErr\n')
 for image in range(len(times[0])):
     time = times[0][image]
     if image % 50 == 0:

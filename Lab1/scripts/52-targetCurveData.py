@@ -27,34 +27,30 @@ stdDevs = weighted[:,5]
 ratios = weighted[:,6]
 ratioErrs = weighted[:,7]
 
-# Weight the target flux
+# Average the ratios
 numFiles = 0
 avgRatios = 0
-avgRatioErrs = 0
-for image in range(len(times)):
-    if (fileNums[image] < 105 or fileNums[image] > 310):
+#badImages = ( [2] + range(35, 45) + [66, 67] + range(77, 95) + range(109,134) +
+#     range(161, 179) + range(226, 229) + [243] + range(251, 356) + 
+#     range(368, 379) ) 
+badImages = ( [2, 66, 67] + range(77,95) + range(226,229) + [243] )
+for image in range(len(fileNums)):
+    if ((fileNums[image] < 105 or fileNums[image] > 310) and 
+        (fileNums[image] not in badImages) ):
         avgRatios = avgRatios + ratios[image]
-        avgRatioErrs = avgRatioErrs + ratios[image]
         numFiles = numFiles + 1
-avgFluxSource = avgFluxSource/numFiles
-meanWeight = meanWeightNum / meanWeightDen
-meanStdDev = math.sqrt(1 / meanWeightDen)
+avgRatios = avgRatios / numFiles
 for image in range(len(times)):
-    fluxs[image] = fluxs[image] / avgFluxSource
-    fluxErrs[image] = fluxErrs[image] / avgFluxSource
-print(fluxs[3])
-print(fluxErrs[3])
-print(avgFluxSource)
+    ratios[image] = ratios[image] / avgRatios
+    ratioErrs[image] = ratioErrs[image] / avgRatios
+print(ratios[3])
+print(ratioErrs[3])
 
-# Normalize ratios to the baseline flux
+# Normalize ratios to the baseline ratio
 saveFile = open(info['normFluxSubdir'] + 'dataFinal-normToSource.txt', 'w')
 saveFile.write('#ImageNum,Time,NormRi,NormSigRi\n')
-for image in range(len(times)):
-    ratiosNew = (ratios[image] / fluxs[image])
-    ratioErrsNew = ( ratiosNew * math.sqrt( 
-        (ratioErrs[image]/ratios[image])**2 + 
-        (fluxErrs[image]/fluxs[image])**2 ) )
-    if ratiosNew < 0.0001:
+for image in range(len(fileNums)):
+    if (ratios[image] < 2 and (fileNums[image] not in badImages)):
         saveFile.write('%d,%.6f,%.6f,%.6f\n' % (
-                   fileNums[image], times[image], ratiosNew, ratioErrsNew ) )
+            fileNums[image], times[image], ratios[image], ratioErrs[image]))
 saveFile.close()
