@@ -1,9 +1,9 @@
-dataDir,/astrolab/Fall_18/ebiermann/AST443-F18-BBY-data/Lab1/
+dataDir,/astrolab/Fall_18/ebiermann/Lab1_archive/
 rawDataSubdir,3-data/
 calImageSubdir,A1-cal_images/
-darkSubdir,5-darks/
+darkSubdir,1-darks/
 masterDark,masterDark.fits
-flatSubdir,4-flats_after/
+flatSubdir,2-flats/
 masterFlat,masterFlat.fits
 images,../images/
 fitsSubdir,../fitsFiles/
