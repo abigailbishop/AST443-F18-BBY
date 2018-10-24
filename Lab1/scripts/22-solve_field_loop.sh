@@ -1,6 +1,6 @@
 #! /bin/bash -u
 
-for file in $(ls /astrolab/Fall_18/ebiermann/AST443-F18-BBY-data/Lab1/A1-cal_images/*)
+for file in $(ls /astrolab/Fall_18/ebiermann/Lab1_archive/A1-cal_images/unsolved/*)
 do
-    solve-field --ra 348.5 --dec 8.70 --radius 0.5 --continue ${file}
+    solve-field --ra 300.1833 --dec 22.7108 --radius 0.5 --continue ${file}
 done

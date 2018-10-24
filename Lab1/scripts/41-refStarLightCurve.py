@@ -36,8 +36,7 @@ for fname1 in fnames:
     avgFlux = np.mean(flux)
     flux = flux/avgFlux
     
-    avgSig = np.mean(sigFlux)
-    sigFlux = sigFlux/avgSig
+    sigFlux = sigFlux/avgFlux
     
     fname2 = outSubDir + fname1
     np.savetxt(fname2, np.c_[imageNumber,time,flux,sigFlux])
