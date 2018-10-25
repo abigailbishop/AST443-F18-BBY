@@ -38,8 +38,8 @@ for fname1 in fnames:
     
     sigFlux = sigFlux/avgFlux
     
-    fname2 = outSubDir + fname1
-    np.savetxt(fname2, np.c_[imageNumber,time,flux,sigFlux])
+    #fname2 = outSubDir + fname1
+    #np.savetxt(fname2, np.c_[imageNumber,time,flux,sigFlux])
     
     fname3 = outSubDir + fname1.strip('.txt') + '.png'
     title = fname1.strip('.txt')
