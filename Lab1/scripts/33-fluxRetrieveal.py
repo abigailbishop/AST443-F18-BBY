@@ -39,26 +39,33 @@ for star in range(len(refs)):
 
     # Loop over every exposure for flux and time
     numFiles = 0
+    j = 26
     for i in range(len(saveData)):
+        j=j+1
         # Determines path to catalog and fits file
         catalog = None
         pathToFits = None
         pathToCats = None
-        if i < 10 :
+        #if j < 10 :
+        #    pathToFits = (info['dataDir']+info['rawDataSubdir']+
+        #              'hd189733.0000000{}.FIT'.format(i)) 
+        #    pathToCats = (info['dataDir']+info['catFileSubdir']+
+        #              'hd189733_0000000{}.cat'.format(i) )
+        if j < 100 :
             pathToFits = (info['dataDir']+info['rawDataSubdir']+
-                      'data_.0000000{}.FIT'.format(i)) 
+                      'hd189733.000000{}.FIT'.format(i)) 
             pathToCats = (info['dataDir']+info['catFileSubdir']+
-                      'data_0000000{}.cat'.format(i) )
-        elif i < 100 :
+                      'hd189733_000000{}.cat'.format(i) )
+        elif j < 1000 :
             pathToFits = (info['dataDir']+info['rawDataSubdir']+
-                      'data_.000000{}.FIT'.format(i)) 
+                      'hd189733.00000{}.FIT'.format(i)) 
             pathToCats = (info['dataDir']+info['catFileSubdir']+
-                      'data_000000{}.cat'.format(i) )
+                      'hd189733_00000{}.cat'.format(i) )
         else: 
-            pathToFits = (info['dataDir']+info['rawDataSubdir']+
-                      'data_.00000{}.FIT'.format(i)) 
-            pathToCats = (info['dataDir']+info['catFileSubdir']+
-                      'data_00000{}.cat'.format(i) )
+             pathToFits = (info['dataDir']+info['rawDataSubdir']+
+                      'hd189733.0000{}.FIT'.format(i)) 
+             pathToCats = (info['dataDir']+info['catFileSubdir']+
+                      'hd189733_0000{}.cat'.format(i) )
         # If both the fits file and the catalog exist, analyze it
         if os.path.isfile(pathToFits) and os.path.isfile(pathToCats):
             # Save Time of exposure

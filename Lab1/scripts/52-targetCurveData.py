@@ -33,10 +33,9 @@ avgRatios = 0
 #badImages = ( [2] + range(35, 45) + [66, 67] + range(77, 95) + range(109,134) +
 #     range(161, 179) + range(226, 229) + [243] + range(251, 356) + 
 #     range(368, 379) ) 
-badImages = ( [2, 66, 67] + range(77,95) + range(226,229) + [243] )
+#badImages = ( [2, 66, 67] + range(77,95) + range(226,229) + [243] )
 for image in range(len(fileNums)):
-    if ((fileNums[image] < 105 or fileNums[image] > 310) and 
-        (fileNums[image] not in badImages) ):
+    if ((fileNums[image] < 700 or fileNums[image] > 2000)):
         avgRatios = avgRatios + ratios[image]
         numFiles = numFiles + 1
 avgRatios = avgRatios / numFiles
@@ -50,7 +49,7 @@ print(ratioErrs[3])
 saveFile = open(info['normFluxSubdir'] + 'dataFinal-normToSource.txt', 'w')
 saveFile.write('#ImageNum,Time,NormRi,NormSigRi\n')
 for image in range(len(fileNums)):
-    if (ratios[image] < 2 and (fileNums[image] not in badImages)):
+    if (ratios[image] < 2): #and (fileNums[image] not in badImages)):
         saveFile.write('%d,%.6f,%.6f,%.6f\n' % (
             fileNums[image], times[image], ratios[image], ratioErrs[image]))
 saveFile.close()

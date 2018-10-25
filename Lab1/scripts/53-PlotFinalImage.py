@@ -18,7 +18,7 @@ imageNums = data[:,0]
 times = data[:,1]
 ratios = data[:,2]
 ratioErrs = data[:,3]
-
+'''
 # Bin data
 timesBinned = range(0,int(max(times)), 5)
 ratiosBinned = [0]*len(timesBinned)
@@ -30,9 +30,10 @@ for ratio in range(len(ratiosBinned)):
     if numImagesBinned[ratio] > 1:
         ratiosBinned[ratio] = ratiosBinned[ratio] / numImagesBinned[ratio]
 #plt.errorbar(timesBinned, ratiosBinned, fmt='x')
+'''
 
 # Plot the plot
-plt.errorbar(imageNums, ratios, fmt='x')
+plt.errorbar(times, ratios, fmt='x')
 #plt.errorbar(imageNums, ratios, yerr=ratioErrs, fmt='x')
 plt.ylim(0,2)
 plt.title('Light Curve of Target')
