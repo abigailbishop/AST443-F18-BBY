@@ -26,9 +26,10 @@ for line in open('33-ourStars.txt'):
     refs.append(stars)
 
 #Loop over every stat in 33-ourStars.txt
+numExposures = 2700
 fileNames = open(info['fluxSubdir'] + "names.txt","w")
 time0 = 0 
-saveData = [[] for i in range(380)]
+saveData = [[] for i in range(numExposures)]
 openFiles = []
 for star in range(len(refs)):
     # Get file name and save it. Open save-to file
