@@ -1,0 +1,2 @@
+R_planet / R_star: 0.215645
+^^ Error: 0.000070

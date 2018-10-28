@@ -39,15 +39,16 @@ for image in range(len(imageNums)):
         radiusNumValues[2] += 1
         radiusFluxs[2] += ratios[image]
         radiusFluxErrs[2] += ratioErrs[image]**2
-print(radiusFluxs)
 for i in range(len(radiusNumValues)):
     radiusFluxs[i] = radiusFluxs[i] / radiusNumValues[i]
     radiusFluxErrs[i] = radiusFluxErrs[i]**0.5 / radiusNumValues[i]
 # NOTE the below calculations are based on only the flux before the transit
 #   as the data after the transit looks unreliable
-radiusFrac = ( 1 - radiusFluxs[1]/radiusFluxs[0] )**0.5
-radiusFracErr = ( 0.5 * radiusFrac**0.5 * 
+radiusFrac = ( radiusFluxs[0] - radiusFluxs[1] )**0.5
+radiusFracErr = ( radiusFrac**0.5 * 
     ( (radiusFluxErrs[0]/radiusFluxs[0])**2 + 
       (radiusFluxErrs[1]/radiusFluxs[1])**2 )**0.5 ) 
-print( 'Radius Fraction: ', radiusFrac )
-print( 'Radius Fraction Error: ', radiusFracErr )
+save = open('../finalRadius.txt', 'w')
+save.write( 'R_planet / R_star: %f\n' % radiusFrac )
+save.write( '^^ Error: %f\n' % radiusFracErr )
+save.close()
