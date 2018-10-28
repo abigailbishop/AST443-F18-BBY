@@ -18,26 +18,33 @@ imageNums = data[:,0]
 times = data[:,1]
 ratios = data[:,2]
 ratioErrs = data[:,3]
-'''
+
 # Bin data
-timesBinned = range(0,int(max(times)), 5)
+dt = 10       # Binning time interval in Minutes
+maxTime = int( max(times) + 2*dt - max(times)%dt )
+timesBinned = range(0,maxTime, dt)
 ratiosBinned = [0]*len(timesBinned)
+ratioErrsBinned = [0]*len(timesBinned)
 numImagesBinned = [0]*len(timesBinned)
 for image in range(len(imageNums)):
-    ratiosBinned[int(image/5)] = ratiosBinned[int(image/5)] + ratios[image]
-    numImagesBinned[int(image/5)] = numImagesBinned[int(image/5)] + 1
+    index = int(times[image]/dt)
+    ratiosBinned[index] = ratiosBinned[index] + ratios[image] 
+    ratioErrsBinned[index] = ratioErrsBinned[index] + ratioErrs[image]**2
+    numImagesBinned[index] = numImagesBinned[index] + 1
 for ratio in range(len(ratiosBinned)):
     if numImagesBinned[ratio] > 1:
         ratiosBinned[ratio] = ratiosBinned[ratio] / numImagesBinned[ratio]
-#plt.errorbar(timesBinned, ratiosBinned, fmt='x')
-'''
+        ratioErrsBinned[ratio] = ( ratioErrsBinned[ratio]**0.5
+            / numImagesBinned[ratio] )
+plt.errorbar(timesBinned, ratiosBinned, yerr=ratioErrsBinned, fmt='x')
+
 
 # Plot the plot
-plt.errorbar(times, ratios, fmt='x')
+#plt.errorbar(times, ratios, fmt='x')
 #plt.errorbar(imageNums, ratios, yerr=ratioErrs, fmt='x')
-plt.ylim(0,2)
+plt.ylim(0.93,1.07)
 plt.title('Light Curve of Target')
-#plt.xlabel('Time from start (minutes)')
-plt.xlabel('File Number')
+plt.xlabel('Time from start (minutes)')
+#plt.xlabel('File Number')
 plt.ylabel('Relative Brightness')
 plt.savefig('../lightCurve-Final.pdf', ppi=300)
