@@ -10,6 +10,35 @@
 
 -  Image of target with aperture
 
--  Image of circled source stars, red is target, greed is reference
+-  Image of circled source stars, red is target, green is reference
 
--  Light curve of all reference stars
+-  Light curve of one ref star
+
+-  Light curve of ref star 9, removed from analysis
+
+-  Baseline flux (see lab man for equations)
+      After transit not good data, use pre-transit to calculate
+      Pre transit, flux= 1.01498 +/- 0.00007
+      During transit, flux= 0.9685 +/- 0.0001
+    
+      Error: individual ratios, sum of squares: 
+              sig_ri = sqrt[ (sig_f/f)^2 + (sig_mu/mu)^2 ]
+
+             Uncertainty on the average (cited above):
+               sig_ravg = sqrt[ sum_N( sig_ri^2 ) ] / N
+
+-   Image of normalized transit depth (see calculation steps in 4.5)
+
+-   Transit Depth = 0.0465 p/m 0.0001
+      depth = f_before - f_transit
+      sig_d = sqrt[ (sig_fb)^2 + (sig_ft)^2 ]
+
+-   Planet-to-Star Radius Ratio = 0.2156 p/m 0.0003
+      R = sqrt[depth]
+      sig_R = sig_d / (2sqrt[d])
+
+-   Transit duration
+
+-   Ingress: 
+
+-   Egress

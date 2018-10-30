@@ -39,6 +39,7 @@ for image in range(len(fileNums)):
         avgRatios = avgRatios + ratios[image]
         numFiles = numFiles + 1
 avgRatios = avgRatios / numFiles
+
 for image in range(len(times)):
     ratios[image] = ratios[image] / avgRatios
     ratioErrs[image] = ratioErrs[image] / avgRatios
