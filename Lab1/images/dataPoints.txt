@@ -1,0 +1,15 @@
+-  StarAlt with transit times predictions, SIMBAD
+
+-  Master Dark distribution to explain why median combine is better
+
+-  Flats, no need to include distribution but do include calibration eqn
+
+-  Report one bad pixel
+
+-  Cite Astrometry.net, align images with WCS
+
+-  Image of target with aperture
+
+-  Image of circled source stars, red is target, greed is reference
+
+-  Light curve of all reference stars
