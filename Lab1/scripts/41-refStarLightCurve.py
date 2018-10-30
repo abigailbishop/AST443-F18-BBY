@@ -41,13 +41,13 @@ for fname1 in fnames:
     #fname2 = outSubDir + fname1
     #np.savetxt(fname2, np.c_[imageNumber,time,flux,sigFlux])
     
-    fname3 = outSubDir + fname1.strip('.txt') + '.png'
+    fname3 = outSubDir + fname1.strip('.txt') + '.pdf'
     title = fname1.strip('.txt')
     plt.figure(i+1)
     plt.title(title)
     plt.errorbar(time, flux, yerr=sigFlux, fmt='x', label=r'data')
     plt.xlabel(r'Time from Start [m]')
     plt.ylabel(r'Flux [count]')
-    plt.savefig(fname3,format='png',dpi=1000,bbox_inches='tight')
+    plt.savefig(fname3,format='pdf',dpi=1000,bbox_inches='tight')
     i=i+1
 
