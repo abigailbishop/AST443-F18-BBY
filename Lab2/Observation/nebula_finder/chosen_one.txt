@@ -1,0 +1,9 @@
+Planetary Nebula: Blue Snowball
+NAME(AAVSO) RA DEC AZ ALT V 
+7662 351.47 42.32 4.60 88.48 8.6 
+
+Star: * omiAnd
+NAME(AAVSO) Type RA DEC
+2257+41 B6 23h01m55.27s +42d19m33.69s
+
+
