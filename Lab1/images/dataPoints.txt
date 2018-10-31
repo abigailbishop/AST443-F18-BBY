@@ -37,8 +37,10 @@
       R = sqrt[depth]
       sig_R = sig_d / (2sqrt[d])
 
--   Transit duration
+-   Predicted Transit duration: 2h1m10.9s (or 2.01968h)
 
--   Ingress: 
+-   Predicted Ingress: 9:52:59.9226 (local)
 
--   Egress
+-   Predicted Mid-Transit Time: 10:53:35.379 (local)
+
+-   Predicted Egress: 11:54:10.8444(local)
