@@ -1,2 +1,5 @@
 R_planet / R_star: 0.215645
 ^^ Error: 0.000070
+preTransit: 1.014978 +- 0.000073
+inTransit: 0.968476 +- 0.000128
+afterTransit: 0.978665 +- 0.000085
