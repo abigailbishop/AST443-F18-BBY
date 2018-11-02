@@ -31,6 +31,8 @@ fileNames = open(info['fluxSubdir'] + "names.txt","w")
 time0 = 0 
 saveData = [[] for i in range(numExposures)]
 openFiles = []
+badImages = []+range(2300,2600)
+fluxAccuracy = 0.1  # Fractional deviation allowed btwn subsequent fluxes
 for star in range(len(refs)):
     # Get file name and save it. Open save-to file
     starFileName = "star_%s.txt" % (refs[star][0])
@@ -40,7 +42,8 @@ for star in range(len(refs)):
 
     # Loop over every exposure for flux and time
     numFiles = 0
-    j = 26
+    j = 26    # excludes darks from data analysis
+    oldFlux = 0
     for i in range(len(saveData)):
         j=j+1
         # Determines path to catalog and fits file
@@ -96,6 +99,13 @@ for star in range(len(refs)):
                     if fluxes[n] > maxFlux:
                         maxFlux = fluxes[n]
                         maxFluxErr = fluxErres[n]
+                # BIG NOTE: This assumes the first exposure is GOOD
+                if numFiles == 0: 
+                    oldFlux = maxFlux
+                if abs(maxFlux - oldFlux)/oldFlux < fluxAccuracy: 
+                    oldFlux = maxFlux
+                else:
+                    badImages.append(i)
                 saveData[i].append( [i, time-time0, maxFlux, maxFluxErr] )
                 numFiles = numFiles + 1
 
@@ -110,3 +120,6 @@ for i in range(len(saveData)):
 for fileI in openFiles:
     fileI.close()
 fileNames.close()
+
+# Save bad exposures
+np.savetxt(info['fluxSubdir'] + 'badImages.txt', badImages, fmt='%i')

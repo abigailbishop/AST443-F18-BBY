@@ -20,13 +20,15 @@ ratios = data[:,2]
 ratioErrs = data[:,3]
 
 # Calculate radius by averaging values in key regions
-radiusTimes = [100, 145, 175, 200]
-    # index: 0=preTransit, 1=beginTransit, 2=endTransit, 3=postTransit
+radiusTimes = [120, 140, 215, 215]
+    # index: 0=preTransitEnd, 1=beginTransit, 2=endTransit, 3=postTransitBegin
 radiusNumValues = [0]*( len(radiusTimes) - 1 )
     # index: 0=preTransit, 1=InTransit, 2=afterTransit
 radiusFluxs = [0]*( len(radiusTimes) - 1 )
 radiusFluxErrs = [0]*( len(radiusTimes) - 1 )
 for image in range(len(imageNums)):
+    if times[image] > 250:
+        continue
     if times[image] < radiusTimes[0]:
         radiusNumValues[0] += 1
         radiusFluxs[0] += ratios[image]
@@ -44,11 +46,17 @@ for i in range(len(radiusNumValues)):
     radiusFluxErrs[i] = radiusFluxErrs[i]**0.5 / radiusNumValues[i]
 # NOTE the below calculations are based on only the flux before the transit
 #   as the data after the transit looks unreliable
-radiusFrac = ( radiusFluxs[0] - radiusFluxs[1] )**0.5
-radiusFracErr = ( radiusFrac**0.5 * 
-    ( (radiusFluxErrs[0]/radiusFluxs[0])**2 + 
-      (radiusFluxErrs[1]/radiusFluxs[1])**2 )**0.5 ) 
-save = open('../finalRadius.txt', 'w')
-save.write( 'R_planet / R_star: %f\n' % radiusFrac )
-save.write( '^^ Error: %f\n' % radiusFracErr )
+depth = radiusFluxs[0] - radiusFluxs[1]
+depthErr = ( radiusFluxErrs[0]**2 + radiusFluxErrs[1]**2 )**0.5
+radiusFrac = depth**0.5
+radiusFracErr = depthErr / depth**0.5 * 0.5 
+save = open(info['images'] + 'finalRadius.txt', 'w')
+save.write('Depth: %f +- %f\n' % (depth, depthErr) )
+save.write('R_planet / R_star: %f +- %f\n' % (radiusFrac, radiusFracErr) )
+save.write('preTransit: %f +- %f\n' % (radiusFluxs[0], radiusFluxErrs[0]) )
+save.write('inTransit: %f +- %f\n' % (radiusFluxs[1], radiusFluxErrs[1]) )
+save.write('afterTransit: %f +- %f\n' % (radiusFluxs[2], radiusFluxErrs[2]) )
 save.close()
+
+# Print out the data to the screen
+    # index: 0=preTransit, 1=InTransit, 2=afterTransit

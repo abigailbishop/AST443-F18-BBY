@@ -43,12 +43,20 @@ print('Calculating for each exposure')
 saveFile = open(info['normFluxSubdir'] + 'weightedAvgs.txt', 'w')
 saveFile.write(
       '#Filenum,Time,flux,errFlux,weightMean,errWeightMean,ratio,ratioErr\n')
+# Loops over all exposures
+badImages = np.loadtxt(info['fluxSubdir'] + 'badImages.txt')
 for image in range(len(times[0])):
+    if imageNums[0][image] in badImages:
+        continue
     time = times[0][image]
     if image % 50 == 0:
         print(image)
+
+    # Flux of the source
     fluxSource = fluxs[0][image]
     fluxErrSource = fluxErrs[0][image]
+
+    # Loops over the reference stars to get their weighted average
     meanWeight = 0
     meanStdDev = 0
     meanWeightNum = 0
@@ -58,6 +66,8 @@ for image in range(len(times[0])):
         meanWeightDen = meanWeightDen + 1/(fluxErrs[i][image]**2)
     meanWeight = meanWeightNum / meanWeightDen
     meanStdDev = math.sqrt(1 / meanWeightDen)
+    
+    # Calculates the ratio
     ratio = fluxSource / meanWeight
     ratioErr = (1/meanWeight) * math.sqrt( fluxErrSource**2 + 
                  (ratio * meanStdDev)**2 )
