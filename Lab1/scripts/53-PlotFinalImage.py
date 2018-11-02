@@ -43,10 +43,10 @@ for ratio in range(len(ratiosBinned)):
         sumErrors = 0
         for r in ratiosBinned[ratio]:
             sumErrors += (ratiosBinnedPlot[ratio] - r)**2
-        ratioErrsBinnedPlot.append((1./(len(ratiosBinned[ratio])-1)
+        ratioErrsBinnedPlot.append((1./(len(ratiosBinned[ratio]))
              *sumErrors)**0.5)
 plt.errorbar(timesBinnedPlot, ratiosBinnedPlot, 
-             yerr=ratioErrsBinnedPlot, fmt=',')
+             yerr=ratioErrsBinnedPlot, fmt='.')
 
 xs = np.arange(0,300)
 ys = [1]*len(xs)
