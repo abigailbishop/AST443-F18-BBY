@@ -35,7 +35,7 @@ avgRatios = 0
 #     range(368, 379) ) 
 #badImages = ( [2, 66, 67] + range(77,95) + range(226,229) + [243] )
 for image in range(len(fileNums)):
-    if ((fileNums[image] < 700 or fileNums[image] > 2000)):
+    if ((times[image] < 120)):
         avgRatios = avgRatios + ratios[image]
         numFiles = numFiles + 1
 avgRatios = avgRatios / numFiles

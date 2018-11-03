@@ -46,8 +46,8 @@ for ratio in range(len(ratiosBinned)):
         N = len(ratiosBinned[ratio])
         stdev = np.sqrt(sumErrors/N)
         ratioErrsBinnedPlot.append(stdev/np.sqrt(N))
-#plt.errorbar(timesBinnedPlot, ratiosBinnedPlot, 
-#             yerr=ratioErrsBinnedPlot, fmt='.')
+plt.errorbar(timesBinnedPlot, ratiosBinnedPlot, 
+             yerr=ratioErrsBinnedPlot, fmt='.')
 
 xs = np.arange(0,300)
 ys = [1]*len(xs)
@@ -55,11 +55,11 @@ ys = [1]*len(xs)
 # Plot the plot
 #plt.errorbar(times, ratios, fmt='x')
 #plt.errorbar(imageNums, ratios, yerr=ratioErrs, fmt=',')
-plt.errorbar(times, ratios, yerr=ratioErrs, fmt=',')
+#plt.errorbar(times, ratios, yerr=ratioErrs, fmt='.')
 plt.errorbar(xs, ys)
 #plt.ylim(0.85,1.05)
 plt.title('Light Curve of Target')
 plt.xlabel('Time from start (minutes)')
 #plt.xlabel('File Number')
 plt.ylabel('Relative Brightness')
-plt.savefig(info['images']+'lightCurveUnbinned-Final.pdf', ppi=300)
+plt.savefig(info['images']+'lightCurve-Final.pdf', ppi=300)
