@@ -54,8 +54,8 @@ ys = [1]*len(xs)
 
 # Plot the plot
 #plt.errorbar(times, ratios, fmt='x')
-plt.errorbar(imageNums, ratios, yerr=ratioErrs, fmt=',')
-plt.errorbar(times, ratios, yerr=ratioErrs, fmt='.')
+#plt.errorbar(imageNums, ratios, yerr=ratioErrs, fmt=',')
+#plt.errorbar(times, ratios, yerr=ratioErrs, fmt='.')
 plt.errorbar(xs, ys)
 #plt.ylim(0.85,1.05)
 plt.title('Light Curve of Target')
