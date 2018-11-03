@@ -1,4 +1,4 @@
--  StarAlt with transit times predictions, SIMBAD
+-  StarAlt with transit times predictions, SIMBAD for ref info
 
 -  Master Dark distribution to explain why median combine is better
 
@@ -8,7 +8,7 @@
 
 -  Cite Astrometry.net, align images with WCS
 
--  Image of target with aperture
+-  Image of target with aperture, d=11.6 pix
 
 -  Image of circled source stars, red is target, green is reference
 
@@ -18,8 +18,8 @@
 
 -  Baseline flux (see lab man for equations)
       After transit not good data, use pre-transit to calculate
-      Pre transit, flux= 1.01498 +/- 0.00007
-      During transit, flux= 0.9685 +/- 0.0001
+      Pre transit, flux= 1.01010 +/- 0.00007
+      During transit, flux= 0.97236 +/- 0.00008
     
       Error: individual ratios, sum of squares: 
               sig_ri = sqrt[ (sig_f/f)^2 + (sig_mu/mu)^2 ]
@@ -28,19 +28,24 @@
                sig_ravg = sqrt[ sum_N( sig_ri^2 ) ] / N
 
 -   Image of normalized transit depth (see calculation steps in 4.5)
+    Bin at 5 minute intervals
+    Errorbars = uncertainty on the mean = stdev/sqrt(N)
 
--   Transit Depth = 0.0465 p/m 0.0001
+-   Transit Depth = 0.0378 p/m 0.0001
       depth = f_before - f_transit
       sig_d = sqrt[ (sig_fb)^2 + (sig_ft)^2 ]
 
--   Planet-to-Star Radius Ratio = 0.2156 p/m 0.0003
+-   Planet-to-Star Radius Ratio = 0.1943 p/m 0.0003
       R = sqrt[depth]
       sig_R = sig_d / (2sqrt[d])
 
 -   Predicted Transit duration: 2h1m10.9s (or 2.01968h)
 
 -   Predicted Ingress: 9:52:59.9226 (local)
+    Measured Ingress from lightcurve: 10:27:59.892 (local)
 
 -   Predicted Mid-Transit Time: 10:53:35.379 (local)
+    Measured Mid-Transit Time: 11:25:59.892 (local)
 
--   Predicted Egress: 11:54:10.8444(local)
+-   Predicted Egress: 11:54:10.8444 (local)
+    Measured Egress: 12:02:59.892 (local)

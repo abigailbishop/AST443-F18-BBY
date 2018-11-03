@@ -1,0 +1,14 @@
+dataDir,/astrolab/Fall_18/ebiermann/Lab1_archive/
+rawDataSubdir,3-data/
+calImageSubdir,A1-cal_images/
+darkSubdir,1-darks/
+masterDark,masterDark.fits
+flatSubdir,2-flats/
+masterFlat,masterFlat.fits
+images,../images/
+fitsSubdir,../fitsFiles/
+badPixelMap,badPixelMap.fits
+sexImageSubdir,A2-solved_images/
+catFileSubdir,A3-cat_files/
+fluxSubdir,../fluxInfo/
+normFluxSubdir,../NORMfluxInfo/
