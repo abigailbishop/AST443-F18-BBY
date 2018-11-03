@@ -17,7 +17,6 @@ data = np.loadtxt(info['normFluxSubdir'] + 'dataFinal-normToSource.txt',
 imageNums = data[:,0]
 times = data[:,1]
 ratios = data[:,2]
-ratioErrs = data[:,3]
 
 # Calculate radius by averaging values in key regions
 radiusTimes = [120, 140, 215, 215]
@@ -25,40 +24,50 @@ radiusTimes = [120, 140, 215, 215]
 radiusNumValues = [0]*( len(radiusTimes) - 1 )
     # index: 0=preTransit, 1=InTransit, 2=afterTransit
 radiusFluxs = [0]*( len(radiusTimes) - 1 )
-radiusFluxErrs = [0]*( len(radiusTimes) - 1 )
+radiusFluxStds = [0]*( len(radiusTimes) - 1 )
+# Sum all ratios, count exposures in each set of data
 for image in range(len(imageNums)):
     if times[image] > 250:
         continue
     if times[image] < radiusTimes[0]:
         radiusNumValues[0] += 1
         radiusFluxs[0] += ratios[image]
-        radiusFluxErrs[0] +=
     if times[image] > radiusTimes[1] and times[image] < radiusTimes[2]:
         radiusNumValues[1] += 1
         radiusFluxs[1] += ratios[image]
-        radiusFluxErrs[1] += ratioErrs[image]**2
     if times[image] > radiusTimes[3]:
         radiusNumValues[2] += 1
         radiusFluxs[2] += ratios[image]
-        radiusFluxErrs[2] += ratioErrs[image]**2
-for sum in radiusFluxs:
-    
-for i in range(len(radiusNumValues)):
+# Calculate mean ratio in each zone
+for i in range(len(radiusFluxs)):
     radiusFluxs[i] = radiusFluxs[i] / radiusNumValues[i]
-    radiusFluxErrs[i] = radiusFluxErrs[i]**0.5 / radiusNumValues[i]
+# Calculate (science - mean)^2 and sum them for each zone
+for image in range(len(imageNums)):
+    if times[image] > 250:
+        continue
+    if times[image] < radiusTimes[0]:
+        radiusFluxStds[0] += (ratios[image] - radiusFluxs[0])**2
+    if times[image] > radiusTimes[1] and times[image] < radiusTimes[2]:
+        radiusFluxStds[1] += (ratios[image] - radiusFluxs[1])**2
+    if times[image] > radiusTimes[3]:
+        radiusFluxStds[2] += (ratios[image] - radiusFluxs[2])**2
+# Calculate STD then uncertainty on the mean for each zone
+for i in range(len(radiusFluxs)):
+    # Standard Deviation
+    radiusFluxStds[i] = (radiusFluxStds[i] / radiusNumValues[i])**0.5
+    # Uncertainty on the mean
+    radiusFluxStds[i] = radiusFluxStds[i] / radiusNumValues[i]**0.5
+    
 # NOTE the below calculations are based on only the flux before the transit
 #   as the data after the transit looks unreliable
 depth = radiusFluxs[0] - radiusFluxs[1]
-depthErr = ( radiusFluxErrs[0]**2 + radiusFluxErrs[1]**2 )**0.5
+depthErr = ( radiusFluxStds[0]**2 + radiusFluxStds[1]**2 )**0.5
 radiusFrac = depth**0.5
 radiusFracErr = depthErr / depth**0.5 * 0.5 
 save = open(info['images'] + 'finalRadius.txt', 'w')
 save.write('Depth: %f +- %f\n' % (depth, depthErr) )
 save.write('R_planet / R_star: %f +- %f\n' % (radiusFrac, radiusFracErr) )
-save.write('preTransit: %f +- %f\n' % (radiusFluxs[0], radiusFluxErrs[0]) )
-save.write('inTransit: %f +- %f\n' % (radiusFluxs[1], radiusFluxErrs[1]) )
-save.write('afterTransit: %f +- %f\n' % (radiusFluxs[2], radiusFluxErrs[2]) )
+save.write('preTransit: %f +- %f\n' % (radiusFluxs[0], radiusFluxStds[0]) )
+save.write('inTransit: %f +- %f\n' % (radiusFluxs[1], radiusFluxStds[1]) )
+save.write('afterTransit: %f +- %f\n' % (radiusFluxs[2], radiusFluxStds[2]) )
 save.close()
-
-# Print out the data to the screen
-    # index: 0=preTransit, 1=InTransit, 2=afterTransit

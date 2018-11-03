@@ -1,5 +1,5 @@
-Depth: 0.037744 +- 0.000109
-R_planet / R_star: 0.194279 +- 0.000281
-preTransit: 1.010103 +- 0.000070
-inTransit: 0.972359 +- 0.000084
-afterTransit: 0.986277 +- 0.000136
+Depth: 0.037367 +- 0.000874
+R_planet / R_star: 0.193305 +- 0.002262
+preTransit: 1.000000 +- 0.000418
+inTransit: 0.962633 +- 0.000768
+afterTransit: 0.976412 +- 0.001467
