@@ -8,7 +8,7 @@
 
 -  Cite Astrometry.net, align images with WCS
 
--  Image of target with aperture
+-  Image of target with aperture, d=11.6 pix
 
 -  Image of circled source stars, red is target, green is reference
 
