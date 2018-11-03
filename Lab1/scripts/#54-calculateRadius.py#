@@ -42,7 +42,7 @@ for image in range(len(imageNums)):
         radiusFluxs[2] += ratios[image]
         radiusFluxErrs[2] += ratioErrs[image]**2
 for sum in radiusFluxs:
-    
+    mean = sum/
 for i in range(len(radiusNumValues)):
     radiusFluxs[i] = radiusFluxs[i] / radiusNumValues[i]
     radiusFluxErrs[i] = radiusFluxErrs[i]**0.5 / radiusNumValues[i]
