@@ -41,11 +41,11 @@
 
 -   Predicted Transit duration: 2h1m10.9s (or 2.01968h)
 
--   Predicted Ingress: 9:52:59.9226 (local)
+-   Predicted Ingress: 10:13:25.461 (local)
     Measured Ingress from lightcurve: 10:27:59.892 (local)
 
--   Predicted Mid-Transit Time: 10:53:35.379 (local)
+-   Predicted Mid-Transit Time: 11:14:01.461 (local)
     Measured Mid-Transit Time: 11:25:59.892 (local)
 
--   Predicted Egress: 11:54:10.8444 (local)
+-   Predicted Egress: 12:14:37.461 (local)
     Measured Egress: 12:02:59.892 (local)
