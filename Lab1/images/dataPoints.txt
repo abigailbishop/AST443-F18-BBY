@@ -18,8 +18,8 @@
 
 -  Baseline flux (see lab man for equations)
       After transit not good data, use pre-transit to calculate
-      Pre transit, flux= 1.01498 +/- 0.00007
-      During transit, flux= 0.9685 +/- 0.0001
+      Pre transit, flux= 1.01010 +/- 0.00007
+      During transit, flux= 0.97236 +/- 0.00008
     
       Error: individual ratios, sum of squares: 
               sig_ri = sqrt[ (sig_f/f)^2 + (sig_mu/mu)^2 ]
