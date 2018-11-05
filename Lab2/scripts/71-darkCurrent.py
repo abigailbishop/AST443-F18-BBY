@@ -24,7 +24,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 # Get Raw Science Images Names
-sciDirNames = ['rawNebulaData', 'rawRefstarData']
+sciDirNames = ['rawNebulaData', 'rawRefstarData','arcSpecSubdir','flatSubdir']
 SciNames = []
 for subdir in sciDirNames:
   sciDir = info['dataDir'] + info[subdir]
@@ -60,7 +60,7 @@ for subdir in subdirNames:
   masterdark = np.median(allimages,axis=0)
   path = info['fitsFiles']
   mdname = path + 'masterdark_' + str(darkExpTime) + '.fits'
-  fits.writeto(mdname,masterdark,header=head)
+  #fits.writeto(mdname,masterdark,header=head)
   
 
   for fname in SciNames:
