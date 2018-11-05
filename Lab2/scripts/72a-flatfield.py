@@ -43,6 +43,6 @@ for column in range(flat_avg_shape[1]):
         flat_avgnorm[row][column] = flat_avg[row][column] / flat_avg_mode
 
 # Save the Master flat
-mfFname = info['fitsSubdir'] + 'masterFlat.fits'
-fits.writeto(mfFname,flat_avgnorm,header=head)
+mfFname = info['fitsFiles'] + 'masterFlat.fits'
+fits.writeto(mfFname,flat_avgnorm)
 

@@ -9,4 +9,6 @@ darkSubdir2min,dark-2min/
 darkSubdir3min,dark-3min/
 darkSubdir5min,dark-5min/
 darkSubdir10min,dark-10min/
-dataDarked,data-darkCalibrated/
+fitsFiles,../fitsFiles/
+dccNebulaData,data_nebula-dcc/
+dccRefstarData,data_ref_star-dcc/
