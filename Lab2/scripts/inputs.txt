@@ -13,3 +13,4 @@ fitsFiles,../fitsFiles/
 dccNebulaData,data_nebula-dcc/
 dccRefstarData,data_ref_star-dcc/
 images,../images/
+flatCalibrated,flatCalibrated/
