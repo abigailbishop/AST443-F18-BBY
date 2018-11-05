@@ -1,6 +1,0 @@
-dataDir,/astrolab/Fall_18/abishop/Lab2/
-rawNebulaData,data_nebula/
-rawRefstarData,data_ref_star/
-flatSubdir,flat_dome/
-arcSpecSubdir,mercury_calibrate/
-
