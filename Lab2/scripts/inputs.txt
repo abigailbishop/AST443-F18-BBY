@@ -1,0 +1,14 @@
+dataDir,/astrolab/Fall_18/ebiermann/Lab2_archive/
+darkSubdir10s,dark-10s/
+darkSubdir30s,dark-30s/
+darkSubdir2min,dark-2min/
+darkSubdir3min,dark-3min/
+darkSubdir5min,dark-5min/
+darkSubdir10min,dark-10min/
+masterDark,masterDark.fits
+flatSubdir,FLATS/
+masterFlat,masterFlat.fits
+rawDataSubdir,3-data/
+images,../images/
+fitsSubdir,../fitsFiles/
+badPixelMap,badPixelMap.fits
