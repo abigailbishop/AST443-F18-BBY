@@ -12,3 +12,4 @@ rawDataSubdir,3-data/
 images,../images/
 fitsSubdir,../fitsFiles/
 badPixelMap,badPixelMap.fits
+dataDarked,data-darkCalibrated/
