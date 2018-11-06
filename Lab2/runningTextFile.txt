@@ -1,0 +1,25 @@
+71: 
+  We made a master dark and subtracted it from our science images
+
+72a:
+  We made a master flat and divided the data by it. Now its calibrated.
+
+72b:
+  We're looking at column 596 of the nebula in pyraf. 
+  It's showing us how bright the pixels are along one column of the reference 
+  star. We're going to select the rows where data is bright because that is 
+  where we will see our spectra. Then we selected the background and pyraf
+  saved our background subtracted spectrum to an external file. 
+  
+  Now we're looking at column 648 of the reference star and performing the 
+  same analysis.
+
+  And now we're looking at column 30 of the mercury arc lamp fits file. 
+
+  We're determining wavelenght to pixel calibration by the prominent 4358.3A
+  Hg line and the baby 4916.04A Hg line. We found the first value from the lab
+  manual and the second line from hyperphysics. 
+  And now we have wavelength calibrated science spectra!
+
+  Oh but plot twist, we can also identify lines in our nebula and use that to 
+  calibrate wavelength. We'll do that on all future wavelength calibrations.
