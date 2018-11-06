@@ -1,0 +1,27 @@
+# Mon 18:53:24 05-Nov-2018
+begin	aperture mercury_dcc_flat 1 29. 48.76008
+	image	mercury_dcc_flat
+	aperture	1
+	beam	1
+	center	29. 48.76008
+	low	-28. -49.68034
+	high	736. 22.31469
+	background
+		xmin -49.68034
+		xmax 22.31469
+		function chebyshev
+		order 1
+		sample -10:-6,6:10
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	2
+	curve	5
+		2.
+		1.
+		1.
+		765.
+		0.
+

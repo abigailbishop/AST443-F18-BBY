@@ -1,6 +1,6 @@
 # Mon 20:56:19 05-Nov-2018
-begin	aperture last 1 648. 43.04134
-	image	last
+begin	aperture ref_star_dcc_flat 1 648. 43.04134
+	image	ref_star_dcc_flat
 	aperture	1
 	beam	1
 	center	648. 43.04134
