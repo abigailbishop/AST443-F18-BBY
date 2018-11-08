@@ -24,7 +24,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 # Open Files
-flat_dir = info['dataDir'] + info['flatSubdir']
+flat_dir = info['dataDir'] + info['dccFlats']
 files = open(flat_dir+'names.txt', 'r')
 flats = []
 for line in files:
