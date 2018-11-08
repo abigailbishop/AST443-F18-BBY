@@ -44,5 +44,5 @@ for column in range(flat_avg_shape[1]):
 
 # Save the Master flat
 mfFname = info['fitsFiles'] + 'masterFlat.fits'
-fits.writeto(mfFname,flat_avgnorm)
+fits.writeto(mfFname,flat_avg)
 
