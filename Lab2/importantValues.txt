@@ -1,0 +1,8 @@
+H-gamma: 4341A
+O-III:   4363A
+He-II:   4685A
+Ar:      4711A
+Ar:      4740A
+H-beta:  4861A
+O-III:   4959A
+O-III:   5007A
