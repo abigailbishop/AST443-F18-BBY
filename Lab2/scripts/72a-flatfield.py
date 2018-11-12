@@ -24,7 +24,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 # Open Files
-flat_dir = info['dataDir'] + info['flatSubdir']
+flat_dir = info['dataDir'] + info['dccFlats']
 files = open(flat_dir+'names.txt', 'r')
 flats = []
 for line in files:
@@ -44,5 +44,5 @@ for column in range(flat_avg_shape[1]):
 
 # Save the Master flat
 mfFname = info['fitsFiles'] + 'masterFlat.fits'
-fits.writeto(mfFname,flat_avgnorm)
+fits.writeto(mfFname,flat_avg)
 
