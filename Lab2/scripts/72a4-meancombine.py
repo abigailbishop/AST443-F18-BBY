@@ -20,7 +20,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 # Open Files
-data_dir = info['dataDir'] + info['flatCalibrated']
+data_dir = info['fitsFiles']
 files = ['nebula_00000000_dcc_flat.fits', 
          'nebula_00000001_dcc_flat.fits',
          'nebula_00000002_dcc_flat.fits']

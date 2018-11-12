@@ -1,0 +1,74 @@
+SIMPLE  =                    T / Fits standard                                  
+BITPIX  =                  -32 / Bits per pixel                                 
+NAXIS   =                    1 / Number of axes                                 
+NAXIS1  =                  765 / Axis length                                    
+EXTEND  =                    F / File may contain extensions                    
+ORIGIN  = 'NOAO-IRAF FITS Image Kernel July 2003' / FITS file originator        
+DATE    = '2018-11-12T00:53:49' / Date FITS file was generated                  
+IRAF-TLM= '2018-11-12T00:53:49' / Time of last modification                     
+BIAS    =                  100                                                  
+FOCALLEN= +0.000000000000E+000                                                  
+APTAREA = +0.000000000000E+000                                                  
+APTDIA  = +0.000000000000E+000                                                  
+OBSERVER= 'Anja                '                                                
+DATE-OBS= '2018-10-30T01:27:12.565'                                             
+TIME-OBS= '01:27:12.565        '                                                
+SWCREATE= 'CCDSoft Version 5.00.218'                                            
+SET-TEMP= -1.000000000000E+001                                                  
+COLORCCD=                    0                                                  
+DISPCOLR=                    1                                                  
+IMAGETYP= 'Light Frame         '                                                
+CCDSFPT =                    1                                                  
+XORGSUBF=                    0                                                  
+YORGSUBF=                    0                                                  
+CCDSUBFL=                    0                                                  
+CCDSUBFT=                    0                                                  
+XBINNING=                    1                                                  
+CCDXBIN =                    1                                                  
+YBINNING=                    2                                                  
+CCDYBIN =                    2                                                  
+EXPSTATE=                  293                                                  
+CCD-TEMP= -1.020308403674E+001                                                  
+TEMPERAT= -1.020308403674E+001                                                  
+INSTRUME= 'SBIG ST-402 CCD Camera'                                              
+EGAIN   = +2.300000000000E+000                                                  
+E-GAIN  = +2.300000000000E+000                                                  
+XPIXSZ  = +9.000000000000E+000                                                  
+YPIXSZ  = +9.000000000000E+000                                                  
+SBIGIMG =                   21                                                  
+USER_2  = 'SBIG ST-402 CCD Camera'                                              
+SBSTDVER= 'SBFITSEXT Version 1.0'                                               
+EXPTIME = +6.000000000000E+002                                                  
+EXPOSURE= +6.000000000000E+002                                                  
+CBLACK  =                 8225                                                  
+CWHITE  =                 8541                                                  
+APNUM1  = '1 1     '                                                            
+WCSDIM  =                    1                                                  
+CTYPE1  = 'LINEAR  '                                                            
+CRVAL1  =      4310.2743474041                                                  
+CRPIX1  =                   1.                                                  
+CDELT1  =    0.924215031325741                                                  
+CD1_1   =    0.924215031325741                                                  
+LTM1_1  =                   1.                                                  
+WAT0_001= 'system=equispec'                                                     
+WAT1_001= 'wtype=linear label=Wavelength units=angstroms'                       
+DC-FLAG =                    0                                                  
+DCLOG1  = 'REFSPEC1 = nebula_avg.ms.fits' 
+airmas = 1.1                                      
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+END                                                                             
+
