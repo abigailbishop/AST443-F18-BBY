@@ -1,17 +1,17 @@
-# Mon 20:56:19 05-Nov-2018
-begin	aperture last 1 648. 43.04134
+# Sun 20:04:42 11-Nov-2018
+begin	aperture last 1 648. 43.241
 	image	last
 	aperture	1
 	beam	1
-	center	648. 43.04134
-	low	-647. -7.009224
-	high	117. 7.495796
+	center	648. 43.241
+	low	-647. -44.74175
+	high	117. 27.25328
 	background
-		xmin -6.966148
-		xmax 27.20298
+		xmin -69.
+		xmax 69.
 		function chebyshev
 		order 1
-		sample 16.36052:27.20298
+		sample *
 		naverage -3
 		niterate 0
 		low_reject 3.
@@ -21,8 +21,8 @@ begin	aperture last 1 648. 43.04134
 	curve	6
 		2.
 		2.
-		8.
-		758.
-		-2.269283
-		3.085908
+		9.
+		759.
+		-2.44037
+		3.040038
 
