@@ -20,7 +20,7 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 pwd1 = info['fitsFiles']
-name1 = pwd1 + 'nebula_avg.ms.L.fits'
+name1 = pwd1 + 'test/nebula_avg.ms.L.fits'
 
 hdu = fits.open(name1)
 data = hdu[0].data
@@ -32,5 +32,5 @@ hdu = fits.open(name2)
 head = hdu[0].header
 hdu.close()
 
-name3 = pwd1 + 'nebula_avg.ms.L.header.fits'
+name3 = pwd1 + 'test/nebula_avg.ms.L.header.fits'
 fits.writeto(name3,data,head)

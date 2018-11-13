@@ -1,0 +1,27 @@
+# Mon 19:00:30 12-Nov-2018
+begin	aperture nebula_avg 1 749. 27.77612
+	image	nebula_avg
+	aperture	1
+	beam	1
+	center	749. 27.77612
+	low	-748. -23.75252
+	high	16. 15.4894
+	background
+		xmin -23.75252
+		xmax 39.70035
+		function chebyshev
+		order 1
+		sample  23.51626:39.70035
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	2
+	curve	5
+		2.
+		1.
+		1.
+		765.
+		0.
+
