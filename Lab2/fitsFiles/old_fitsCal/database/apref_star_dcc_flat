@@ -1,0 +1,28 @@
+# Sun 20:04:41 11-Nov-2018
+begin	aperture ref_star_dcc_flat 1 648. 43.241
+	image	ref_star_dcc_flat
+	aperture	1
+	beam	1
+	center	648. 43.241
+	low	-647. -44.74175
+	high	117. 27.25328
+	background
+		xmin -69.
+		xmax 69.
+		function chebyshev
+		order 1
+		sample *
+		naverage -3
+		niterate 0
+		low_reject 3.
+		high_reject 3.
+		grow 0.
+	axis	2
+	curve	6
+		2.
+		2.
+		9.
+		759.
+		-2.44037
+		3.040038
+
