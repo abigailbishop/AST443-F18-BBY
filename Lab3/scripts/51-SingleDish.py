@@ -1,8 +1,15 @@
 # Analyze the single dish observations for Lab 3
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
+from scipy.stats import norm
+from scipy import asarray as ar,exp
+from scipy.optimize import curve_fit
+from astropy.stats import gaussian_sigma_to_fwhm
+from operator import itemgetter
 
 # Load Constants
 info = {}
@@ -23,6 +30,17 @@ sat = np.loadtxt(
     skiprows=1, delimiter=',')
 sat_times=sat[:,0]
 sat_currents = sat[:,1]
+
+# Flip and center the currents
+def centerflip(array):
+    center = np.mean(array[-5:])
+    for i in range(len(array)):
+        array[i] = -1 * (array[i] - center)
+    return(array)
+sun_currents = centerflip(sun_currents)
+sat_currents = centerflip(sat_currents)
+
+# Resize Graphs
 max_current = max([max(sun_currents), max(sat_currents)])
 sun_currents = [i*max_current/max(sun_currents) for i in sun_currents]
 sat_currents = [i*max_current/max(sat_currents) for i in sat_currents]
@@ -49,42 +67,33 @@ sun_SNR = min(sun_currents) / (sun_max - sun_min)
 print('Satellite SNR: ', sat_SNR)
 print('Sun SNR:       ', sun_SNR)
 
-# Defines gaussian function with standard deviation (full-width as half maximum) sigma
-def gaussian(x,sigma):
-    return 1/(2*math.sqrt(2*math.pi)) * math.exp(-(x/(2*sigma))**2)
-n=1000 # number of points
-t=0.001 # sampling interval
-hm = min(sun_currents) * 0.5
-time_at_hm = 26
-ws = [0, 0]
-for c in range(len(sun_currents)):
-    if abs(sun_currents[c]-hm) < abs(ws[0] - hm) and sun_times[c] < time_at_hm:
-        ws[0] = sun_currents[c]
-    elif abs(sun_currents[c]-hm)<abs(ws[1] - hm) and sun_times[c] > time_at_hm:
-        ws[1] = sun_currents[c]
-fwhm = ws[1] - ws[0]
-resolved_source_width = 1.0 # radians (make it an even # of t's)
-                            # exaggerated: actual solar value is
-                            # 0.01 rad
-# define n dimensional vector of the gaussian function evaluated over the sampling interval 
-gaus = [gaussian( (i- n/2.0 + 1)*t, fwhm ) for i in range(n)]
-# define top hat over sampling interval
-tophat = [0]*n
-for i in range(n):
-    if(i**2<(resolved_source_width/t/2)**2):
-        tophat[i] = 1.0
-# Convolution of guassian and top hat
-gauss_hat = numpy.convolve(gaus, tophat)
-# plot results
-y = [(i- n/2.0 + 1)*t/2 for i in range(2*n-1)]
-print gauss_hat
+# Full width and half the max distance from original current
+def fwhm(x, y):
+    diff = max(y) - min(y)
+    hm = 0.5 * diff
+    maxIndex = 0
+    hmIndex = 0
+    for i in range(len(y)):
+        if y[i] == max(y):  maxIndex = i
+        if abs(y[i] - hm) < abs(y[hmIndex] - hm): hmIndex = i
+    fwhm = 2 * abs( x[maxIndex] - x[hmIndex] )
+    return( fwhm, maxIndex, hmIndex)
+fwhmSun, SunMaxIndex, SunHMIndex = fwhm(sun_times, sun_currents)
+fwhmSat, SatMaxIndex, SatHMIndex = fwhm(sat_times, sat_currents)
+print( 'Sun fwhm ', fwhmSun)
+print( 'Sat fwhm ', fwhmSat)
 
-#print x# Plot data
+# Plot data
 plt.plot(sat_times, sat_currents, label='Satellite')
 plt.plot(sun_times, sun_currents, label='Sun')
-plt.plot(y,gauss_hat)
 plt.xlabel('Time (s)')
 plt.ylabel('Normalized Current (A)')
 plt.title('Single Dish Observations')
 plt.legend()
 plt.savefig(info['images'] + 'profile_single_sat05.pdf', ppi=300)
+
+# Getting Sigma
+sunSigma = fwhmSun / sun_SNR
+satSigma = fwhmSat / sat_SNR
+print('SunSigma = ', sunSigma, 'SatSigma = ', satSigma)
+sunSigma = fwhmSun / sun_SNR
