@@ -1,0 +1,4 @@
+dataDir,/astrolab/Fall_18/abishop/Lab3/
+raw1dish,single_dish_mode/
+raw2dish,interferometry/
+images,../images/
