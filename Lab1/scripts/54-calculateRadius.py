@@ -55,6 +55,7 @@ for image in range(len(imageNums)):
 for i in range(len(radiusFluxs)):
     # Standard Deviation
     radiusFluxStds[i] = (radiusFluxStds[i] / radiusNumValues[i])**0.5
+    print(radiusFluxStds[i])
     # Uncertainty on the mean
     radiusFluxStds[i] = radiusFluxStds[i] / radiusNumValues[i]**0.5
     
