@@ -1,0 +1,91 @@
+The electron temperature indicated by [O III] is about 12,500 K
+[O III] line ratio 101.5
+
+Nε ~3000 cm-3, as suggested by [Ar IV];
+[Ar IV] line ratio 1.020 [4711/4740]
+
+
+
+
+------for calculating line ratio------
+
+λ_obs           λ_lab  Element Multiplet k_λ   I(Ham) F(Ham) rms(%)
+4958.71 ...... 4958.92 [O III] (1F)    -0.023  368.71 370.68 10.3
+5006.73 ...... 5006.84 [O III] (1F)    -0.034  1223.5 1233.1 8.1
+4363.24 ...... 4363.21 [O III] (2F)     0.124  15.68  15.24  3.7
+
+4711.26 ...... 4711.34 [Ar IV] (1F)     0.036  6.392  6.34   6.1
+4740.13 ...... 4740.20 [Ar IV] (1F)     0.029  6.265  6.22   6.0
+
+
+
+
+
+
+
+@article{0004-637X-491-1-242,
+  author={Siek Hyung and Lawrence H. Aller},
+  title={The High-Excitation Planetary Nebula NGC 7662},
+  journal={The Astrophysical Journal},
+  volume={491},
+  number={1},
+  pages={242},
+  url={http://iopscience.iop.org/article/10.1086/304948/pdf},
+  year={1997},
+}
+
+
+
+----------------------------------------------------------------------------------------------
+
+electron temperature shown by [O III] is about 12,800 K
+observed ratio 0.0133
+
+electron density shown by [Ar IV] is 3000 cm-3
+observed line ratio 0.98 [4740/4711]
+
+
+
+
+
+
+@ARTICLE{2001A&A...380..684P,
+   author = {{Pottasch}, S.~R. and {Beintema}, D.~A. and {Bernard Salas}, J. and 
+	{Feibelman}, W.~A.},
+    title = "{Abundances of planetary nebulae <ASTROBJ>NGC 7662</ASTROBJ> and <ASTROBJ>NGC 6741</ASTROBJ>}",
+  journal = {\aap},
+ keywords = {ISM: ABUNDANCES, PLANETARY NEBULAE: INDIVIDUAL: NGC 7662},
+     year = 2001,
+    month = dec,
+   volume = 380,
+    pages = {684-694},
+      doi = {10.1051/0004-6361:20011480},
+   adsurl = {https://www.aanda.org/articles/aa/pdf/2001/47/aa1829.pdf},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
+
+-------------------------------------------------------------------------
+
+
+PN                Ion          Diagnostic               T_e(K)
+NGC 7662       [O III]      (λ4959+λ5007)/λ4363         13700
+
+
+
+
+
+@article{1742-6596-771-1-012030,
+  author={Evaria Puspitaningrum and Hakim Lutfi Malasan and Hideyo Kawakita},
+  title={Spectroscopy and Photoionization Model of Planetary Nebulae: NGC 6543 and NGC 7662},
+  journal={Journal of Physics: Conference Series},
+  volume={771},
+  number={1},
+  pages={012030},
+  url={http://stacks.iop.org/1742-6596/771/i=1/a=012030},
+  year={2016},
+}
+
+
+
