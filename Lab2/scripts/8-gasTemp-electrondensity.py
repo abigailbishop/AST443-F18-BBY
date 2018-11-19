@@ -1,5 +1,9 @@
 import numpy as np
 
+outputs = open('../finalValues.txt', 'w')
+outputs.write("Calculations from our data of the Snowball Nebula's electron\n")
+outputs.write("  density and gas temperature.\n")
+
 f5007 = [[5006.67, 5006.67, 5006.67], 
          [5.592e-9, 5.612e-9, 5.63e-9]] 
 f4959 = [[4957.89, 4957.89, 4957.89], 
@@ -21,6 +25,7 @@ f4341 = [[4339.97, 4339.92, 4339.94],
 gastemps = []
 temps = np.linspace(1.e4, 1.5e4, num=50000)
 rhss = []
+lhss = []
 n = 1.1e3     # electron density
 for temp in temps:
     rhss.append(
@@ -39,13 +44,16 @@ for low in f4363[1]:
     for mid in f4959[1]:
         for high in f5007[1]:
             lhs = (mid + high) / low
+            lhss.append(lhs)
             temp = nearest(rhss, lhs)
             gastemps.append(temps[temp[1]])
 #print(gastemps)
 
 gastemp = np.mean(gastemps)
 gastemp_uncert = np.std(gastemps) / np.sqrt(len(gastemps))
-print('Gas Temp: %.6f +- %.6f' % (gastemp, gastemp_uncert))
+outputs.write('OIII line ratios: %.6f +- %.6f\n' % 
+               (np.mean(lhss), (np.std(lhss) / np.sqrt(len(lhss))) ) )
+outputs.write('Gas Temp: %.6f +- %.6f\n' % (gastemp, gastemp_uncert))
 
 
 # Get the Argon line fraction
@@ -53,8 +61,8 @@ Ar_fracs = []
 for small in f4711[1]:
     for big in f4740[1]:
         Ar_fracs.append(small / big)
-print('Argon lines fraction: %.6f +- %.6f' % 
+outputs.write('Argon lines ratio: %.6f +- %.6f\n' % 
         (np.mean(Ar_fracs) , (np.std(Ar_fracs) / np.sqrt(len(Ar_fracs))) ) )
 
 # From that info we used image ../ArIV_doublet_density to get electron density
-print('Electron density via Argon: 1100 +- 100')
+outputs.write('Electron density via Argon: 1100 +- 100\n')
