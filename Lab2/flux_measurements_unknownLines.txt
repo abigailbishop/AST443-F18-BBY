@@ -1,4 +1,3 @@
-
 center,flux,eqw,gfwhm
 
 4932.36,2.15E-12,-18.01,3.00

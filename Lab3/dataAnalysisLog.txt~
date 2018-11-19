@@ -1,0 +1,13 @@
+CHECK IN 1
+
+- Compare sat (point source) and sun
+- Cannot resolve sun with one dish
+
+CHECK IN 2
+
+- Plot current vs time
+- Use slew rate (delta angle / time of obs) to convert to radians
+- Find difference in max and second max peaks to find 1/B_lambda
+    deltaTheta =  1/B_lambda = lambda / B
+    => B = lambda / deltaTheta
+    lambda = 2.7cm
