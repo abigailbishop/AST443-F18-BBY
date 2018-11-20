@@ -1,0 +1,4 @@
+# Highest max, next closest min, and the following maximum for all 
+#  curves of the sun
+# Key: file,BigMax,LittleMax,NextMax
+interferometry_baseline_30_alt_32_sun,
