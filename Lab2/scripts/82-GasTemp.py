@@ -1,5 +1,31 @@
 import numpy as np
 
+# Load Lab constants
+info = {}
+for line in open('inputs.txt'):
+    li=line.strip()
+    if not li.startswith("#"):
+        data = [x.strip() for x in line.split(',')]
+        info[data[0]] = data[1]
+
+# Load data
+fname = info['specCal'] + 'fluxMeas_knownLines.txt'
+data = np.loadtxt(fname,delimiter=',',skiprows=1)
+centers = data[:,0]
+centers = centers.tolist()
+flux = data[:,1]
+flux = flux.tolist()
+
+# Extract wavelength and flux measurements
+f5007 = [[centers[0:3]],[flux[0:3]]]
+f4959 = [[centers[3:6]],[flux[3:6]]]
+f4861 = [[centers[6:9]],[flux[6:9]]]
+f4740 = [[centers[9:12]],[flux[9:12]]]
+f4711 = [[centers[12:15]],[flux[12:15]]]
+f4685 = [[centers[15:18]],[flux[15:18]]]
+f4363 = [[centers[18:21]],[flux[18:21]]]
+f4341 = [[centers[21:]],[flux[21:]]]
+'''
 f5007 = [[5006.67, 5006.67, 5006.67], 
          [5.592e-9, 5.612e-9, 5.63e-9]] 
 f4959 = [[4957.89, 4957.89, 4957.89], 
@@ -16,7 +42,7 @@ f4363 = [[4362.34, 4362.27, 4362.21],
          [4.81e-11, 4.06e-11, 4.30e-11]] 
 f4341 = [[4339.97, 4339.92, 4339.94], 
          [9.39e-11, 9.50e-11, 9.88e-11]] 
-
+'''
 # Initialize values of temps we're looking at
 gastemps = []
 temps = np.linspace(1.e4, 1.5e4, num=50000)
@@ -40,7 +66,6 @@ for low in f4363[1]:
             lhs = (mid + high) / low
             temp = nearest(rhss, lhs)
             gastemps.append(temps[temp[1]])
-print(gastemps)
 
 gastemp = np.mean(gastemps)
 gastemp_uncert = np.std(gastemps) / np.sqrt(len(gastemps))

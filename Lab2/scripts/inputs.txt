@@ -15,3 +15,4 @@ dccRefstarData,data_ref_star-dcc/
 dccFlats,flat_dome_dcc/
 images,../images/
 flatCalibrated,flatCalibrated/
+specCal,../specCalFinal/
