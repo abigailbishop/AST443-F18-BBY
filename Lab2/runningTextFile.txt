@@ -27,4 +27,6 @@
   Now we're calculating dispersion. 0.924?
 
   We fit the sensitivity function to the data. 
-
+     Mag of star = 0.62
+     Mag type = V
+     Eff. Temp or spectral type = B6V
