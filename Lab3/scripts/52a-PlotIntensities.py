@@ -29,42 +29,62 @@ for line in files:
                     skiprows=1, delimiter=',') ] )
 delta_az = 20 * np.pi / 180.     # change in azimuth in radians
 wavelength = 2.7     # cm
+cm2in = 1. / 2.54      # inches / cm
+wavelength = wavelength * cm2in     # wavelength of light in inches
 
 # Important data output file
 output = open('../baselines.txt', 'w')
 
-# Flip and center the currents ALSO plot the curves
+# Defines a process to flip the signal arrays to get maxima instead of minima
 def centerflip(array):
     center = np.mean(array[-5:])
     for i in range(len(array)):
         array[i] = -1 * (array[i] - center)
     return(array)
+
+# Defines a process that finds the index and value of an array closest to a 
+#     provided number
+def nearest(array, value):
+    array = np.asarray(array)
+    i = (np.abs(array - value)).argmin()
+    return [array[i], i]
+
+# Loop over every slew across the object and save its plot of signal vs azimuth
 for i in range(len(slews)):
+    # So this is the analysis for a singular slew across an object
     print( 'Analyzing ', slews[i][0])
+    # Load Data
     times = slews[i][1][:,0]
     currents = slews[i][1][:,1]
     currents = centerflip(currents)
     alt_deg = float(slews[i][0][31:33])
     alt_rad = alt_deg * np.pi / 180.
-    times = [j*np.cos(alt_rad) for j in times]
+    # Convert times to azimuthal angles adjusted for altitude in sky
     slewrate = delta_az / times[-1]
     times = [j*slewrate for j in times]
+    times = [j*np.cos(alt_rad) for j in times]
+    # Plot 
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
     plt.ylabel('Current (A)')
     plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
-    plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] , ppi=300)
+    plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     plt.clf()
-    # Get the big points
+    # Get the highest max (at bigMaxIdx), next highest max (at rightMaxIdx), 
+    #     and the minimum between them (at rightMinIdx)
     bigMaxIdx = np.argmax(currents) 
-    rightMinIdx = 0
-    for j in range(bigMaxIdx+1, len(currents)):
-        if currents[j] <= currents[j-1]:
-            rightMinIdx = j
-        else:
-            break
+    baseline_exp = 2 * float(slews[i][0][24:26])
+    deltaAngle_exp = wavelength / baseline_exp
+    # Calculates a rough estimate of the minima following the highest max
+    rightMinIdx = nearest(times, times[bigMaxIdx]+deltaAngle_exp)[1]
+    # Calculates the max to the right of the big max and recalculates the 
+    #    minimum between this max and the big max. 
     rightMaxIdx = np.argmax(currents[rightMinIdx:]) + rightMinIdx
     rightMinIdx = np.argmin(currents[bigMaxIdx:rightMaxIdx]) + bigMaxIdx
+    # Calculates and saves the baseline to a text file
     deltaAngle = (times[rightMaxIdx] - times[bigMaxIdx])
-    baseline = wavelength / deltaAngle      # cm 
+    baseline = wavelength / deltaAngle     # in 
     output.write('%s Baseline = %.6f\n' %  (slews[i][0], baseline) )
+    print( 'B = %.4f\t Max = %.4f, rightMin = %.4f, right max = %.4f' % 
+          (baseline, currents[bigMaxIdx], currents[rightMinIdx], 
+           currents[rightMaxIdx]) )
