@@ -1,6 +1,6 @@
 Calculations from our data of the Snowball Nebula's electron
   density and gas temperature.
-OIII line ratios: 154.778325 +- 0.102989
-Gas Temp: 11040.939337 +- 2.470595
+OIII line ratios: 123.678715 +- 0.187480
+Gas Temp: 11940.664739 +- 6.581528
 Argon lines ratio: 0.989455 +- 0.003330
 Electron density via Argon: 1100 +- 100
