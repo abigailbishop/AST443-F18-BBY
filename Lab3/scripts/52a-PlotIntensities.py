@@ -67,24 +67,7 @@ for i in range(len(slews)):
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
     plt.ylabel('Current (A)')
+    plt.minorticks_on()
     plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     plt.clf()
-    # Get the highest max (at bigMaxIdx), next highest max (at rightMaxIdx), 
-    #     and the minimum between them (at rightMinIdx)
-    bigMaxIdx = np.argmax(currents) 
-    baseline_exp = 2 * float(slews[i][0][24:26])
-    deltaAngle_exp = wavelength / baseline_exp
-    # Calculates a rough estimate of the minima following the highest max
-    rightMinIdx = nearest(times, times[bigMaxIdx]+deltaAngle_exp)[1]
-    # Calculates the max to the right of the big max and recalculates the 
-    #    minimum between this max and the big max. 
-    rightMaxIdx = np.argmax(currents[rightMinIdx:]) + rightMinIdx
-    rightMinIdx = np.argmin(currents[bigMaxIdx:rightMaxIdx]) + bigMaxIdx
-    # Calculates and saves the baseline to a text file
-    deltaAngle = (times[rightMaxIdx] - times[bigMaxIdx])
-    baseline = wavelength / deltaAngle     # in 
-    output.write('%s Baseline = %.6f\n' %  (slews[i][0], baseline) )
-    print( 'B = %.4f\t Max = %.4f, rightMin = %.4f, right max = %.4f' % 
-          (baseline, currents[bigMaxIdx], currents[rightMinIdx], 
-           currents[rightMaxIdx]) )
