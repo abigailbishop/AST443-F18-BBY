@@ -3,3 +3,4 @@ raw1dish,single_dish_mode/
 raw2dish,interferometry/
 images,../images/
 sun2dishplots,../images/interferometry_sun/
+sat2dishplots,../images/interferometry_sat/
