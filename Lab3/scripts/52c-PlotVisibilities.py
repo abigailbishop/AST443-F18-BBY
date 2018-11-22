@@ -69,7 +69,7 @@ for slew in range(len(files)):
         baselines_exp[slew].append(float(files[slew][i][24:26]))
     plt.errorbar(baselines_exp[slew], visibilities[slew], fmt='.')
     plt.xlabel(r'$B_{\lambda}$')
-    plt.ylabel(r'Visibility, $V_0(B_{\lambda}$')
+    plt.ylabel(r'Visibility, $V_0(B_{\lambda}$)')
     plt.minorticks_on()
     plt.title('%s Interferometer Visibility' % types[slew])
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
