@@ -80,7 +80,7 @@ for slew in range(len(files)):
     #       xerr = [0.5]*len(errorV), yerr = errorV,
     fmt = '.')
     plt.xlabel(r'$B_{\lambda}$')
-    plt.ylabel(r'Visibility, $V_0(B_{\lambda}$')
+    plt.ylabel(r'Visibility, $V_0(B_{\lambda}$)')
     plt.minorticks_on()
     plt.title('%s Interferometer Visibility' % types[slew])
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
