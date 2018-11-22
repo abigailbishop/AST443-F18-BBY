@@ -1,4 +1,4 @@
-# Analyze the single dish observations for Lab 3
+# Analyze the satelite iterferometer observations for Lab 3
 
 import numpy as np
 import matplotlib
