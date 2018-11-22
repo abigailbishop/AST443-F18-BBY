@@ -2,7 +2,7 @@
 #  curves of the sun
 # Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY,errorX,errorY
 interferometry_baseline_30_alt_32_sun,0.170,0.263,0.179,0.108,0.185,0.225,0.005,0.005
-interferometry_baseline_35_alt_32_sun,0.008,0.248,0.103,0.135,0.109,0.216,0.005,0.005
+interferometry_baseline_35_alt_32_sun,0.098,0.248,0.103,0.135,0.109,0.216,0.005,0.005
 interferometry_baseline_40_alt_32_sun,0.134,0.241,0.140,0.150,0.147,0.222,0.005,0.005
 interferometry_baseline_45_alt_32_sun,0.147,0.237,0.151,0.185,0.154,0.225,0.005,0.005
 interferometry_baseline_50_alt_32_sun,0.138,0.230,0.140,0.189,0.146,0.209,0.005,0.005

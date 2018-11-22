@@ -59,15 +59,26 @@ baselines = [[], []]
 baselines_exp = [[], []]
 for slew in range(len(files)):
     print('Analyzing %s data' % types[slew])
+    errorV = []
+    errorB = []
     for i in range(len(files[slew])):
-        #Calculate visibility
-        visibilities[slew].append(
-            (bigMaxY[slew][i] - nextMinY[slew][i]) /
-            (bigMaxY[slew][i] + nextMinY[slew][i]) 
-        )
-        baselines[slew].append(.5 / (bigMaxX[slew][i] + nextMinX[slew][i]) )
+        maxX = bigMaxX[slew][i]
+        maxY = bigMaxY[slew][i]
+        minX = nextMinX[slew][i]
+        minY = nextMinY[slew][i]
+        errX = errorX[slew][i]
+        errY = errorY[slew][i]
+        visibilities[slew].append( (maxY - minY) / (maxY + minY) )
+        errorV.append( np.sqrt( (2 * errY**2) * ( (1. / (maxY + minY)**2) + 
+                     ( (maxY - minY)**2 / (maxY + minY)**4)) ) )
+        baselines[slew].append(.5 / (maxX + minX) )
         baselines_exp[slew].append(float(files[slew][i][24:26]))
-    plt.errorbar(baselines_exp[slew], visibilities[slew], fmt='.')
+        errorB.append( np.sqrt((2 * errX**2) / (minX - maxX)**2 ) ) 
+    plt.errorbar(baselines[slew], visibilities[slew], 
+    #plt.errorbar(baselines_exp[slew], visibilities[slew], 
+    #       xerr = errorB, yerr = errorV,
+    #       xerr = [0.5]*len(errorV), yerr = errorV,
+    fmt = '.')
     plt.xlabel(r'$B_{\lambda}$')
     plt.ylabel(r'Visibility, $V_0(B_{\lambda}$')
     plt.minorticks_on()
