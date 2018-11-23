@@ -71,8 +71,8 @@ for slew in range(len(files)):
         visibilities[slew].append( (maxY - minY) / (maxY + minY) )
         errorV.append( np.sqrt( (2 * errY**2) * ( (1. / (maxY + minY)**2) + 
                      ( (maxY - minY)**2 / (maxY + minY)**4)) ) )
-        baselines[slew].append(.5 / (maxX + minX) )
-        baselines_exp[slew].append(float(files[slew][i][24:26]))
+        baselines[slew].append(.5 / (minX - maxX) )
+        baselines_exp[slew].append(2 * float(files[slew][i][24:26]))
         errorB.append( np.sqrt((2 * errX**2) / (minX - maxX)**2 ) ) 
     plt.errorbar(baselines[slew], visibilities[slew], 
     #plt.errorbar(baselines_exp[slew], visibilities[slew], 
@@ -80,8 +80,10 @@ for slew in range(len(files)):
     #       xerr = [0.5]*len(errorV), yerr = errorV,
     fmt = '.')
     plt.xlabel(r'$B_{\lambda}$')
-    plt.ylabel(r'Visibility, $V_0(B_{\lambda}$)')
+    #plt.xlabel(r'$B$ (inches)')
+    plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
     plt.minorticks_on()
     plt.title('%s Interferometer Visibility' % types[slew])
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
+    #plt.savefig(info['images'] + 'visibilities-%s-BRaw.pdf'%types[slew],ppi=300)
     plt.clf()
