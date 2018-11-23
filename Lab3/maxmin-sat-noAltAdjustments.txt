@@ -1,0 +1,13 @@
+# Highest max, next closest min, and the following maximum for all 
+#  curves of the sun
+# Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY,errorX,errorY
+interferometry_baseline_30_alt_26_satellite.csv,0.163,0.085,0.173,0.005,0,0,0.005,0.001
+interferometry_baseline_35_alt_26_satellite.csv,0.600,0.066,0.167,0.030,0,0,0.005,0.001
+interferometry_baseline_40_alt_26_satellite.csv,0.158,0.074,0.163,0.027,0,0,0.005,0.001
+interferometry_baseline_45_alt_26_satellite.csv,0.193,0.070,0.199,0.029,0,0,0.005,0.0025
+interferometry_baseline_50_alt_26_satellite.csv,0.188,0.072,0.193,0.026,0,0,0.005,0.0025
+interferometry_baseline_55_alt_26_satellite.csv,0.186,0.127,0.190,0.017,0,0,0.005,0.0025
+interferometry_baseline_60_alt_26_satellite.csv,0.169,0.118,0.173,0.009,0,0,0.005,0.001
+interferometry_baseline_65_alt_26_satellite.csv,0.161,0.116,0.163,0.012,0,0,0.005,0.001
+interferometry_baseline_70_alt_26_satellite_3.csv,0.195,0.129,0.198,0.016,0,0,0.005,0.0025
+interferometry_baseline_77_alt_26_satellite.csv,0.243,0.094,0.246,0.007,0,0,0.005,0.0025

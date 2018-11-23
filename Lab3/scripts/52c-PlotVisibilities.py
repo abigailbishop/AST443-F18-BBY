@@ -22,12 +22,16 @@ for line in open('inputs.txt'):
 # Load in the sun and satellite data from plots
 # Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY
 sun = [np.loadtxt('../maxmin-sun.txt', skiprows=3, 
+#sun = [np.loadtxt('../maxmin-sun-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sun.txt', skiprows=3, 
+#       np.loadtxt('../maxmin-sun-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=range(1,9)) ]
 sat = [np.loadtxt('../maxmin-sat.txt', skiprows=3, 
+#sat = [np.loadtxt('../maxmin-sat-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sat.txt', skiprows=3, 
+#       np.loadtxt('../maxmin-sat-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=range(1,9)) ]
 types = ['Sun', 'Satellite']
 files = [sun[0], sat[0]]
@@ -71,12 +75,14 @@ for slew in range(len(files)):
         visibilities[slew].append( (maxY - minY) / (maxY + minY) )
         errorV.append( np.sqrt( (2 * errY**2) * ( (1. / (maxY + minY)**2) + 
                      ( (maxY - minY)**2 / (maxY + minY)**4)) ) )
-        baselines[slew].append(.5 / (minX - maxX) )
+        #baselines[slew].append(.5 / (minX - maxX) )
+        baselines[slew].append(2*float(files[slew][i][24:26]) / wavelength)
         baselines_exp[slew].append(2 * float(files[slew][i][24:26]))
-        errorB.append( np.sqrt((2 * errX**2) / (minX - maxX)**2 ) ) 
+        #errorB.append( np.sqrt((2 * errX**2) / (minX - maxX)**2 ) ) 
+        errorB.append( 2*0.5 / wavelength )  # Mirrors accurate to 0.5 in
     plt.errorbar(baselines[slew], visibilities[slew], 
     #plt.errorbar(baselines_exp[slew], visibilities[slew], 
-    #       xerr = errorB, yerr = errorV,
+           xerr = errorB, yerr = errorV,
     #       xerr = [0.5]*len(errorV), yerr = errorV,
     fmt = '.')
     plt.xlabel(r'$B_{\lambda}$')
@@ -85,5 +91,6 @@ for slew in range(len(files)):
     plt.minorticks_on()
     plt.title('%s Interferometer Visibility' % types[slew])
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
+    #plt.savefig(info['images'] + 'visibilities-%s-noAltAdjustments.pdf' % types[slew] , ppi=300)
     #plt.savefig(info['images'] + 'visibilities-%s-BRaw.pdf'%types[slew],ppi=300)
     plt.clf()

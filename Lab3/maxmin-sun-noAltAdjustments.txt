@@ -1,0 +1,13 @@
+# Highest max, next closest min, and the following maximum for all 
+#  curves of the sun
+# Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY,errorX,errorY
+interferometry_baseline_30_alt_32_sun,0.200,0.265,0.209,0.108,0,0,0.005,0.005
+interferometry_baseline_35_alt_32_sun,0.115,0.246,0.122,0.148,0,0,0.005,0.005
+interferometry_baseline_40_alt_32_sun,0.158,0.242,0.163,0.152,0,0,0.005,0.005
+interferometry_baseline_45_alt_32_sun,0.172,0.236,0.178,0.183,0,0,0.005,0.005
+interferometry_baseline_50_alt_32_sun,0.152,0.230,0.156,0.189,0,0,0.005,0.005
+interferometry_baseline_55_alt_31_sun,0.199,0.172,0.207,0.140,0,0,0.005,0.003
+interferometry_baseline_60_alt_32_sun_2,0.162,0.229,0.167,0.189,0,0,0.005,0.005
+interferometry_baseline_65_alt_32_sun_3,0.162,0.251,0.166,0.197,0,0,0.005,0.005
+interferometry_baseline_70_alt_32_sun_2,0.227,0.242,0.231,0.186,0,0,0.005,0.005
+interferometry_baseline_77_alt_32_sun_3,0.167,0.226,0.169,0.168,0,0,0.005,0.005
