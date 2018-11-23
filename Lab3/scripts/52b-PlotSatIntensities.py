@@ -62,7 +62,7 @@ for i in range(len(slews)):
     # Convert times to azimuthal angles adjusted for altitude in sky
     slewrate = delta_az / times[-1]
     times = [j*slewrate for j in times]
-    #times = [j*np.cos(alt_rad) for j in times]
+    times = [j*np.cos(alt_rad) for j in times]
     # Plot 
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
