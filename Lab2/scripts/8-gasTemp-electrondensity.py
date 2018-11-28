@@ -1,4 +1,5 @@
 import numpy as np
+from decimal import Decimal
 
 outputs = open('../finalValues.txt', 'w')
 outputs.write("Calculations from our data of the Snowball Nebula's electron\n")
@@ -22,14 +23,32 @@ flux = data[:,1]
 flux = flux.tolist()
 
 # Extract wavelength and flux measurements
+outputs.write('\nExpected\tElement\t\tWavelength(A)\t\tBrightness\n')
 f5007 = [centers[0:3],flux[0:3]]
+outputs.write( '5007:\t\tO III\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f5007[0]), np.std(f5007[0]), np.mean(f5007[1]), np.std(f5007[1])) )
 f4959 = [centers[3:6],flux[3:6]]
+outputs.write( '4959:\t\tO III\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4959[0]), np.std(f4959[0]), np.mean(f4959[1]), np.std(f4959[1])) )
 f4861 = [centers[6:9],flux[6:9]]
+outputs.write( '4861:\t\tH Beta\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4861[0]), np.std(f4861[0]), np.mean(f4861[1]), np.std(f4861[1])) )
 f4740 = [centers[9:12],flux[9:12]]
+outputs.write( '4740:\t\tAr IV\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4740[0]), np.std(f4740[0]), np.mean(f4740[1]), np.std(f4740[1])) )
 f4711 = [centers[12:15],flux[12:15]]
+outputs.write( '4711:\t\tAr IV\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4711[0]), np.std(f4711[0]), np.mean(f4711[1]), np.std(f4711[1])) )
 f4685 = [centers[15:18],flux[15:18]]
+outputs.write( '4685:\t\tHe II\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4685[0]), np.std(f4685[0]), np.mean(f4685[1]), np.std(f4685[1])) )
 f4363 = [centers[18:21],flux[18:21]]
+outputs.write( '4363:\t\tO III\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4363[0]), np.std(f4363[0]), np.mean(f4363[1]), np.std(f4363[1])) )
 f4341 = [centers[21:],flux[21:]]
+outputs.write( '4341:\t\tH Gamma\t\t%.6f +- %.6f\t%.2E +- %.2E\n' % 
+    (np.mean(f4341[0]), np.std(f4341[0]), np.mean(f4341[1]), np.std(f4341[1])) )
+outputs.write('\n')
 
 # Initialize values of temps we're looking at
 gastemps = []
