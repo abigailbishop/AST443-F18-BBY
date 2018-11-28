@@ -36,7 +36,7 @@ gastemps = []
 temps = np.linspace(1.e4, 1.5e4, num=50000)
 rhss = []
 lhss = []
-n = 1.1e3     # electron density
+n = 3.0e3     # electron density
 for temp in temps:
     rhss.append(
         (7.90 * np.exp( (3.29e4) / temp ) / 
@@ -75,4 +75,4 @@ outputs.write('Argon lines ratio: %.6f +- %.6f\n' %
         (np.mean(Ar_fracs) , (np.std(Ar_fracs) / np.sqrt(len(Ar_fracs))) ) )
 
 # From that info we used image ../ArIV_doublet_density to get electron density
-outputs.write('Electron density via Argon: 1100 +- 100\n')
+outputs.write('Electron density via Argon: 3000 +- 100\n')
