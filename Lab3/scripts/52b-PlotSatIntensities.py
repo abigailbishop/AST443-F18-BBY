@@ -1,8 +1,8 @@
 # Analyze the satelite iterferometer observations for Lab 3
 
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
+#import matplotlib
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
 from scipy.stats import norm
@@ -51,32 +51,9 @@ def nearest(array, value):
     i = (np.abs(array - value)).argmin()
     return [array[i], i]
 
-# Initialize Figures
-plt.figure(0)
-plt.figure(1)
-plt.figure(2)
-plt.figure(3)
-plt.figure(4)
-plt.figure(5)
-plt.figure(6)
-plt.figure(7)
-plt.figure(8)
-plt.figure(9)
-plt.figure(10)
-plt.figure(11)
-plt.figure(12)
-plt.figure(13)
-plt.figure(14)
-plt.figure(15)
-plt.figure(16)
-plt.figure(17)
-plt.figure(18)
-plt.figure(19)
-plt.figure(20)
 
 # Loop over every slew across the object and save its plot of signal vs azimuth
 for i in range(len(slews)):
-    plt.figure(i)
     # So this is the analysis for a singular slew across an object
     print( 'Analyzing ', slews[i][0])
     # Load Data
@@ -93,6 +70,7 @@ for i in range(len(slews)):
     center = times[np.argmax(currents)]
     baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
     # Plot 
+    plt.figure(i)
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
     plt.ylabel('Current (A)')
@@ -100,4 +78,5 @@ for i in range(len(slews)):
     plt.minorticks_on()
     plt.title('Interferometer - Sat - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sat2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
-    plt.clf()
+    #plt.clf()
+    #plt.show()
