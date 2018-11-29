@@ -1,13 +1,13 @@
 # Highest max, next closest min, and the following maximum for all 
-#  curves of the sun
-# Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY,errorX,errorY
-interferometry_baseline_30_alt_26_satellite.csv,0.148,0.0385,0.154,0.0046,0.162,0.0282,0.005,0.001
-interferometry_baseline_35_alt_26_satellite.csv,0.155,0.068,0.161,0.0102,0.168,0.0422,0.005,0.001
-interferometry_baseline_40_alt_26_satellite.csv,0.142,0.074,0.148,0.0262,0.152,0.0695,0.005,0.001
-interferometry_baseline_45_alt_26_satellite.csv,0.174,0.070,0.179,0.0285,0.184,0.0565,0.005,0.001
-interferometry_baseline_50_alt_26_satellite.csv,0.169,0.0765,0.173,0.0255,0.178,0.0670,0.005,0.001
-interferometry_baseline_55_alt_26_satellite.csv,0.158,0.127,0.162,0.0165,0.167,0.115,0.005,0.001
-interferometry_baseline_60_alt_26_satellite.csv,0.146,0.124,0.149,0.010,0.152,0.1195,0.005,0.001
-interferometry_baseline_65_alt_26_satellite.csv,0.144,0.115,0.148,0.011,0.151,0.1045,0.005,0.001
-interferometry_baseline_70_alt_26_satellite_3.csv,0.176,0.130,0.179,0.0165,0.181,0.1235,0.005,0.001
-interferometry_baseline_77_alt_26_satellite.csv,0.219,0.095,0.221,0.0064,0.223,0.0755,0.005,0.001
+#  curves of the satellite
+# Key: file,BigMaxX,BigMaxY,NextMinY,NextMaxX,NextNextMinY,NextNextMaxX
+interferometry_baseline_30_alt_26_satellite.csv,0.147,0.038,0.0049,0.163,0.0096,0.176
+interferometry_baseline_35_alt_26_satellite.csv,0.155,0.067,0.0105,0.168,-0.0022,0.179
+interferometry_baseline_40_alt_26_satellite.csv,0.142,0.0733,0.0269,0.152,0.0139,0.162
+interferometry_baseline_45_alt_26_satellite.csv,0.174,0.0695,0.0285,0.184,0.0234,0.195
+interferometry_baseline_50_alt_26_satellite.csv,0.169,0.072,0.026,0.177,0.023,0.188
+interferometry_baseline_55_alt_26_satellite.csv,0.158,0.127,0.0163,0.166,0.011,0.173
+interferometry_baseline_60_alt_26_satellite.csv,0.145,0.124,0.010,0.152,0.010,0.160
+interferometry_baseline_65_alt_26_satellite.csv,0.144,0.114,0.012,0.151,0.016,0.158
+interferometry_baseline_70_alt_26_satellite_3.csv,0.176,0.129,0.017,0.181,0.024,0.187
+interferometry_baseline_77_alt_26_satellite.csv,0.218,0.094,0.0067,0.223,0.0046,0.230
