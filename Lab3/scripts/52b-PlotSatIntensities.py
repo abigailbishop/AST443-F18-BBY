@@ -51,8 +51,32 @@ def nearest(array, value):
     i = (np.abs(array - value)).argmin()
     return [array[i], i]
 
+# Initialize Figures
+plt.figure(0)
+plt.figure(1)
+plt.figure(2)
+plt.figure(3)
+plt.figure(4)
+plt.figure(5)
+plt.figure(6)
+plt.figure(7)
+plt.figure(8)
+plt.figure(9)
+plt.figure(10)
+plt.figure(11)
+plt.figure(12)
+plt.figure(13)
+plt.figure(14)
+plt.figure(15)
+plt.figure(16)
+plt.figure(17)
+plt.figure(18)
+plt.figure(19)
+plt.figure(20)
+
 # Loop over every slew across the object and save its plot of signal vs azimuth
 for i in range(len(slews)):
+    plt.figure(i)
     # So this is the analysis for a singular slew across an object
     print( 'Analyzing ', slews[i][0])
     # Load Data

@@ -22,16 +22,12 @@ for line in open('inputs.txt'):
 # Load in the sun and satellite data from plots
 # Key: file,BigMaxX,BigMaxY,NextMinX,NextMinY,NextMaxX,NextMaxY
 sun = [np.loadtxt('../maxmin-sun.txt', skiprows=3, 
-#sun = [np.loadtxt('../maxmin-sun-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sun.txt', skiprows=3, 
-#       np.loadtxt('../maxmin-sun-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=range(1,9)) ]
 sat = [np.loadtxt('../maxmin-sat.txt', skiprows=3, 
-#sat = [np.loadtxt('../maxmin-sat-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sat.txt', skiprows=3, 
-#       np.loadtxt('../maxmin-sat-noAltAdjustments.txt', skiprows=3, 
                   delimiter=',', usecols=range(1,9)) ]
 types = ['Sun', 'Satellite']
 files = [sun[0], sat[0]]
