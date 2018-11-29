@@ -1,8 +1,8 @@
 # Analyze the single dish observations for Lab 3
 
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
+#import matplotlib
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
 from scipy.stats import norm
@@ -70,6 +70,7 @@ for i in range(len(slews)):
     center = times[np.argmax(currents)]
     baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
     # Plot 
+    plt.figure(i)
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
     plt.ylabel('Current (A)')
@@ -77,5 +78,5 @@ for i in range(len(slews)):
     plt.minorticks_on()
     plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
-    plt.clf()
+    #plt.clf()
     
