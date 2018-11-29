@@ -65,6 +65,7 @@ for i in range(len(slews)):
     slewrate = delta_az / times[-1]
     times = [j*slewrate for j in times]
     times = [j*np.cos(alt_rad) for j in times]
+    np.savetxt('../data/sun/%s.txt'%fileNames[i][:-4], (times,currents))
     # Center plot around maximum
     center = times[np.argmax(currents)]
     baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
