@@ -71,3 +71,4 @@ for i in range(len(slews)):
     plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     plt.clf()
+    
