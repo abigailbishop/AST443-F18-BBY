@@ -23,10 +23,12 @@ for line in open('inputs.txt'):
 slew_dir = info['dataDir'] + info['raw2dish'] 
 files = open(slew_dir + 'names.txt')
 slews = []
+fileNames = []
 # for slew[i], inex 0 is the file name, 1 is time, 2 is current
 for line in files:
     slews.append( [line.strip('\n'), np.loadtxt(slew_dir+line.strip('\n'), 
                     skiprows=1, delimiter=',') ] )
+    fileNames.append(line.strip('\n'))
 delta_az = 20 * np.pi / 180.     # change in azimuth in radians
 wavelength = 2.7     # cm
 cm2in = 1. / 2.54      # inches / cm
@@ -63,10 +65,14 @@ for i in range(len(slews)):
     slewrate = delta_az / times[-1]
     times = [j*slewrate for j in times]
     times = [j*np.cos(alt_rad) for j in times]
+    # Center plot around maximum
+    center = times[np.argmax(currents)]
+    baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
     # Plot 
     plt.plot(times, currents)
     plt.xlabel(r'$\Delta$ Azimuth (radians)')
     plt.ylabel('Current (A)')
+    plt.xlim(center - 3*baseline_approx, center + 3*baseline_approx)
     plt.minorticks_on()
     plt.title('Interferometer - Sat - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sat2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
