@@ -2,7 +2,7 @@
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import math
 from scipy.stats import norm
@@ -24,21 +24,17 @@ for line in open('inputs.txt'):
 sun = [np.loadtxt('../maxmin-sun.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sun.txt', skiprows=3, 
-                  delimiter=',', usecols=range(1,9)) ]
+                  delimiter=',', usecols=range(1,5)) ]
 sat = [np.loadtxt('../maxmin-sat.txt', skiprows=3, 
                   delimiter=',', usecols=[0], dtype=str),
        np.loadtxt('../maxmin-sat.txt', skiprows=3, 
-                  delimiter=',', usecols=range(1,9)) ]
+                  delimiter=',', usecols=range(1,5)) ]
 types = ['Sun', 'Satellite']
 files = [sun[0], sat[0]]
 bigMaxX = [sun[1][:,0], sat[1][:,0]]
 bigMaxY = [sun[1][:,1], sat[1][:,1]]
-nextMinX = [sun[1][:,2], sat[1][:,2]]
-nextMinY = [sun[1][:,3], sat[1][:,3]]
-nextMaxX = [sun[1][:,4], sat[1][:,4]]
-nextMaxY = [sun[1][:,5], sat[1][:,5]]
-errorX = [sun[1][:,6], sat[1][:,6]]
-errorY = [sun[1][:,7], sat[1][:,7]]
+nextMinY = [sun[1][:,2], sat[1][:,2]]
+nextMaxX = [sun[1][:,3], sat[1][:,3]]
 
 # Important constants
 delta_az = 20 * np.pi / 180.     # change in azimuth in radians
@@ -53,38 +49,63 @@ def centerflip(array):
         array[i] = -1 * (array[i] - center)
     return(array)
 
+# Define a sinc function
+def sincFunc(BLambda, alpha):
+    return abs( np.sinc(np.pi * BLambda * alpha) )
+
 # Calculate Visibilities. Index 0 = sun. Index 1 = satellite
-visibilities = [[], []]
-baselines = [[], []]
 baselines_exp = [[], []]
 for slew in range(len(files)):
     print('Analyzing %s data' % types[slew])
+    plotV = []
     errorV = []
+    plotB = []
     errorB = []
+    tmpV = []
+    tmpB = []
+    j = 0   # Counts how many measurements from the same plot we've considered
     for i in range(len(files[slew])):
+        j += 1
         maxX = bigMaxX[slew][i]
         maxY = bigMaxY[slew][i]
-        minX = nextMinX[slew][i]
         minY = nextMinY[slew][i]
-        errX = errorX[slew][i]
-        errY = errorY[slew][i]
-        visibilities[slew].append( (maxY - minY) / (maxY + minY) )
-        errorV.append( np.sqrt( (2 * errY**2) * ( (1. / (maxY + minY)**2) + 
-                     ( (maxY - minY)**2 / (maxY + minY)**4)) ) )
-        #baselines[slew].append(.5 / (minX - maxX) )
-        baselines[slew].append(2*float(files[slew][i][24:26]) / wavelength)
-        baselines_exp[slew].append(2 * float(files[slew][i][24:26]))
-        #errorB.append( np.sqrt((2 * errX**2) / (minX - maxX)**2 ) ) 
-        errorB.append( 2*0.5 / wavelength )  # Mirrors accurate to 0.5 in
-    plt.errorbar(baselines[slew], visibilities[slew], 
-    #plt.errorbar(baselines_exp[slew], visibilities[slew], 
+        maxXNext = nextMaxX[slew][i]
+        tmpV.append((maxY - minY) / (maxY + minY))
+        tmpB.append(abs(maxXNext - maxX))
+        if j == 3:    # Number of measurements per plot (must all be the same!)
+            plotV.append(np.mean(tmpV))
+            errorV.append(np.std(tmpV))
+            plotB.append(np.mean(tmpB))
+            errorB.append(np.std(tmpB))
+            baselines_exp[slew].append(
+                                2. * float(files[slew][i][24:26])/wavelength)
+            tmpV= []
+            tmpB= []
+            j = 0
+    # Fit this data
+    plotB = baselines_exp[slew]
+    if slew == 0:
+        popt, pcov = curve_fit(sincFunc, plotB, plotV, p0=[0.0007])
+    else:
+        popt, pcov = curve_fit(sincFunc, plotB, plotV)
+    fittedB = np.arange(min(plotB), max(plotB),
+                        step=( (max(plotB)-min(plotB))/100. ) )
+    fittedV = []
+    for b in fittedB:
+        fittedV.append(sincFunc(b, *popt))
+    # Plot this data
+    plt.errorbar(baselines_exp[slew], plotV, 
+    #plt.errorbar(plotB, plotV, 
            xerr = errorB, yerr = errorV,
     #       xerr = [0.5]*len(errorV), yerr = errorV,
-    fmt = '.')
+    fmt = '.', label='Analyzed Data'
+    )
+    plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
     plt.xlabel(r'$B_{\lambda}$')
     #plt.xlabel(r'$B$ (inches)')
     plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
     plt.minorticks_on()
+    plt.legend()
     plt.title('%s Interferometer Visibility' % types[slew])
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
     #plt.savefig(info['images'] + 'visibilities-%s-noAltAdjustments.pdf' % types[slew] , ppi=300)
