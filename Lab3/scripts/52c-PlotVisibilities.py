@@ -76,7 +76,7 @@ for slew in range(len(files)):
             plotV.append(np.mean(tmpV))
             errorV.append(np.std(tmpV))
             plotB.append(np.mean(tmpB))
-            errorB.append(np.std(tmpB))
+            errorB.append(0.5 / wavelength)   # Error on ladder was 0.5 inches
             baselines_exp[slew].append(
                                 2. * float(files[slew][i][24:26])/wavelength)
             tmpV= []
