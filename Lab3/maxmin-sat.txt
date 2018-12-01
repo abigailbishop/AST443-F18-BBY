@@ -5,7 +5,7 @@ interferometry_baseline_30_alt_26_satellite.csv,0.1167,0.0131705,-0.00272,0.1319
 interferometry_baseline_30_alt_26_satellite.csv,0.131917,0.02213,0.00809905,0.146704
 interferometry_baseline_30_alt_26_satellite.csv,0.146704,0.0383586,0.00488714,0.162992
 interferometry_baseline_35_alt_26_satellite.csv,0.132719,0.0604177,0.0342212,0.143557
-interferometry_baseline_35_alt_26_satellite.csv,0.143557,0.065754,0.0300977,,0.155497
+interferometry_baseline_35_alt_26_satellite.csv,0.143557,0.065754,0.0300977,0.155497
 interferometry_baseline_35_alt_26_satellite.csv,0.155497,0.0674519,0.0102079,0.167437
 interferometry_baseline_40_alt_26_satellite.csv,0.121772,0.0672917,0.0361167,0.132542
 interferometry_baseline_40_alt_26_satellite.csv,0.132542,0.0675333,0.0356333,0.141543
