@@ -12,6 +12,8 @@ from astropy.stats import gaussian_sigma_to_fwhm
 from operator import itemgetter
 
 AU2km = 1.496e+8 
+d_litVal = 1.391016e+6
+alpha_litVal = d_litVal/AU2km
 
 # Load Constants
 info = {}
@@ -53,7 +55,8 @@ def centerflip(array):
 
 # Define a sinc function
 def sincFunc(BLambda, alpha):
-    return abs( np.sinc(np.pi * BLambda * alpha) )
+    #return abs( np.sinc(np.pi * BLambda * alpha) )
+    return np.sin(np.pi * BLambda * alpha)/(np.pi * BLambda)
 
 # Calculate Visibilities. Index 0 = sun. Index 1 = satellite
 baselines_exp = [[], []]
@@ -76,36 +79,44 @@ for slew in range(len(files)):
         tmpB.append(abs(maxXNext - maxX))
         if j == 3:    # Number of measurements per plot (must all be the same!)
             plotV.append(np.mean(tmpV))
-            errorV.append(np.std(tmpV))
+            errorV.append(np.std(tmpV)/np.sqrt(3.0))
             plotB.append(np.mean(tmpB))
-            errorB.append(0.5 / wavelength)   # Error on ladder was 0.5 inches
+            errorB.append(np.std(tmpB)/np.sqrt(3.0))
             baselines_exp[slew].append(
-                                2. * float(files[slew][i][24:26])/wavelength)
+                                2.0 * float(files[slew][i][24:26])/wavelength)
             tmpV= []
             tmpB= []
             j = 0
     # Fit this data
     plotB = baselines_exp[slew]
     if slew == 0:
-        popt, pcov = curve_fit(sincFunc, plotB, plotV, p0=[0.0007])
+        popt, pcov = curve_fit(sincFunc, plotB, plotV, p0=[0.0007], 
+                               sigma=errorV, absolute_sigma=True)
     else:
         popt, pcov = curve_fit(sincFunc, plotB, plotV)
     fittedB = np.arange(min(plotB), max(plotB),
                         step=( (max(plotB)-min(plotB))/100. ) )
     fittedV = []
+    trueV = []
     for b in fittedB:
         fittedV.append(sincFunc(b, *popt))
+        trueV.append(sincFunc(b, alpha_litVal))
 
    # Calculate Diameter of sun
     if slew == 0:
         alpha = popt[0]
-        sigAlpha = pcov[0]
+        sigAlpha = np.sqrt(pcov[0])
         d = AU2km * alpha # small angle approx to find diameter
         sigd = AU2km * sigAlpha # prop. uncertainty
+        
+        # Literature Agreement
+        litAgree = abs(alpha - d_litVal)/sigd[0]
         print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
+        print('Agreement = {:e} sigma'.format(litAgree))
 
     # Plot this data
-    plt.errorbar(baselines_exp[slew], plotV, 
+    plt.figure(slew)
+    plt.errorbar(plotB, plotV, 
     #plt.errorbar(plotB, plotV, 
            xerr = errorB, yerr = errorV,
     #       xerr = [0.5]*len(errorV), yerr = errorV,
@@ -113,6 +124,7 @@ for slew in range(len(files)):
     )
     if slew == 0:
         plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
+        plt.plot(fittedB, trueV,'-', label='Expected Sinc Function')
     plt.xlabel(r'$B_{\lambda}$')
     #plt.xlabel(r'$B$ (inches)')
     plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
@@ -126,5 +138,5 @@ for slew in range(len(files)):
 
     # Save data
     fname = '../52c-' + types[slew] + '_prelimPlotdata.txt'
-    np.savetxt(fname, np.c_[baselines_exp[slew], errorB, plotV, errorV])
+    np.savetxt(fname, np.c_[plotB, errorB, plotV, errorV])
 
