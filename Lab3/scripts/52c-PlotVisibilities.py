@@ -55,8 +55,7 @@ def centerflip(array):
 
 # Define a sinc function
 def sincFunc(BLambda, alpha):
-    #return abs( np.sinc(np.pi * BLambda * alpha) )
-    return np.sin(np.pi * BLambda * alpha)/(np.pi * BLambda)
+    return abs( np.sinc(BLambda * alpha) )
 
 # Calculate Visibilities. Index 0 = sun. Index 1 = satellite
 baselines_exp = [[], []]
@@ -90,7 +89,7 @@ for slew in range(len(files)):
     # Fit this data
     plotB = baselines_exp[slew]
     if slew == 0:
-        popt, pcov = curve_fit(sincFunc, plotB, plotV, p0=[0.0007], 
+        popt, pcov = curve_fit(sincFunc, plotB, plotV, p0=[1.0e+6/AU2km], 
                                sigma=errorV, absolute_sigma=True)
     else:
         popt, pcov = curve_fit(sincFunc, plotB, plotV)
@@ -110,7 +109,7 @@ for slew in range(len(files)):
         sigd = AU2km * sigAlpha # prop. uncertainty
         
         # Literature Agreement
-        litAgree = abs(alpha - d_litVal)/sigd[0]
+        litAgree = abs(d - d_litVal)/sigd[0]
         print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
         print('Agreement = {:e} sigma'.format(litAgree))
 
@@ -124,7 +123,7 @@ for slew in range(len(files)):
     )
     if slew == 0:
         plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
-        plt.plot(fittedB, trueV,'-', label='Expected Sinc Function')
+        plt.plot(fittedB, trueV,'--', label='Expected Sinc Function')
     plt.xlabel(r'$B_{\lambda}$')
     #plt.xlabel(r'$B$ (inches)')
     plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
@@ -134,7 +133,7 @@ for slew in range(len(files)):
     plt.savefig(info['images'] + 'visibilities-%s.pdf' % types[slew] , ppi=300)
     #plt.savefig(info['images'] + 'visibilities-%s-noAltAdjustments.pdf' % types[slew] , ppi=300)
     #plt.savefig(info['images'] + 'visibilities-%s-BRaw.pdf'%types[slew],ppi=300)
-    plt.clf()
+    #plt.clf()
 
     # Save data
     fname = '../52c-' + types[slew] + '_prelimPlotdata.txt'

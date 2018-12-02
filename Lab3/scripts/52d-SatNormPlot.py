@@ -18,6 +18,8 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 AU2km = 1.496e+8 
+d_litVal = 1.391016e+6
+alpha_litVal = d_litVal/AU2km
 
 # Extract Data
 fname1 = '../52c-Sun_prelimPlotdata.txt'
@@ -42,10 +44,11 @@ for i in range(len(V_sun)):
 
 # Define a sinc function
 def sincFunc(BLambda, alpha):
-    return abs( np.sinc(np.pi * BLambda * alpha) )
+    return abs( np.sinc(BLambda * alpha) )
 
 # Fit Normalized Data and Calculate Diameter
-popt, pcov = curve_fit(sincFunc, B_sun, Vsun_norm, p0=[0.0007])
+popt, pcov = curve_fit(sincFunc, B_sun, Vsun_norm, p0=[1.0e+6/AU2km],
+                       sigma=sig_Vsun_norm, absolute_sigma=True)
 
 alpha = popt[0]
 sigAlpha = pcov[0]
@@ -53,13 +56,17 @@ d = AU2km * alpha # small angle approx to find diameter
 sigd = AU2km * sigAlpha # prop. uncertainty
 print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
 
+# Literature Agreement
+litAgree = abs(d - d_litVal)/sigd[0]
+print('Agreement = {:e} sigma'.format(litAgree))
+
+# Plot
 fittedB = np.arange(min(B_sun), max(B_sun),
                     step=( (max(B_sun)-min(B_sun))/100. ) )
 fittedV = []
 for b in fittedB:
     fittedV.append(sincFunc(b, *popt))
 
-# Plot
 plt.errorbar(B_sun, Vsun_norm, xerr=sig_Bsun, yerr=sig_Vsun_norm,
              fmt='.', label='Sat. Normalized Data')
 plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
