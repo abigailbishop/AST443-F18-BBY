@@ -1,0 +1,11 @@
+DIAMETER FROM SAT NORM
+d =  1.459537e+06 pm 8.059804e+04 km
+clean: d = 1.46(8)e+06 km
+Agreement = 8.501568e-01 sigma
+ 
+DIAMETER SANS SAT NORM
+d =  1.540135e+06 pm 8.059804e+04 km
+clean: d = 1.54(8)e+06 km
+Agreement = 1.850157e+00 sigma
+
+Literature Value: 1.391016 million km
