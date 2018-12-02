@@ -11,6 +11,8 @@ from scipy.optimize import curve_fit
 from astropy.stats import gaussian_sigma_to_fwhm
 from operator import itemgetter
 
+AU2km = 1.496e+8 
+
 # Load Constants
 info = {}
 for line in open('inputs.txt'):
@@ -93,6 +95,15 @@ for slew in range(len(files)):
     fittedV = []
     for b in fittedB:
         fittedV.append(sincFunc(b, *popt))
+
+   # Calculate Diameter of sun
+    if slew == 0:
+        alpha = popt[0]
+        sigAlpha = pcov[0]
+        d = AU2km * alpha # small angle approx to find diameter
+        sigd = AU2km * sigAlpha # prop. uncertainty
+        print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
+
     # Plot this data
     plt.errorbar(baselines_exp[slew], plotV, 
     #plt.errorbar(plotB, plotV, 
@@ -111,3 +122,8 @@ for slew in range(len(files)):
     #plt.savefig(info['images'] + 'visibilities-%s-noAltAdjustments.pdf' % types[slew] , ppi=300)
     #plt.savefig(info['images'] + 'visibilities-%s-BRaw.pdf'%types[slew],ppi=300)
     plt.clf()
+
+    # Save data
+    fname = '../52c-' + types[slew] + '_prelimPlotdata.txt'
+    np.savetxt(fname, np.c_[baselines_exp[slew], errorB, plotV, errorV])
+
