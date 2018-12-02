@@ -20,6 +20,7 @@ for line in open('inputs.txt'):
 AU2km = 1.496e+8 
 d_litVal = 1.391016e+6
 alpha_litVal = d_litVal/AU2km
+d_prelim = 1.540135e+06
 
 # Extract Data
 fname1 = '../52c-Sun_prelimPlotdata.txt'
@@ -53,11 +54,12 @@ popt, pcov = curve_fit(sincFunc, B_sun, Vsun_norm, p0=[1.0e+6/AU2km],
 alpha = popt[0]
 sigAlpha = pcov[0]
 d = AU2km * alpha # small angle approx to find diameter
-sigd = AU2km * sigAlpha # prop. uncertainty
-print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
+#sigd = AU2km * sigAlpha # prop. uncertainty
+sigd = abs(d - d_prelim) # take diff between norm and prenorm for uncer.
+print('d =  {:e} pm {:e} km'.format(d, sigd))
 
 # Literature Agreement
-litAgree = abs(d - d_litVal)/sigd[0]
+litAgree = abs(d - d_litVal)/sigd
 print('Agreement = {:e} sigma'.format(litAgree))
 
 # Plot
