@@ -56,11 +56,18 @@ sigAlpha = pcov[0]
 d = AU2km * alpha # small angle approx to find diameter
 #sigd = AU2km * sigAlpha # prop. uncertainty
 sigd = abs(d - d_prelim) # take diff between norm and prenorm for uncer.
-print('d =  {:e} pm {:e} km'.format(d, sigd))
 
 # Literature Agreement
-litAgree = abs(d - d_litVal)/sigd
-print('Agreement = {:e} sigma'.format(litAgree))
+litAgree1 = abs(d - d_litVal)/sigd
+litAgree2 = abs(d_prelim - d_litVal)/sigd
+
+print('DIAMETER FROM SAT NORM')
+print('d =  {:e} pm {:e} km'.format(d, sigd))
+print('Agreement = {:e} sigma'.format(litAgree1))
+print(' ')
+print('DIAMETER SANS SAT NORM')
+print('d =  {:e} pm {:e} km'.format(d_prelim, sigd))
+print('Agreement = {:e} sigma'.format(litAgree2))
 
 # Plot
 fittedB = np.arange(min(B_sun), max(B_sun),
