@@ -111,7 +111,8 @@ for slew in range(len(files)):
     #       xerr = [0.5]*len(errorV), yerr = errorV,
     fmt = '.', label='Analyzed Data'
     )
-    plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
+    if slew == 0:
+        plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
     plt.xlabel(r'$B_{\lambda}$')
     #plt.xlabel(r'$B$ (inches)')
     plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
