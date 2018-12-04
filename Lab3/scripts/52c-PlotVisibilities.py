@@ -110,6 +110,8 @@ for slew in range(len(files)):
         
         # Literature Agreement
         litAgree = abs(d - d_litVal)/sigd[0]
+        
+        print('alpha = {:e}'.format(alpha))
         print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
         print('Agreement = {:e} sigma'.format(litAgree))
 

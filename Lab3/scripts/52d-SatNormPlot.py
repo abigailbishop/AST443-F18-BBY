@@ -21,6 +21,8 @@ AU2km = 1.496e+8
 d_litVal = 1.391016e+6
 alpha_litVal = d_litVal/AU2km
 d_prelim = 1.540135e+06
+alpha_prelim = 1.029502e-02
+alpha_litVal = 0.0087
 
 # Extract Data
 fname1 = '../52c-Sun_prelimPlotdata.txt'
@@ -52,33 +54,43 @@ popt, pcov = curve_fit(sincFunc, B_sun, Vsun_norm, p0=[1.0e+6/AU2km],
                        sigma=sig_Vsun_norm, absolute_sigma=True)
 
 alpha = popt[0]
-sigAlpha = pcov[0]
+#sigAlpha = pcov[0]
+sigAlpha = abs(alpha - alpha_prelim)
 d = AU2km * alpha # small angle approx to find diameter
 #sigd = AU2km * sigAlpha # prop. uncertainty
 sigd = abs(d - d_prelim) # take diff between norm and prenorm for uncer.
 
 # Literature Agreement
-litAgree1 = abs(d - d_litVal)/sigd
-litAgree2 = abs(d_prelim - d_litVal)/sigd
+d_litAgree1 = abs(d - d_litVal)/sigd
+d_litAgree2 = abs(d_prelim - d_litVal)/sigd
+alpha_litAgree1 = abs(alpha - alpha_litVal)/sigAlpha
+alpha_litAgree2 = abs(alpha_prelim - alpha_litVal)/sigAlpha
 
 print('DIAMETER FROM SAT NORM')
+print('alpha = {:e} pm {:e} radians'.format(alpha, sigAlpha))
+print('Agreement = {:e} sigma'.format(alpha_litAgree1))
 print('d =  {:e} pm {:e} km'.format(d, sigd))
-print('Agreement = {:e} sigma'.format(litAgree1))
+print('Agreement = {:e} sigma'.format(d_litAgree1))
 print(' ')
 print('DIAMETER SANS SAT NORM')
+print('alpha = {:e} pm {:e} radians'.format(alpha_prelim, sigAlpha))
+print('Agreement = {:e} sigma'.format(alpha_litAgree2))
 print('d =  {:e} pm {:e} km'.format(d_prelim, sigd))
-print('Agreement = {:e} sigma'.format(litAgree2))
+print('Agreement = {:e} sigma'.format(d_litAgree2))
 
 # Plot
 fittedB = np.arange(min(B_sun), max(B_sun),
                     step=( (max(B_sun)-min(B_sun))/100. ) )
 fittedV = []
+trueV = []
 for b in fittedB:
     fittedV.append(sincFunc(b, *popt))
+    trueV.append(sincFunc(b, alpha_litVal))
 
 plt.errorbar(B_sun, Vsun_norm, xerr=sig_Bsun, yerr=sig_Vsun_norm,
              fmt='.', label='Sat. Normalized Data')
 plt.plot(fittedB, fittedV, label='Fitted Sinc Function')
+plt.plot(fittedB, trueV,'--', label='Expected Sinc Function')
 plt.xlabel(r'$B_{\lambda}$')
 plt.ylabel(r'Visibility, $V_0(B_{\lambda})$')
 plt.minorticks_on()

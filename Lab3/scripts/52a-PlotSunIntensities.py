@@ -76,7 +76,7 @@ for i in range(len(slews)):
     plt.ylabel('Current (A)')
     #plt.xlim(center - 3*baseline_approx, center + 3*baseline_approx)
     plt.minorticks_on()
-    plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
+    #plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
     plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     #plt.clf()
     
