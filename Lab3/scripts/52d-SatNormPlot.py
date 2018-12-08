@@ -18,11 +18,12 @@ for line in open('inputs.txt'):
         info[data[0]] = data[1]
 
 AU2km = 1.496e+8 
-d_litVal = 1.391016e+6
-alpha_litVal = d_litVal/AU2km
+alpha_litVal = 1919.0*(1/3600.0)*(np.pi/180) # NASA, 1919 seconds of arc
+#alpha_litVal = 0.0087
+d_litVal = alpha_litVal * AU2km
 d_prelim = 1.540135e+06
 alpha_prelim = 1.029502e-02
-alpha_litVal = 0.0087
+pcov1 = 1.38319182e-10
 
 # Extract Data
 fname1 = '../52c-Sun_prelimPlotdata.txt'
@@ -66,13 +67,17 @@ d_litAgree2 = abs(d_prelim - d_litVal)/sigd
 alpha_litAgree1 = abs(alpha - alpha_litVal)/sigAlpha
 alpha_litAgree2 = abs(alpha_prelim - alpha_litVal)/sigAlpha
 
+print('alpha_lit = 1919 arcsec, NASA')
+print('diameter lit = {:e} km, calc from alpha'.format(d_litVal))
 print('DIAMETER FROM SAT NORM')
+print('Xi^2 = ', pcov[0])
 print('alpha = {:e} pm {:e} radians'.format(alpha, sigAlpha))
 print('Agreement = {:e} sigma'.format(alpha_litAgree1))
 print('d =  {:e} pm {:e} km'.format(d, sigd))
 print('Agreement = {:e} sigma'.format(d_litAgree1))
 print(' ')
 print('DIAMETER SANS SAT NORM')
+print('Xi^2 = ', pcov1)
 print('alpha = {:e} pm {:e} radians'.format(alpha_prelim, sigAlpha))
 print('Agreement = {:e} sigma'.format(alpha_litAgree2))
 print('d =  {:e} pm {:e} km'.format(d_prelim, sigd))

@@ -11,9 +11,9 @@ from scipy.optimize import curve_fit
 from astropy.stats import gaussian_sigma_to_fwhm
 from operator import itemgetter
 
-AU2km = 1.496e+8 
-d_litVal = 1.391016e+6
-alpha_litVal = d_litVal/AU2km
+AU2km = 1.496e+8 # NASA , km
+alpha_litVal = 1919.0*(1/3600.0)*(np.pi/180) # NASA, 1919 seconds of arc
+d_litVal = alpha_litVal * AU2km
 
 # Load Constants
 info = {}
@@ -111,6 +111,7 @@ for slew in range(len(files)):
         # Literature Agreement
         litAgree = abs(d - d_litVal)/sigd[0]
         
+        print('Xi^2 = ', pcov[0])
         print('alpha = {:e}'.format(alpha))
         print('d =  {:e} pm {:e} km'.format(d, sigd[0]))
         print('Agreement = {:e} sigma'.format(litAgree))
