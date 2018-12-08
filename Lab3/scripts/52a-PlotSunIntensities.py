@@ -10,6 +10,9 @@ from scipy import asarray as ar,exp
 from scipy.optimize import curve_fit
 from astropy.stats import gaussian_sigma_to_fwhm
 from operator import itemgetter
+import os.path
+from FN_get_baseline import get_baseline
+from FN_sigfigs import sigfigs
 
 # Load Constants
 info = {}
@@ -68,7 +71,8 @@ for i in range(len(slews)):
     np.savetxt('../data/sun/%s.txt'%fileNames[i][:-4], (times,currents))
     # Center plot around maximum
     center = times[np.argmax(currents)]
-    baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
+    baseline_ladder = fileNames[i][24:26]
+    baseline_approx = wavelength / 2. / float(baseline_ladder)
     # Plot 
     plt.figure(i)
     plt.plot(times, currents)
@@ -76,7 +80,19 @@ for i in range(len(slews)):
     plt.ylabel('Current (A)')
     #plt.xlim(center - 3*baseline_approx, center + 3*baseline_approx)
     plt.minorticks_on()
-    #plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
+    # Load the baseline if it was already calculated
+    fname = '../52c-Sun_prelimPlotdata.txt'
+    if os.path.isfile(fname):
+        prelim_data = np.loadtxt(fname)
+        index = get_baseline(baseline_ladder)
+        baseline = prelim_data[index,0]
+        baseline_err = prelim_data[index,1]
+        plt.title(
+         r'Interferometer - Sun - Baseline: $(%.0f \pm %.0f)x10^{%i}$' % 
+         sigfigs(baseline, baseline_err) )
+    else:
+        plt.title('Interferometer - Sun - %.1f degrees Alt' % alt_deg)
+    # Save Figure
     plt.savefig(info['sun2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     #plt.clf()
     
