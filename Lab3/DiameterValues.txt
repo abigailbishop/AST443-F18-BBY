@@ -3,6 +3,7 @@ Xi^2 = 9.26e-10
 
 alpha = 9.756263e-03 pm 5.387569e-04 radians
 clean: 9.8(5)e-03 radians, 2000 pm 100 arcsec
+Agreement: Agreement = 8.402465e-01 sigma
 
 d =  1.459537e+06 pm 8.059804e+04 km
 clean: d = 1.46(8)e+06 km
@@ -13,6 +14,7 @@ Xi^2 = 1.38e-10
 
 alpha = 1.029502e-02 pm 5.387569e-04 radians
 clean: 1.03(5)e-02 radians
+Agreement = 1.840247e+00 sigma
 
 d =  1.540135e+06 pm 8.059804e+04 km
 clean: d = 1.54(8)e+06 km
