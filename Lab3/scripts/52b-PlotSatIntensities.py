@@ -10,6 +10,9 @@ from scipy import asarray as ar,exp
 from scipy.optimize import curve_fit
 from astropy.stats import gaussian_sigma_to_fwhm
 from operator import itemgetter
+import os.path
+from FN_get_baseline import get_baseline
+from FN_sigfigs import sigfigs
 
 # Load Constants
 info = {}
@@ -68,15 +71,28 @@ for i in range(len(slews)):
     times = [j*np.cos(alt_rad) for j in times]
     # Center plot around maximum
     center = times[np.argmax(currents)]
+    baseline_ladder = fileNames[i][24:26]
     baseline_approx = wavelength / 2. / float(fileNames[i][24:26])
     # Plot 
     plt.figure(i)
     plt.plot(times, currents)
-    plt.xlabel(r'$\Delta$ Azimuth (radians)')
+    plt.xlabel(r'$\Delta \theta$ (radians)')
     plt.ylabel('Current (A)')
     plt.xlim(center - 3*baseline_approx, center + 3*baseline_approx)
     plt.minorticks_on()
-    plt.title('Interferometer - Sat - %.1f degrees Alt' % alt_deg)
+    # Load the baseline if it was already calculated
+    fname = '../52c-Satellite_prelimPlotdata.txt'
+    if os.path.isfile(fname):
+        prelim_data = np.loadtxt(fname)
+        index = get_baseline(baseline_ladder)
+        baseline = prelim_data[index,0]
+        baseline_err = prelim_data[index,1]
+        plt.title(
+         r'Interferometer - Sat - Baseline: $(%.0f \pm %.0f)x10^{%i}$' % 
+         sigfigs(baseline, baseline_err) )
+    else:
+        plt.title('Interferometer - Sat - %.1f degrees Alt' % alt_deg)
+    # Save Figure
     plt.savefig(info['sat2dishplots'] + slews[i][0][:-4] + '.pdf' , ppi=300)
     #plt.clf()
     #plt.show()
