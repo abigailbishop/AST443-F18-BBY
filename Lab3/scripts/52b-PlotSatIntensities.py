@@ -76,7 +76,7 @@ for i in range(len(slews)):
     # Plot 
     plt.figure(i)
     plt.plot(times, currents)
-    plt.xlabel(r'$\Delta$ Azimuth (radians)')
+    plt.xlabel(r'$\Delta \theta$ (radians)')
     plt.ylabel('Current (A)')
     plt.xlim(center - 3*baseline_approx, center + 3*baseline_approx)
     plt.minorticks_on()
